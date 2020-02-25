@@ -1,12 +1,15 @@
 Package: rsketball
-Title: What the Package Does (One Line, Title Case)
+Title: Scrape data from ESPN NBA and show summary statistics/visualisations
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    person(given = "Kenneth",
+           family = "Foo",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
+           email = "kfoofw@gmail.com"),
+    person(given = "Anand",
+           family = "Vemparala",
+           role = c("aut", "cre"),
+           email = "vanandshankar@yahoo.com")
 Description: What the package does (one paragraph).
 License: What license it uses
 Encoding: UTF-8
