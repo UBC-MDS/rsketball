@@ -5,15 +5,15 @@ Authors@R:
     person(given = "Kenneth",
            family = "Foo",
            role = c("aut", "cre"),
-           email = "kfoofw@gmail.com"),
+           email = "kfoofw@gmail.com");
     person(given = "Anand",
            family = "Vemparala",
            role = c("aut", "cre"),
-           email = "vanandshankar@yahoo.com"),
+           email = "vanandshankar@yahoo.com");
     person(given = "Carlina",
            family = "Kim",
            role = c("aut", "cre"),
-           email = "carlinaa.kimm@gmail.com"),
+           email = "carlinaa.kimm@gmail.com");
     person(given = "Andres",
            family = "Pitta",
            role = c("aut", "cre"),
@@ -22,3 +22,8 @@ Description: What the package does (one paragraph).
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
+RoxygenNote: 7.0.2
+Suggests: 
+    testthat (>= 2.1.0)
+Imports: 
+    forcats
