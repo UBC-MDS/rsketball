@@ -9,8 +9,16 @@ Authors@R:
     person(given = "Anand",
            family = "Vemparala",
            role = c("aut", "cre"),
-           email = "vanandshankar@yahoo.com")
+           email = "vanandshankar@yahoo.com"),
+    person(given = "Carlina",
+           family = "Kim",
+           role = c("aut", "cre"),
+           email = "carlinaa.kimm@gmail.com"),
+    person(given = "Andres",
+           family = "Pitta",
+           role = c("aut", "cre"),
+           email = "apitta6@gmail.com")
 Description: What the package does (one paragraph).
-License: What license it uses
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
