@@ -1,6 +1,6 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-pysketball
-==========
+rsketball
+=========
 
 Analysis of NBA players from 2001/02 to 2018/19 seasons
 -------------------------------------------------------
