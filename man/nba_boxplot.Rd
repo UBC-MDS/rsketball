@@ -25,6 +25,5 @@ Creates a boxplot of the categorical variable of interest on the y-axis and
  the stat of interest on the x-axis.
 }
 \examples{
-NBA_reg_01_02 <- read.csv(""NBA_reg_2001-2002.csv"")
 nba_boxplot(NBA_reg_01_02, Team, Points)
 }
