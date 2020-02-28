@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# pysketball
+# rsketball
 
 ##Analysis of NBA players from 2001/02 to 2018/19 seasons
 
