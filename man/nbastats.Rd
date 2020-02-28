@@ -2,16 +2,38 @@
 % Please edit documentation in R/nbastats.R
 \name{nbastats}
 \alias{nbastats}
-\title{Generate summary stats}
+\title{Generate summary stats for NBA players}
 \usage{
-nbastats()
+nbastats(
+  data,
+  columnNames = c("all"),
+  playerNames = c("all"),
+  teamNames = c("all")
+)
+}
+\arguments{
+\item{data}{tibble}
+
+\item{columnNames}{character vector}
+
+\item{playerNames}{character vector}
+
+\item{teamNames}{character vector}
 }
 \value{
-tibble
+A tibble
 }
 \description{
-Generate summary stats
+The function filters the dataset further using the arguments provided and
+produces a tibble with summary statistics for a list of columns of a few players or teams.
+The function can only use one of the two filters - playerNames and teamNames. Hence, If playerNames
+are provided, teamNames are ignored.
 }
 \examples{
-nbastats()
+nbastats(nba_data, columnNames = c('GP', '3PM', 'FT\%'),
+         playerNames = c('Stephen Curry', 'Paul George'))
+nbastats(nba_data, columnNames = c('GP', '3PM', 'FT\%'),
+         teamNames = c('UTAH', 'PHX', 'DET'))
+
+
 }
