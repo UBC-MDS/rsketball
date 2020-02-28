@@ -14,46 +14,54 @@ knitr::opts_chunk$set(
 )
 ```
 
-**NOTE: This is a toy package created for expository purposes, for the second edition of [R Packages](https://r-pkgs.org). It is not meant to actually be useful. If you want a package for factor handling, please see [forcats](https://forcats.tidyverse.org).**
+# pysketball
 
-### foofactors
+##Analysis of NBA players from 2001/02 to 2018/19 seasons
 
-Factors are a very useful type of variable in R, but they can also be very aggravating. This package provides some helper functions for the care and feeding of factors.
+This package is designated for all NBA enthusiasts! This package works to scrap online tabular data from ESPN NBA website and uses various functions to create graphs and statistical analysis. These include boxplots, rankings, and a summary statistics table.  
+An example of the 2018/19 player stats can be found in the following url:
+
+https://www.espn.com/nba/stats/player/_/season/2019/seasontype/2
+
+## Functions
+
+`nba_scraper`
+  
+  * Scrapes data from ESPN NBA data into a csv file. User can specify the year of the season
+  (2016, 2017, etc) and the season type (regular or playoffs).
+
+`nba_boxplot`
+
+   * Creates a boxplot of the categorical variable of interest on the y-axis and 
+   the stat of interest on the x-axis.
+
+`nba_ranking`
+  
+  * Generates a ranking and a visualization based on a column of a dataset  
+
+`nbastats`
+
+  * Generate summary stats for NBA players.
+    The function filters the dataset further using the arguments provided and
+    produces a tibble with summary statistics for a list of columns of a few players or teams.
+
+## R Ecosystem
+
+This 'rsketball' package aims to further gain understanding of ESPN NBA data and does not have a specific fit to the R ecosystem. There are currently no similar packages in R. 
 
 ### Installation
 
-### Quick demo
+You can install the released version of Rcat from [CRAN](https://cran.r-project.org/)
 
 Binding two factors via `fbind()`:
 
 ```{r}
-library(rsketball)
-a <- factor(c("character", "hits", "your", "eyeballs"))
-b <- factor(c("but", "integer", "where it", "counts"))
+#install.packages("rsketball")
 ```
 
-Simply catenating two factors leads to a result that most don't expect.
+And the development version from [Github](https://github.com/) with:
 
 ```{r}
-c(a, b)
-```
-
-The `fbind()` function glues two factors together and returns factor.
-
-```{r}
-fbind(a, b)
-```
-
-Often we want a table of frequencies for the levels of a factor. The base `table()` function returns an object of class `table`, which can be inconvenient for downstream work.
-
-```{r}
-set.seed(1234)
-x <- factor(sample(letters[1:5], size = 100, replace = TRUE))
-table(x)
-```
-
-The `fcount()` function returns a frequency table as a tibble with a column of factor levels and another of frequencies:
-
-```{r}
-fcount(x)
+#install.packages("devtools")
+#devtools::install_github("UBC-MDS/rsketball")
 ```
