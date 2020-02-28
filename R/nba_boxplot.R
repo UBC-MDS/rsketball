@@ -15,7 +15,6 @@
 #' @export
 #'
 #' @examples
-#' NBA_reg_01_02 <- read.csv("NBA_reg_2001-2002.csv")
 #' nba_boxplot(NBA_reg_01_02, Team, Points)
 
 nba_boxplot <- function(dataset, yaxis, xaxis) {
