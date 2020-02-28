@@ -32,7 +32,7 @@ Functions
 R Ecosystem
 -----------
 
-This 'rsketball' package aims to further gain understanding of ESPN NBA data and does not have a specific fit to the R ecosystem. There is currently no similar packages in R.
+This 'rsketball' package aims to further gain understanding of ESPN NBA data and does not have a specific fit to the R ecosystem. There are currently no similar packages in R.
 
 ### Installation
 
