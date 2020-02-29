@@ -1,16 +1,18 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-
 rsketball
 =========
 
-\#\#Analysis of NBA players from 2001/02 to 2018/19 seasons
+Analysis of NBA players from 2001/02 to 2018/19 seasons using ESPN NBA
+----------------------------------------------------------------------
 
 This package is designated for all NBA enthusiasts! This package works
-to scrap online tabular data from ESPN NBA website and uses various
-functions to create graphs and statistical analysis. These include
-boxplots, rankings, and a summary statistics table.  
-An example of the 2018/19 player stats can be found in the following
-url:
+to scrape online tabular data from ESPN NBA website into a csv file. It
+also includes various functions to create graphs and statistical
+analysis for your interest (such as boxplots, player rankings by stats,
+and a summary statistics table).
+
+An example of the ESPN NBA 2018/19 Regular season player stats can be
+found in the following url:
 
 <a href="https://www.espn.com/nba/stats/player/_/season/2019/seasontype/2" class="uri">https://www.espn.com/nba/stats/player/_/season/2019/seasontype/2</a>
 
@@ -45,22 +47,27 @@ R Ecosystem
 
 This ‘rsketball’ package aims to further gain understanding of ESPN NBA
 data and does not have a specific fit to the R ecosystem. There are
-currently no similar packages in R.
+currently some other library packages such as
+[`nbastatR`](https://www.rdocumentation.org/packages/nbastatR/versions/0.1.10131)
+that take data from other sources (NBA Stats API, Basketball Insiders,
+Basketball-Reference, HoopsHype, and RealGM), but no package that we
+currently know of takes data from ESPN NBA specifically.
 
 ### Installation
 
-You can install the released version of Rcat from
-[CRAN](https://cran.r-project.org/)
+`rsketball` is still in project development. We estimate that by end
+March 2020, one can install the released version of `rsketball` from
+[CRAN](https://cran.r-project.org/).
 
-Binding two factors via `fbind()`:
+Package installation in R:
 
 ``` r
-#install.packages("rsketball")
+install.packages("rsketball")
 ```
 
 And the development version from [Github](https://github.com/) with:
 
 ``` r
-#install.packages("devtools")
-#devtools::install_github("UBC-MDS/rsketball")
+install.packages("devtools")
+devtools::install_github("UBC-MDS/rsketball")
 ```

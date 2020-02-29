@@ -2,4 +2,5 @@
 
 export(nba_boxplot)
 export(nba_ranking)
+export(nba_scraper)
 export(nbastats)
