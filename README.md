@@ -6,7 +6,7 @@ Analysis of NBA players from 2001/02 to 2018/19 seasons using ESPN NBA
 ----------------------------------------------------------------------
 
 This package is designated for all NBA enthusiasts! This package works
-to scrap online tabular data from ESPN NBA website into a csv file. It
+to scrape online tabular data from ESPN NBA website into a csv file. It
 also includes various functions to create graphs and statistical
 analysis for your interest (such as boxplots, player rankings by stats,
 and a summary statistics table).
