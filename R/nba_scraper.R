@@ -23,7 +23,7 @@
 #'             port=4445L, sel_browser = "chrome",
 #'             nba_data_env_name = "nba_2018_regular")
 #' }
-#'d
+#'
 #' # Scrape playoffs season 2017/18 using "firefox" driver without
 #' # creating tibble in Global Env
 #' \dontrun{
