@@ -4,25 +4,45 @@
 \alias{nba_scraper}
 \title{Scrape NBA statistics data from ESPN into CSV file}
 \usage{
-nba_scraper(season_year, season_type, csv_path, nba_data_env_name = NULL)
+nba_scraper(
+  season_year = 2018,
+  season_type = "regular",
+  csv_path = "nba_2018.csv",
+  port = 4445L,
+  sel_browser = "chrome",
+  nba_data_env_name = NULL
+)
 }
 \arguments{
-\item{season_year}{string}
+\item{season_year}{int from 2001 to 2019 (upper limit based on latest year)}
 
 \item{season_type}{string}
 
 \item{csv_path}{string}
 
+\item{port}{int with L suffix}
+
+\item{sel_browser}{string}
+
 \item{nba_data_env_name}{string}
 }
 \description{
-Scrape the tabular data from ESPN NBA website into a csv file.
+Scrape the tabular data from ESPN NBA website into a csv file using RSelenium.
 }
 \examples{
-# Regular season for 2018/2019 while assigning it into global env as an object called nba_2018
-nba_scraper(season_year = "2018", season_type = "regular",
-            csv_path = "nba_2018_reg.csv", nba_data_env_name = "nba_2018")
-# Playoff season for 2016/2017 without assigning it into global env as an object
-nba_scraper(season_year = "2016", season_type = "playoff",
-            csv_path = "nba_2018_reg.csv",nba_data_env_name = NULL)
+# Scrape regular season 2018/19 using "chrome" driver and
+# create "nba_2018_regular" tibble in Global Env
+\dontrun{
+#' nba_scraper(2018, season_type = "regular", "nba_2018.csv",
+            port=4445L, sel_browser = "chrome",
+            nba_data_env_name = "nba_2018_regular")
+}
+d
+# Scrape playoffs season 2017/18 using "firefox" driver without
+# creating tibble in Global Env
+\dontrun{
+nba_scraper(2017, season_type = "playoffs", "nba_2017_playoffs.csv",
+            port=4445L, sel_browser = "firefox",
+            nba_data_env_name = NULL)
+}
 }
