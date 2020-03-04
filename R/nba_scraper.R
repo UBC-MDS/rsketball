@@ -33,31 +33,32 @@
 #' }
 nba_scraper <- function(season_year = 2018, season_type = "regular", csv_path = "nba_2018.csv", port=4445L, sel_browser = "chrome", nba_data_env_name = NULL) {
 
-  #* Add season_year is not integer or not within range
+  # Check season_year is not integer or not within range
   if ((round(season_year) != season_year) & (season_year < 2001) & (season_year > 2019)){
     stop("'season_year' must be an integer between 2001 to 2019")
   }
-  #* Add season_type is not "regular" or "playoffs"
+
+  # Check season_type is not "regular" or "playoffs"
   if ((season_type != "playoffs") & (season_type != "regular")){
     stop("'season_type' must be either 'regular' or 'playoffs'")
   }
 
-  #* Add csv_path does not end with csv
+  # Check csv_path does not end with csv
   if (substr(csv_path, nchar(csv_path)-3, nchar(csv_path)) != ".csv"){
     stop("'csv_path' must be end with '.csv'")
   }
 
-  #* Add port must end with L suffix and must be positive
+  # Check port must end with L suffix and must be positive
   if ((!is.integer(port)) & (port <0)){
     stop("'port' must be a positive integer ending with L suffix (eg 4445L)")
   }
 
-  #* Add sel_browser must be either "chrome" or "firefox"
+  # Check sel_browser must be either "chrome" or "firefox"
   if ((sel_browser != "chrome") & (sel_browser != "firefox")) {
     stop("'sel_browser' must be either 'chrome' or 'firefox'")
   }
 
-  #* Add nba_data_env_name is string
+  # Check nba_data_env_name is string
   if ((!is.null(nba_data_env_name)) & (!assertthat::is.string(nba_data_env_name))) {
     stop("'nba_data_env_name' must be a string if it is not a NULL input")
   }
