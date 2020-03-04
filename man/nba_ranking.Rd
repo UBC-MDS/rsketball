@@ -4,7 +4,7 @@
 \alias{nba_ranking}
 \title{Generates a ranking and a visualization based on a column of a dataset}
 \usage{
-nba_ranking(data, column, by, top)
+nba_ranking(data, column, by, top, descending = TRUE, FUN)
 }
 \arguments{
 \item{data}{The dataframe to make the ranking from}
@@ -14,13 +14,18 @@ nba_ranking(data, column, by, top)
 \item{by}{The column from the dataset to rank by}
 
 \item{top}{The number of elements in the ranking}
+
+\item{descending}{Boolean variable for the order of the ranking. TRUE if descending, FALSE otherwise.}
+
+\item{FUN}{function to apply to the values}
 }
 \value{
 ggplot visualization with the ranking
 }
 \description{
-This function generates a ranking and a visualization for a variable, according to a different variable the user sets.
+This function generates creates a ranking of a variable `column` summarizing by a variable `by` using a function `FUN`. The result of this function is
+a visualization with that information.
 }
 \examples{
-nba_ranking(nba_data, 'Player', 'TD3', 10)
+nba_ranking(data.frame(ranked = c(1, 2, 3), by = c(3, 2, 1)), ranked, by, 2, TRUE, mean)
 }

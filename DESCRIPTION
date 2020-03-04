@@ -26,6 +26,11 @@ RoxygenNote: 7.0.2
 Suggests: 
     testthat (>= 2.1.0)
 Imports: 
-    forcats
+    forcats,
+    magrittr,
+    rlang,
+    dplyr,
+    ggplot2,
+    scales
 URL: https://github.com/kfoofw/rsketball
 BugReports: https://github.com/kfoofw/rsketball/issues
