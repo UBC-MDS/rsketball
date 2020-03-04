@@ -2,4 +2,9 @@
 
 export(fbind)
 export(fcount)
+export(nba_boxplot)
 export(nbastats)
+import(ggplot2)
+importFrom(magrittr,"%>%")
+importFrom(stats,median)
+importFrom(stats,reorder)

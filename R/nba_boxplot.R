@@ -6,19 +6,88 @@
 #' @param dataset  dataframe
 #' This dataframe is created after using the nba_scraper.R function or if
 #' the csv has already been loaded, read the csv in and pass it as the parameter.
-#' @param yaxis string
-#' The parameter of interest examples: Points, 3_Pointers, Turnovers
-#' @param xaxis string
-#' The categorical variable of interest examples: Team, Position
+#' @param position string
+#' To specify as "POS" if you want to look at Position boxplot.
+#' @param teams string
+#' The names of teams you want to create boxplot for.
+#' *Note you can only choose one of position or teams as a variable to vizualize
+#' @param state string
+#' The numeric variable of interest examples:  Points, 3_Pointers, Turnovers
 #'
 #' @return ggplot boxplot
 #' @export
+#' @import ggplot2
+#' @importFrom magrittr %>%
+#' @importFrom stats median
+#' @importFrom stats reorder
 #'
 #' @examples
-#' NBA_reg_01_02 <- read.csv("NBA_reg_2001-2002.csv")
-#' nba_boxplot(NBA_reg_01_02, Team, Points)
+#' nba_boxplot(nba_2018, teams= c("ORL", "UTAH", "SA", "PHI", "LAC"), stats= "REB")
+#' nba_boxplot(nba_2018, position= "POS", teams= NULL, stats= "GP")
 
-nba_boxplot <- function(dataset, yaxis, xaxis) {
+nba_boxplot <- function(dataset, position= NULL, teams= c(NULL), stats) {
 
-  return()
+
+  #Exception Handling
+
+  #check that position and teams are not used at the same time and both cannot be empty
+  if(is.null(position) & is.null(teams)){
+    stop("Error: Choose one of position/teams input to use for boxplot.")
+  }
+  if(!is.null(position) & !is.null(teams)){
+    stop("Error: Cannot use both position and teams inputs, choose input one.")
+  }
+
+  #check if columns are in the dataframe
+  if(!stats %in% colnames(dataset)){
+    stop("Error: This column use in stats input is not in the dataset")
+  }
+  #if(!is.null(position) & !position %in% colnames(dataset)){
+  #  stop("Error: This name used in position input is not in dataset, use POS in quotations")
+  #  }
+  #if(!dataset[dataset$Team %in% teams, ]){
+  # stop("Error: Make sure the team names are correct")}
+
+  #columns are of correct type
+  if(!is.numeric(dataset[[stats]])){
+    stop("Error: stats must take in a numerical column")}
+  #if(!is.null(position) & !is.character(dataset[[position]])){
+  #  stop("Error: position must take in a categorical column")}
+
+  #filter for Teams selected
+  if(length(teams) != 0) {
+    dataset <- dataset[dataset$Team %in% teams, ]
+  }
+
+
+  #Plotting for Teams and a stat
+
+  if(is.null(position) & !is.null(teams)) {
+    dataset[['Team']] <- reorder(dataset[['Team']], dataset[[stats]], FUN=median)
+
+    team_boxplot <- dataset %>%
+      ggplot(aes_string(x= 'Team', y= stats)) +
+      geom_boxplot() +
+      coord_flip() +
+      ggtitle(paste("Plot for Teams and", stats, "in Dataset", sep = " "))
+
+    return(team_boxplot)
+  }
+
+
+  #Plotting for position and a stat
+
+  if(is.null(teams) & !is.null(position)) {
+    dataset[[position]] <- reorder(dataset[[position]], dataset[[stats]], FUN=median)
+
+    position_boxplot <- dataset %>%
+      ggplot(aes_string(x=position, y= stats)) +
+      geom_boxplot() +
+      coord_flip() +
+      ggtitle(paste("Plot for Positions and", stats, "in Dataset", sep = " "))
+
+
+    return(position_boxplot)
+  }
 }
+
