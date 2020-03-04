@@ -32,6 +32,18 @@ test_nbastats <- function(data) {
     )
   })
 
+  test_that("nbastats throws WARNING when all is not boolean", {
+    expect_error(
+      is.data.frame(nbastats(data, columnNames = c('GP', '3PM', 'FT%'),teamNames = c('UTAH', 'PHX', 'DET'), positions = c('C'), all = 5))
+    )
+  })
+
+  test_that("nbastats returns data is not a dataframe", {
+    expect_error(
+      is.data.frame(nbastats('data', columnNames = c('GP', '3PM', 'FT%'),teamNames = c('UTAH', 'PHX', 'DET'), positions = c('C'), all = TRUE))
+    )
+  })
+
 }
 
 
