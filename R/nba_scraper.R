@@ -76,7 +76,7 @@ nba_scraper <- function(season_year = 2018, season_type = "regular", csv_path = 
   )
 
   # Print message
-  print("Scraping commencing.")
+  print("Scraping commencing. Please wait!")
 
   # Initiate Driver
   remDr$open()
@@ -150,5 +150,5 @@ nba_scraper <- function(season_year = 2018, season_type = "regular", csv_path = 
   if (!is.null(nba_data_env_name)) {
     assign(nba_data_env_name, tibble::tibble(compiled_df), envir = .GlobalEnv)
   }
-  print(paste0("Data scraping of ", season_year," ", season_type," season completed"))
+  print(paste0("Data scraping of ", season_year," ", season_type," season completed."))
 }
