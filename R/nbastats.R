@@ -34,11 +34,11 @@ nbastats <- function(nba_data, columnNames = c(),  playerNames = c(), teamNames 
 
   # Test inputs
   if (!is.data.frame(nba_data)) {
-    warning('Data is not in correct format. A dataframe was expected by the function')
-    return
+    stop('Data is not in correct format. A dataframe was expected by the function')
   }
   if (!is.logical(all)) {
-    warning('Function expects argument all to be a boolean.')
+    stop('Function expects argument all to be a boolean.')
+
   }
 
   # Filter data
