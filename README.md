@@ -5,11 +5,11 @@ rsketball
 Analysis of NBA players from 2001/02 to 2018/19 seasons using ESPN NBA
 ----------------------------------------------------------------------
 
-This package is designated for all NBA enthusiasts! This package works
-to scrape online tabular data from ESPN NBA website into a csv file. It
-also includes various functions to create graphs and statistical
-analysis for your interest (such as boxplots, player rankings by stats,
-and a summary statistics table).
+This package is designated for all NBA enthusiasts! The `rsketball`
+package works to scrape online tabular data from the ESPN NBA website
+into a csv file. It also includes various functions to create graphs and
+statistical analysis for your interest (such as boxplots, player
+rankings by stats, and a summary statistics table).
 
 An example of the ESPN NBA 2018/19 Regular season player stats can be
 found in the following url:
@@ -22,8 +22,8 @@ Functions
 `nba_scraper`
 
 -   Scrapes data from ESPN NBA data into a csv file. User can specify
-    the year of the season (2016, 2017, etc) and the season type
-    (regular or playoffs).
+    the year of the season (2001 to 2019 at the moment) and the season
+    type (“regular” or “playoffs”).
 
 `nba_boxplot`
 
@@ -60,16 +60,18 @@ functions (`nba_boxplot`, `nba_rank`, `nbastats`), there is no need to
 proceed with these steps.
 
 **Step 1 (Command line/Terminal): Preparation Step (Docker container)**
+
 Pull docker image with the following code in Terminal. We will stick to
 Chrome since it seems compatible with Windows while Firefox is not.
 
     docker pull selenium/standalone-chrome
 
-**Critical step about setting ports and memory allocation:** we need to
-set up the Docker container default port 4444 to our computer host port
-4445. Keep this port number as inputs for the `nba_scraper` function. We
-will also allocate the virtual memory of the container to 2Gb for it to
-scrape effectively.
+**Critical step about setting ports and memory allocation:**
+
+We need to set up the Docker container default port 4444 to our computer
+host port 4445. Keep this port number as inputs for the `nba_scraper`
+function. We will also allocate the virtual memory of the container to
+2Gb for it to scrape effectively.
 
 Run the following code in Terminal:
 
@@ -80,9 +82,10 @@ Terminal:
 
     docker ps 
 
-**Step 2 (R/RStudio): Scraping with `nba_scraper`** Now that the
-container is running with the allocated memory and assigned port, we can
-proceed with testing
+**Step 2 (R/RStudio): Scraping with `nba_scraper`**
+
+Now that the container is running with the allocated memory and assigned
+port, we can proceed with testing
 
     library(rsketball)
     # Scrape regular season 2018/19 using "chrome" driver and
@@ -99,6 +102,7 @@ tibble in your R environment named “nba\_2018\_regular”. With that, you
 can use the other `rsketball` functions for your analysis.
 
 **Step 3 (Command line/Terminal): Termination of Docker Container**
+
 After test scraping is completed, we can shut down the Docker Container
 instance. This will also ensure that your computer memory/resources are
 restored.
@@ -112,7 +116,7 @@ If you wish to, you can also remove the
 R Ecosystem
 -----------
 
-This ‘rsketball’ package aims to further gain understanding of ESPN NBA
+This `rsketball` package aims to further gain understanding of ESPN NBA
 data and does not have a specific fit to the R ecosystem. There are
 currently some other library packages such as
 [`nbastatR`](https://www.rdocumentation.org/packages/nbastatR/versions/0.1.10131)
