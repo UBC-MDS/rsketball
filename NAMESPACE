@@ -3,3 +3,5 @@
 export(nba_boxplot)
 export(nba_ranking)
 export(nbastats)
+import(dplyr)
+importFrom(readr,read_csv)

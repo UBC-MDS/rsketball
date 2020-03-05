@@ -5,20 +5,26 @@
 \title{Generate summary stats for NBA players}
 \usage{
 nbastats(
-  data,
-  columnNames = c("all"),
-  playerNames = c("all"),
-  teamNames = c("all")
+  nba_data,
+  columnNames = c(),
+  playerNames = c(),
+  teamNames = c(),
+  positions = c(),
+  all = FALSE
 )
 }
 \arguments{
-\item{data}{tibble}
+\item{nba_data}{tibble}
 
 \item{columnNames}{character vector}
 
 \item{playerNames}{character vector}
 
 \item{teamNames}{character vector}
+
+\item{positions}{character vector}
+
+\item{all}{boolean}
 }
 \value{
 A tibble
@@ -26,14 +32,19 @@ A tibble
 \description{
 The function filters the dataset further using the arguments provided and
 produces a tibble with summary statistics for a list of columns of a few players or teams.
-The function can only use one of the two filters - playerNames and teamNames. Hence, If playerNames
-are provided, teamNames are ignored.
+teamNames is a better argument to use  to get the summary stats for. The filters will be
+applied only when all is False, else the data is not filtered for any specific team, player
+or position.
 }
 \examples{
+\donttest{
+nba_data = read_csv(
+"https://raw.githubusercontent.com/kfoofw/nba_espn/master/0.data/NBA_reg_2018-2019.csv"
+)
 nbastats(nba_data, columnNames = c('GP', '3PM', 'FT\%'),
          playerNames = c('Stephen Curry', 'Paul George'))
 nbastats(nba_data, columnNames = c('GP', '3PM', 'FT\%'),
          teamNames = c('UTAH', 'PHX', 'DET'))
-
+}
 
 }
