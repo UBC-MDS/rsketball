@@ -3,8 +3,9 @@
 #' @description
 #' The function filters the dataset further using the arguments provided and
 #' produces a tibble with summary statistics for a list of columns of a few players or teams.
-#' The function can only use one of the two filters - playerNames and teamNames. Hence, If playerNames
-#' are provided, teamNames are ignored.
+#' teamNames is a better argument to use  to get the summary stats for. The filters will be
+#' applied only when all is False, else the data is not filtered for any specific team, player
+#' or position.
 #'
 #' @param nba_data tibble
 #' @param columnNames character vector
