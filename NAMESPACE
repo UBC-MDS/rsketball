@@ -3,6 +3,8 @@
 export(fbind)
 export(fcount)
 export(nba_boxplot)
+export(nba_ranking)
+export(nba_scraper)
 export(nbastats)
 import(ggplot2)
 importFrom(magrittr,"%>%")
