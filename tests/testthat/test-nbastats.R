@@ -1,13 +1,9 @@
-#' Generate summary stats for NBA players
+#' Test function for nbastats
 #'
 #' @description
-#' The function filters the dataset further using the arguments provided and
-#' produces a tibble with summary statistics for a list of columns of a few players or teams.
-#' The function can only use one of the two filters - playerNames and teamNames. Hence, If playerNames
-#' are provided, teamNames are ignored.
+#' The function tests the nbastats function with various ranges of values to ensure the functionality is not broken
 #'
 #' @param data tibble
-#' @return A tibble
 #' @export
 #'
 #' @importFrom readr read_csv
@@ -16,36 +12,42 @@
 #' @examples
 #' test_nbastats(nba_data)
 #'
+
+
 test_nbastats <- function(data) {
 
-  test_that("nbastats returns a data frame when all is FALSE", {
+  test_that("Function does not return a dataframe when all is FALSE and playerNames and positions are provided.", {
     expect_equal(
-      is.data.frame(nbastats(data, columnNames = c('GP', '3PM', 'FT%'),teamNames = c('UTAH', 'PHX', 'DET'), positions = c('C'), all = FALSE)),
+      is.data.frame(nbastats(data, playerNames = c('Stephen Curry', 'Paul George'), positions = c('C'), all = FALSE)),
       TRUE
     )
   })
 
-  test_that("nbastats returns a data frame when all iS TRUE", {
+  test_that("Function does not return a dataframe when all is FALSE and teamNames and positions are provided.", {
     expect_equal(
-      is.data.frame(nbastats(data, columnNames = c('GP', '3PM', 'FT%'),teamNames = c('UTAH', 'PHX', 'DET'), positions = c('C'), all = TRUE)),
+      is.data.frame(nbastats(data, teamNames = c('UTAH', 'PHX', 'DET'), positions = c('C'), all = FALSE)),
       TRUE
     )
   })
 
-  test_that("nbastats throws WARNING when all is not boolean", {
+  test_that("Function does not return a dataframe when all is TRUE and columnNames are provided.", {
+    expect_equal(
+      is.data.frame(nbastats(data, columnNames = c('GP', '3PM', 'FT%'), all = TRUE)),
+      TRUE
+    )
+  })
+  test_that("Function does not throw an error when a random value is passed to all.", {
     expect_error(
-      is.data.frame(nbastats(data, columnNames = c('GP', '3PM', 'FT%'),teamNames = c('UTAH', 'PHX', 'DET'), positions = c('C'), all = 5))
+      is.data.frame(nbastats(data, columnNames = c('GP', '3PM', 'FT%'), all = 4))
     )
   })
 
-  test_that("nbastats returns data is not a dataframe", {
+  test_that("Function does not throw an error when a proper dataframe is passed in data.", {
     expect_error(
-      is.data.frame(nbastats('data', columnNames = c('GP', '3PM', 'FT%'),teamNames = c('UTAH', 'PHX', 'DET'), positions = c('C'), all = TRUE))
+      is.data.frame(nbastats('random values', columnNames = c('GP', '3PM', 'FT%'), all = FALSE))
     )
   })
-
 }
-
 
 data = read_csv("https://raw.githubusercontent.com/kfoofw/nba_espn/master/0.data/NBA_reg_2018-2019.csv")
 test_nbastats(data)
