@@ -11,7 +11,7 @@
 #'
 #' @examples
 #' test_nbastats(nba_data)
-test_nbastats <- function(nba_data) {
+test_nba_team_stats <- function(nba_data) {
   # Sample test inputs
   sample_stats_filter = c('GP', '3PM', 'FT%')
   sample_teams_filter = c('UTAH', 'DET')
@@ -62,6 +62,7 @@ test_nbastats <- function(nba_data) {
     )
   })
 }
+
 nba_data = read_csv("https://raw.githubusercontent.com/kfoofw/nba_espn/master/0.data/NBA_reg_2018-2019.csv")
-test_nbastats(nba_data)
+test_nba_team_stats(nba_data)
 
