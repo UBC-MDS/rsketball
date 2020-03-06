@@ -23,7 +23,7 @@ Functions
 
 -   Scrapes data from ESPN NBA data into a csv file. User can specify
     the year of the season (2001 to 2019 at the moment) and the season
-    type (“regular” or “playoffs”).
+    type (“regular” or “postseason”).
 
 `nba_boxplot`
 
@@ -46,10 +46,11 @@ Preparation Usage for Scraping with `nba_scraper()`
 ---------------------------------------------------
 
 The `rsketball::nba_scraper` is based on Selenium (or specifically
-RSelenium) which enables automated web browsing through “drivers”. To
-use it, please ensure that `Docker` is installed. For installation
-instructions, please follow the [guide to Docker installation based on
-your OS
+RSelenium) which enables automated web browsing through “drivers”. **To
+use it, please ensure that `Docker` is installed.**
+
+For installation instructions, please follow the [guide to Docker
+installation based on your OS
 type](https://ubc-mds.github.io/resources_pages/installation_instructions/).
 Docker will be used to pull relevant images that when executed as
 containers, will serve as the “drivers” for Selenium.
@@ -77,8 +78,8 @@ Run the following code in Terminal:
 
     docker run -d -p 4445:4444 --shm-size 2g selenium/standalone-chrome
 
-Verify that the docker container is in operation with following code in
-Terminal:
+Verify that the docker container is in operation by running the
+following code in Terminal:
 
     docker ps 
 
@@ -88,18 +89,17 @@ Now that the container is running with the allocated memory and assigned
 port, we can proceed with testing
 
     library(rsketball)
-    # Scrape regular season 2018/19 using "chrome" driver and
-    # create "nba_2018_regular" tibble in Global Env
-    nba_scraper(season_year = 2018, season_type = "regular", 
-                csv_path = "nba_2018_regular.csv",
-                port=4445L, # Insert the port number with a L suffix as shown
-                sel_browser = "chrome",
-                nba_data_env_name = "nba_2018_regular")
+    # Scrape postseason season 2017/18 using "chrome" driver while saving to a local csv file.
+    nba_2017_playoffs <- nba_scraper(season_year = 2017, 
+                                     season_type = "postseason",
+                                     port=4445L, 
+                                     sel_browser = "chrome",
+                                     csv_path = "nba_2017_playoffs.csv")
 
 If everything was executed as intended, you should obtain a csv file
-called “nba\_2018\_regular.csv” containing the scraped data, and a
-tibble in your R environment named “nba\_2018\_regular”. With that, you
-can use the other `rsketball` functions for your analysis.
+called “nba\_2017\_playoffs.csv” containing the scraped data, and a
+tibble in your R environment named “nba\_2017\_playoffs”. With the
+tibble, you can use the other `rsketball` functions for your analysis.
 
 **Step 3 (Command line/Terminal): Termination of Docker Container**
 
@@ -109,7 +109,8 @@ restored.
 
     docker stop $(docker ps -q)
 
-If you wish to, you can also remove the
+If you wish to, you can also remove the Docker image from your computer,
+where “<image_id>” represents the id of your Docker image.
 
     docker image rm <image_id>
 

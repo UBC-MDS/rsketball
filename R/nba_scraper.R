@@ -1,37 +1,42 @@
 #' Scrape NBA statistics data from ESPN into CSV file
 #'
-#' Scrape the tabular data from ESPN NBA website into a csv file using RSelenium.
+#' Scrape the tabular data from ESPN NBA website using RSelenium and returns a tibble
+#' of the data. Users can specify the seaason year and season type. User should also
+#' specify the port for Selenium driver, and the driver type. By default, the function
+#' will not write to csv until an input for "csv_path" is given.
 #'
 #' @param season_year int from 2001 to 2019 (upper limit based on latest year)
-#' @param season_type string
-#' @param csv_path string
-#' @param port int with L suffix
-#' @param sel_browser string
-#' @param nba_data_env_name string
+#' @param season_type string. Either "regular" or "postseason"
+#' @param port int with L suffix. Must not be negative.
+#' @param sel_browser string. Either "chrome" or "firefox".
+#' @param csv_path string for csv file. Must end with ".csv".
 #'
 #' @export
 #' @importFrom magrittr %>%
 #' @importFrom utils write.csv
 #' @importFrom rvest html_nodes
 #' @importFrom rvest html_text
+#' @importFrom tibble tibble
+#'
+#' @return A tibble of scraped ESPN NBA data
 #'
 #' @examples
 #' # Scrape regular season 2018/19 using "chrome" driver and
-#' # create "nba_2018_regular" tibble in Global Env
+#' # without saving to a csv file
 #' \dontrun{
-#' #' nba_scraper(2018, season_type = "regular", "nba_2018.csv",
-#'             port=4445L, sel_browser = "chrome",
-#'             nba_data_env_name = "nba_2018_regular")
+#' #' nba_scraper(2018, season_type = "regular",
+#'                port=4445L, sel_browser = "chrome",
+#'                csv_path = NULL)
 #' }
 #'
-#' # Scrape playoffs season 2017/18 using "firefox" driver without
-#' # creating tibble in Global Env
+#' # Scrape playoffs season 2017/18 using "firefox" driver while
+#' # saving to a local csv file.
 #' \dontrun{
-#' nba_scraper(2017, season_type = "playoffs", "nba_2017_playoffs.csv",
+#' nba_scraper(2017, season_type = "postseason",
 #'             port=4445L, sel_browser = "firefox",
-#'             nba_data_env_name = NULL)
+#'             csv_path = "nba_2017_playoffs.csv")
 #' }
-nba_scraper <- function(season_year = 2018, season_type = "regular", csv_path = "nba_2018.csv", port=4445L, sel_browser = "chrome", nba_data_env_name = NULL) {
+nba_scraper <- function(season_year = 2018, season_type = "regular", port=4445L, sel_browser = "chrome", csv_path = NULL) {
 
   # Check season_year is not integer or not within range
   if ((round(season_year) != season_year) & (season_year < 2001) & (season_year > 2019)){
@@ -39,13 +44,8 @@ nba_scraper <- function(season_year = 2018, season_type = "regular", csv_path = 
   }
 
   # Check season_type is not "regular" or "playoffs"
-  if ((season_type != "playoffs") & (season_type != "regular")){
+  if ((season_type != "postseason") & (season_type != "regular")){
     stop("'season_type' must be either 'regular' or 'playoffs'")
-  }
-
-  # Check csv_path does not end with csv
-  if (substr(csv_path, nchar(csv_path)-3, nchar(csv_path)) != ".csv"){
-    stop("'csv_path' must be end with '.csv'")
   }
 
   # Check port must end with L suffix and must be positive
@@ -58,9 +58,9 @@ nba_scraper <- function(season_year = 2018, season_type = "regular", csv_path = 
     stop("'sel_browser' must be either 'chrome' or 'firefox'")
   }
 
-  # Check nba_data_env_name is string
-  if ((!is.null(nba_data_env_name)) & (!assertthat::is.string(nba_data_env_name))) {
-    stop("'nba_data_env_name' must be a string if it is not a NULL input")
+  # Check csv_path does not end with csv
+  if ((!is.null(csv_path)) & (substr(csv_path, nchar(csv_path)-3, nchar(csv_path)) != ".csv")){
+    stop("Input 'csv_path' must be end with '.csv' if it is specified.")
   }
 
   # Create url
@@ -118,7 +118,7 @@ nba_scraper <- function(season_year = 2018, season_type = "regular", csv_path = 
                              "3P%", "FTM", "FTA", "FT%", "REB", "AST", "STL", "BLK",
                              "TO", "DD2", "TD3", "PER")
 
-
+  # Extracting information from scraped html
   for (i in seq(length(ply_trs))) {
     # From player
     player <- ply_trs[i]
@@ -143,12 +143,14 @@ nba_scraper <- function(season_year = 2018, season_type = "regular", csv_path = 
     compiled_df[i,2] <- player_team
     compiled_df[i,3:23] <- stats_list
   }
-  # Write to csv
-  write.csv(compiled_df, csv_path)
 
-  # If nba_data_env_name is given, create a tibble in Global Env
-  if (!is.null(nba_data_env_name)) {
-    assign(nba_data_env_name, tibble::tibble(compiled_df), envir = .GlobalEnv)
+  # If csv_path is given
+  if (!is.null(csv_path)) {
+    # Write to csv
+    write.csv(compiled_df, csv_path)
   }
+
   print(paste0("Data scraping of ", season_year," ", season_type," season completed."))
+
+  return(tibble(compiled_df))
 }
