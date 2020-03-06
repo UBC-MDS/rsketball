@@ -22,9 +22,9 @@
 #' @importFrom stats reorder
 #'
 #' @examples
-#' nba_boxplot(nba_2018, teams= c("ORL", "UTAH", "SA", "PHI", "LAC"), stats= "REB")
+#' nba_2018 <- data.frame(POS= c("C", "FOR", "PO","FOR", "C"), Team = c("ORL", "UTAH", "LAC", "MIN", "BOS"), GP = c(3, 5, 5, 2, 1))
 #' nba_boxplot(nba_2018, position= "POS", teams= NULL, stats= "GP")
-
+#'
 nba_boxplot <- function(dataset, position= NULL, teams= c(NULL), stats) {
 
 
@@ -40,8 +40,9 @@ nba_boxplot <- function(dataset, position= NULL, teams= c(NULL), stats) {
 
   #check if columns are in the dataframe
   if(!stats %in% colnames(dataset)){
-    stop("Error: This column use in stats input is not in the dataset")
+    stop("Error: The column called in stats argument is not in the dataset.")
   }
+
   #if(!is.null(position) & !position %in% colnames(dataset)){
   #  stop("Error: This name used in position input is not in dataset, use POS in quotations")
   #  }
@@ -90,4 +91,3 @@ nba_boxplot <- function(dataset, position= NULL, teams= c(NULL), stats) {
     return(position_boxplot)
   }
 }
-

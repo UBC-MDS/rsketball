@@ -29,7 +29,7 @@ Creates a boxplot of the categorical variable of interest on the y-axis and
  the stat of interest on the x-axis.
 }
 \examples{
-nba_2018 <- read.csv("NBA_reg_2019-2019.csv")
-nba_boxplot(nba_2018, teams= c("ORL", "UTAH", "SA", "PHI", "LAC"), stats= "Points")
+nba_2018 <- data.frame(POS= c("C", "FOR", "PO","FOR", "C"), Team = c("ORL", "UTAH", "LAC", "MIN", "BOS"), GP = c(3, 5, 5, 2, 1))
 nba_boxplot(nba_2018, position= "POS", teams= NULL, stats= "GP")
+
 }
