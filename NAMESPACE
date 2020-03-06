@@ -2,6 +2,6 @@
 
 export(nba_boxplot)
 export(nba_ranking)
-export(nbastats)
+export(nba_team_stats)
 import(dplyr)
 importFrom(readr,read_csv)
