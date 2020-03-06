@@ -3,10 +3,18 @@
 #' Test inputs edge cases for nba_scraper.
 #'
 test_nba_scraper <- function() {
-  # Test season_year input
+  # Test season_year input that is wrong format
+  test_that("season_year below value of 2001 will throw an error", {
+    expect_error(nba_scraper(season_year = 1999.9,
+                             season_type = "postseason",
+                             port=4445L, sel_browser = "firefox",
+                             csv_path = NULL))
+  })
+
+  # Test season_year input that is out of range
   test_that("season_year below value of 2001 will throw an error", {
     expect_error(nba_scraper(season_year = 1999,
-                             season_type = "playoffs",
+                             season_type = "postseason",
                              port=4445L, sel_browser = "firefox",
                              csv_path = NULL))
   })

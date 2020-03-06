@@ -37,18 +37,23 @@
 #' }
 nba_scraper <- function(season_year = 2018, season_type = "regular", port=4445L, sel_browser = "chrome", csv_path = NULL) {
 
-  # Check season_year is not integer or not within range
-  if ((round(season_year) != season_year) & (season_year < 2001) & (season_year > 2019)){
+  # Check season_year is integer
+  if ((season_year - round(season_year)) != 0){
+    stop("'season_year' must be an integer and not a float")
+  }
+
+  # Check season_year is within range
+  if ((season_year < 2001) | (season_year > 2019)){
     stop("'season_year' must be an integer between 2001 to 2019")
   }
 
   # Check season_type is not "regular" or "playoffs"
   if ((season_type != "postseason") & (season_type != "regular")){
-    stop("'season_type' must be either 'regular' or 'playoffs'")
+    stop("'season_type' must be either 'regular' or 'postseason'")
   }
 
-  # Check port must end with L suffix and must be positive
-  if ((!is.integer(port)) & (port <0)){
+  # Check port must end with L suffix and must be positive integer
+  if ((!is.integer(port)) | (port <0)){
     stop("'port' must be a positive integer ending with L suffix (eg 4445L)")
   }
 
