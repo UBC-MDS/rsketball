@@ -21,7 +21,7 @@ nba_scraper(
 
 \item{sel_browser}{string. Either "chrome" or "firefox".}
 
-\item{csv_path}{string for csv file. Must end with ".csv".}
+\item{csv_path}{string for csv file. Defaults to NULL. If specified, must end with ".csv".}
 }
 \value{
 A tibble of scraped ESPN NBA data
@@ -37,8 +37,7 @@ will not write to csv until an input for "csv_path" is given.
 # without saving to a csv file
 \dontrun{
 #' nba_scraper(2018, season_type = "regular",
-               port=4445L, sel_browser = "chrome",
-               csv_path = NULL)
+               port=4445L, sel_browser = "chrome")
 }
 
 # Scrape playoffs season 2017/18 using "firefox" driver while

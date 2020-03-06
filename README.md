@@ -65,7 +65,9 @@ proceed with these steps.
 Pull docker image with the following code in Terminal. We will stick to
 Chrome since it seems compatible with Windows while Firefox is not.
 
-    docker pull selenium/standalone-chrome
+``` sh
+docker pull selenium/standalone-chrome
+```
 
 **Critical step about setting ports and memory allocation:**
 
@@ -76,25 +78,31 @@ function. We will also allocate the virtual memory of the container to
 
 Run the following code in Terminal:
 
-    docker run -d -p 4445:4444 --shm-size 2g selenium/standalone-chrome
+``` sh
+docker run -d -p 4445:4444 --shm-size 2g selenium/standalone-chrome
+```
 
 Verify that the docker container is in operation by running the
 following code in Terminal:
 
-    docker ps 
+``` sh
+docker ps 
+```
 
 **Step 2 (R/RStudio): Scraping with `nba_scraper`**
 
 Now that the container is running with the allocated memory and assigned
 port, we can proceed with testing
 
-    library(rsketball)
-    # Scrape postseason season 2017/18 using "chrome" driver while saving to a local csv file.
-    nba_2017_playoffs <- nba_scraper(season_year = 2017, 
-                                     season_type = "postseason",
-                                     port=4445L, 
-                                     sel_browser = "chrome",
-                                     csv_path = "nba_2017_playoffs.csv")
+``` r
+library(rsketball)
+# Scrape postseason season 2017/18 using "chrome" driver while saving to a local csv file.
+nba_2017_playoffs <- nba_scraper(season_year = 2017, 
+                                 season_type = "postseason",
+                                 port=4445L, 
+                                 sel_browser = "chrome",
+                                 csv_path = "nba_2017_playoffs.csv")
+```
 
 If everything was executed as intended, you should obtain a csv file
 called “nba\_2017\_playoffs.csv” containing the scraped data, and a
@@ -107,12 +115,16 @@ After test scraping is completed, we can shut down the Docker Container
 instance. This will also ensure that your computer memory/resources are
 restored.
 
-    docker stop $(docker ps -q)
+``` sh
+docker stop $(docker ps -q)
+```
 
 If you wish to, you can also remove the Docker image from your computer,
 where “<image_id>” represents the id of your Docker image.
 
-    docker image rm <image_id>
+``` sh
+docker image rm <image_id>
+```
 
 R Ecosystem
 -----------

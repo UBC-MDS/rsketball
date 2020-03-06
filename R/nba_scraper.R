@@ -9,14 +9,14 @@
 #' @param season_type string. Either "regular" or "postseason"
 #' @param port int with L suffix. Must not be negative.
 #' @param sel_browser string. Either "chrome" or "firefox".
-#' @param csv_path string for csv file. Must end with ".csv".
+#' @param csv_path string for csv file. Defaults to NULL. If specified, must end with ".csv".
 #'
 #' @export
 #' @importFrom magrittr %>%
 #' @importFrom utils write.csv
 #' @importFrom rvest html_nodes
 #' @importFrom rvest html_text
-#' @importFrom tibble tibble
+#' @importFrom tibble as_tibble
 #'
 #' @return A tibble of scraped ESPN NBA data
 #'
@@ -25,8 +25,7 @@
 #' # without saving to a csv file
 #' \dontrun{
 #' #' nba_scraper(2018, season_type = "regular",
-#'                port=4445L, sel_browser = "chrome",
-#'                csv_path = NULL)
+#'                port=4445L, sel_browser = "chrome")
 #' }
 #'
 #' # Scrape playoffs season 2017/18 using "firefox" driver while
@@ -59,8 +58,10 @@ nba_scraper <- function(season_year = 2018, season_type = "regular", port=4445L,
   }
 
   # Check csv_path does not end with csv
-  if ((!is.null(csv_path)) & (substr(csv_path, nchar(csv_path)-3, nchar(csv_path)) != ".csv")){
-    stop("Input 'csv_path' must be end with '.csv' if it is specified.")
+  if (!is.null(csv_path)) {
+    if (substr(csv_path, nchar(csv_path)-3, nchar(csv_path)) != ".csv"){
+      stop("Input 'csv_path' must be end with '.csv' if it is specified.")
+    }
   }
 
   # Create url
@@ -147,10 +148,10 @@ nba_scraper <- function(season_year = 2018, season_type = "regular", port=4445L,
   # If csv_path is given
   if (!is.null(csv_path)) {
     # Write to csv
-    write.csv(compiled_df, csv_path)
+    write.csv(compiled_df, csv_path, row.names = FALSE)
   }
 
   print(paste0("Data scraping of ", season_year," ", season_type," season completed."))
 
-  return(tibble(compiled_df))
+  return(as_tibble(compiled_df))
 }
