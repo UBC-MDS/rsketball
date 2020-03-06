@@ -87,7 +87,6 @@ nba_boxplot <- function(dataset, position= NULL, teams= c(NULL), stats) {
       coord_flip() +
       ggtitle(paste("Plot for Positions and", stats, "in Dataset", sep = " "))
 
-
     return(position_boxplot)
   }
 }
