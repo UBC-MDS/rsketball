@@ -28,6 +28,9 @@ Suggests:
 Imports: 
     RSelenium,
     rvest,
+    ggplot2,
+    stats,
+    rlang,
     magrittr,
     tibble,
     tidyr,
@@ -37,3 +40,4 @@ Imports:
     checkmate
 URL: https://github.com/UBC-MDS/rsketball
 BugReports: https://github.com/UBC-MDS/rsketball/issues
+
