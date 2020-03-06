@@ -1,0 +1,165 @@
+#' Scrape NBA statistics data from ESPN into CSV file
+#'
+#' This function is a pseudo version of the rsketball::nba_scraper function and will be
+#' used for the grading rubric of DSCI 524 with respect to testing completion. Reason is
+#' because the original rsketball::nba_scraper function can only work with a running
+#' Docker container that represents the driver for RSelenium, which renders it as
+#' untestable when using devtools::check(). Thus, this pseudo function comprises of
+#' most of the non-Selenium related scraping code, and serves as a proxy for testing
+#' a large portion of the original rsketball::nba_scraper function code.
+#'
+#' Scrape the tabular data from ESPN NBA website using RSelenium and returns a tibble
+#' of the data. Users can specify the seaason year and season type. User should also
+#' specify the port for Selenium driver, and the driver type. By default, the function
+#' will not write to csv until an input for "csv_path" is given.
+#'
+#' @param season_year int from 2001 to 2019 (upper limit based on latest year)
+#' @param season_type string. Either "regular" or "postseason"
+#' @param port int with L suffix. Must not be negative.
+#' @param sel_browser string. Either "chrome" or "firefox".
+#' @param csv_path string for csv file. Must end with ".csv".
+#'
+#' @export
+#' @importFrom magrittr %>%
+#' @importFrom utils write.csv
+#' @importFrom rvest html_nodes
+#' @importFrom rvest html_text
+#' @importFrom tibble tibble
+#'
+#' @return A tibble of scraped ESPN NBA data
+#'
+#' @examples
+#' # Scrape regular season 2018/19 using "chrome" driver and
+#' # without saving to a csv file
+#'
+#' nba_scraper_pseudo(2018, season_type = "regular",
+#'                port=4445L, sel_browser = "chrome",
+#'                csv_path = NULL)
+#'
+#' # Scrape playoffs season 2017/18 using "firefox" driver while
+#' # saving to a local csv file.
+#'
+#' nba_scraper_pseudo(2017, season_type = "postseason",
+#'             port=4445L, sel_browser = "firefox",
+#'             csv_path = "nba_2017_playoffs.csv")
+#' }
+nba_scraper_pseudo <- function(season_year = 2018, season_type = "regular", port=4445L, sel_browser = "chrome", csv_path = NULL) {
+
+  # Check season_year is not integer or not within range
+  if ((round(season_year) != season_year) & (season_year < 2001) & (season_year > 2019)){
+    stop("'season_year' must be an integer between 2001 to 2019")
+  }
+
+  # Check season_type is not "regular" or "playoffs"
+  if ((season_type != "postseason") & (season_type != "regular")){
+    stop("'season_type' must be either 'regular' or 'playoffs'")
+  }
+
+  # Check port must end with L suffix and must be positive
+  if ((!is.integer(port)) & (port <0)){
+    stop("'port' must be a positive integer ending with L suffix (eg 4445L)")
+  }
+
+  # Check sel_browser must be either "chrome" or "firefox"
+  if ((sel_browser != "chrome") & (sel_browser != "firefox")) {
+    stop("'sel_browser' must be either 'chrome' or 'firefox'")
+  }
+
+  # Check csv_path does not end with csv
+  if ((!is.null(csv_path)) & (substr(csv_path, nchar(csv_path)-3, nchar(csv_path)) != ".csv")){
+    stop("Input 'csv_path' must be end with '.csv' if it is specified.")
+  }
+
+  # Create url
+  url_season_year <- season_year +1
+  url_season_type <- ifelse(season_type == "regular", 2, 3)
+  url <-paste0("https://www.espn.com/nba/stats/player/_/season/", url_season_year, "/seasontype/", url_season_type)
+
+  # # Set up parameters for remoteDriver
+  # remDr <- RSelenium::remoteDriver(
+  #   remoteServerAddr = "localhost",
+  #   port = port,
+  #   browserName = sel_browser
+  # )
+  #
+  # # Print message
+  # print("Scraping commencing. Please wait!")
+  #
+  # # Initiate Driver
+  # remDr$open()
+  #
+  # # Use driver to browse the url
+  # remDr$navigate(url)
+  #
+  # # Dynamic loading on webpage to load all the data
+  # chk <- FALSE
+  # while (!chk) {
+  #   res <- try({
+  #     suppressMessages(showmore_button <- remDr$findElement(using = "xpath", "//*[@id='fittPageContainer']/div[3]/div[1]/div/section/div/div[3]/div/a"))
+  #   }, silent = TRUE)
+  #   if (class(res) == "try-error") {
+  #     chk <- TRUE
+  #   } else {
+  #     showmore_button$clickElement()
+  #     # Sleep for 2 seconds for the page to load
+  #     Sys.sleep(2L)
+  #   }
+  # }
+
+  # Compilation List of plyr XML paths
+  # ply_trs <- remDr$getPageSource()[[1]] %>%
+  ply_trs <- url %>%
+    xml2::read_html() %>%
+    rvest::html_nodes(xpath="//*[@id='fittPageContainer']/div[3]/div[1]/div/section/div/div[3]/section/div[2]/table/tbody/tr")
+
+  # stats_trs <- remDr$getPageSource()[[1]] %>%
+  stats_trs <- url %>%
+    xml2::read_html() %>%
+    rvest::html_nodes(xpath="//*[@id='fittPageContainer']/div[3]/div[1]/div/section/div/div[3]/section/div[2]/div/div[2]/table/tbody/tr")
+
+  # # Close Selenium driver
+  # remDr$close()
+
+  # Initiate compilation df
+  compiled_df <- data.frame(matrix(, nrow=length(ply_trs), ncol=23))
+  colnames(compiled_df) <- c("Name", "Team", "Position",
+                             "GP", "MIN", "PTS", "FGM", "FGA", "FG%", "3PM", "3PA",
+                             "3P%", "FTM", "FTA", "FT%", "REB", "AST", "STL", "BLK",
+                             "TO", "DD2", "TD3", "PER")
+
+  # Extracting information from scraped html
+  for (i in seq(length(ply_trs))) {
+    # From player
+    player <- ply_trs[i]
+    # player: Player name
+    player_name <- player %>%
+      html_nodes("[class='AnchorLink']") %>%
+      html_text()
+    # player: Team name
+    player_team <- player %>%
+      html_nodes("[class='pl2 n10 athleteCell__teamAbbrev']") %>%
+      html_text()
+
+    # From stats
+    stats = stats_trs[i]
+    # stats: list of all stats
+    stats_list <- stats %>%
+      html_nodes("td") %>%
+      html_text()
+
+    # Input into compiled df
+    compiled_df[i,1] <- player_name
+    compiled_df[i,2] <- player_team
+    compiled_df[i,3:23] <- stats_list
+  }
+
+  # If csv_path is given
+  if (!is.null(csv_path)) {
+    # Write to csv
+    write.csv(compiled_df, csv_path)
+  }
+
+  print(paste0("Data scraping of ", season_year," ", season_type," season completed."))
+
+  return(tibble(compiled_df))
+}

@@ -3,6 +3,7 @@
 export(nba_boxplot)
 export(nba_ranking)
 export(nba_scraper)
+export(nba_scraper_pseudo)
 export(nbastats)
 importFrom(magrittr,"%>%")
 importFrom(rvest,html_nodes)
