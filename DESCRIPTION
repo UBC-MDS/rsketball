@@ -26,8 +26,19 @@ RoxygenNote: 7.0.2
 Suggests: 
     testthat (>= 2.1.0)
 Imports: 
-    forcats,
+    RSelenium,
+    rvest,
+    ggplot2,
+    stats,
+    rlang,
+    magrittr,
+    tibble,
+    tidyr,
+    xml2,
+    utils,
+    assertthat,
+    checkmate,
     readr,
     dplyr
-URL: https://github.com/kfoofw/rsketball
-BugReports: https://github.com/kfoofw/rsketball/issues
+URL: https://github.com/UBC-MDS/rsketball
+BugReports: https://github.com/UBC-MDS/rsketball/issues
