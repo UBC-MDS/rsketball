@@ -35,12 +35,11 @@ Functions
 -   Generates a ranking and a visualization based on a column of a
     dataset
 
-`nbastats`
+`nba_team_stats`
 
--   Generate summary stats for NBA players. The function filters the
-    dataset further using the arguments provided and produces a tibble
-    with summary statistics for a list of columns of a few players or
-    teams.
+-   Generate summary stats for NBA players. The function provides
+    descriptive (mean, median, 25%, and 75% quantiles) team statistics
+    of NBA data.
 
 Preparation Usage for Scraping with `nba_scraper()`
 ---------------------------------------------------
