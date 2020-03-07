@@ -37,7 +37,8 @@ Imports:
     xml2,
     utils,
     assertthat,
-    checkmate
+    checkmate,
+    readr,
+    dplyr
 URL: https://github.com/UBC-MDS/rsketball
 BugReports: https://github.com/UBC-MDS/rsketball/issues
-
