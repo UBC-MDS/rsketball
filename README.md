@@ -129,7 +129,7 @@ Testing
 -------
 
 To do testing of the package functions, please refer to the instructions
-found in th [README.md located at the testing subdirectory
+found in the [README.md located at the testing subdirectory
 folder](https://github.com/UBC-MDS/rsketball/blob/master/tests/README.md).
 
 R Ecosystem

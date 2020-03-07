@@ -18,7 +18,7 @@ To specify as "POS" if you want to look at Position boxplot.}
 The names of teams you want to create boxplot for.
 *Note you can only choose one of position or teams as a variable to vizualize}
 
-\item{state}{string
+\item{stats}{string
 The numeric variable of interest examples:  Points, 3_Pointers, Turnovers}
 }
 \value{
@@ -31,4 +31,5 @@ Creates a boxplot of the categorical variable of interest on the y-axis and
 \examples{
 nba_2018 <- data.frame(POS= c("C", "FOR", "PO","FOR", "C"), Team = c("ORL", "UTAH", "LAC", "MIN", "BOS"), GP = c(3, 5, 5, 2, 1))
 nba_boxplot(nba_2018, position= "POS", teams= NULL, stats= "GP")
+
 }

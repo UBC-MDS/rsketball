@@ -11,7 +11,7 @@
 #' @param teams string
 #' The names of teams you want to create boxplot for.
 #' *Note you can only choose one of position or teams as a variable to vizualize
-#' @param state string
+#' @param stats string
 #' The numeric variable of interest examples:  Points, 3_Pointers, Turnovers
 #'
 #' @return ggplot boxplot

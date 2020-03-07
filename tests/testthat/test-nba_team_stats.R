@@ -1,4 +1,4 @@
-#' Test function for nbastats
+#' Test function for nba_team_stats
 #'
 #' @description
 #' The function tests the nbastats function with various ranges of values to ensure the functionality is not broken
@@ -10,7 +10,7 @@
 #' @import dplyr
 #'
 #' @examples
-#' test_nbastats(nba_data)
+#' test_nba_team_stats(nba_data)
 test_nba_team_stats <- function(nba_data) {
   # Sample test inputs
   sample_stats_filter = c('GP', '3PM', 'FT%')
