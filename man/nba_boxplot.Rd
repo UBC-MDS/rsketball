@@ -4,18 +4,22 @@
 \alias{nba_boxplot}
 \title{Creating Boxplot for NBA Stats}
 \usage{
-nba_boxplot(dataset, yaxis, xaxis)
+nba_boxplot(dataset, position = NULL, teams = c(NULL), stats)
 }
 \arguments{
 \item{dataset}{dataframe
 This dataframe is created after using the nba_scraper.R function or if
 the csv has already been loaded, read the csv in and pass it as the parameter.}
 
-\item{yaxis}{string
-The parameter of interest examples: Points, 3_Pointers, Turnovers}
+\item{position}{string
+To specify as "POS" if you want to look at Position boxplot.}
 
-\item{xaxis}{string
-The categorical variable of interest examples: Team, Position}
+\item{teams}{string
+The names of teams you want to create boxplot for.
+*Note you can only choose one of position or teams as a variable to vizualize}
+
+\item{state}{string
+The numeric variable of interest examples:  Points, 3_Pointers, Turnovers}
 }
 \value{
 ggplot boxplot
@@ -25,5 +29,6 @@ Creates a boxplot of the categorical variable of interest on the y-axis and
  the stat of interest on the x-axis.
 }
 \examples{
-nba_boxplot(NBA_reg_01_02, Team, Points)
+nba_2018 <- data.frame(POS= c("C", "FOR", "PO","FOR", "C"), Team = c("ORL", "UTAH", "LAC", "MIN", "BOS"), GP = c(3, 5, 5, 2, 1))
+nba_boxplot(nba_2018, position= "POS", teams= NULL, stats= "GP")
 }
