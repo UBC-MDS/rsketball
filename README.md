@@ -125,6 +125,13 @@ where “<image_id>” represents the id of your Docker image.
 docker image rm <image_id>
 ```
 
+Testing
+-------
+
+To do testing of the package functions, please refer to the instructions
+found in th [README.md located at the testing subdirectory
+folder](https://github.com/UBC-MDS/rsketball/blob/master/tests/README.md).
+
 R Ecosystem
 -----------
 
