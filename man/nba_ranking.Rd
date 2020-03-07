@@ -27,5 +27,5 @@ This function generates creates a ranking of a variable `column` summarizing by 
 a visualization with that information.
 }
 \examples{
-nba_ranking(data.frame(ranked = c(1, 2, 3), by = c(3, 2, 1)), ranked, by, 2, TRUE, mean)
+nba_ranking(data.frame(ranked = c("1", "2", "3"), by = c(3, 2, 1)), ranked, by, 2, TRUE, mean)
 }

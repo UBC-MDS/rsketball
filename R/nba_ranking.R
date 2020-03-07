@@ -23,7 +23,7 @@
 #' @importFrom rlang :=
 #'
 #' @examples
-#' nba_ranking(data.frame(ranked = c(1, 2, 3), by = c(3, 2, 1)), ranked, by, 2, TRUE, mean)
+#' nba_ranking(data.frame(ranked = c("1", "2", "3"), by = c(3, 2, 1)), ranked, by, 2, TRUE, mean)
 nba_ranking <- function(data, column, by, top, descending = TRUE, FUN){
 
   # Checks
@@ -38,6 +38,25 @@ nba_ranking <- function(data, column, by, top, descending = TRUE, FUN){
     stop("Argument data should be a dataframe or a tibble")
   }
 
+  ranked_type <- data %>%
+                  pull({{column}})
+
+  # Checking the datatype of the ranked variable
+  if(!(((ranked_type %>% typeof()) == "character" | is.factor(ranked_type)))){
+    stop("The column argument should be a categorical variable")
+  }
+
+
+  by_type <- data %>%
+              pull({{by}}) %>%
+              typeof()
+  by_var <- data %>%
+              pull({{by}})
+  # Checking the datatype of the ranking variable
+
+  if(!(by_type == "double" |by_type == "numerical"| (by_type == "integer" & !is.factor(by_var)))){
+    stop("The by argument should be a numerical variable")
+  }
   # Warning
 
   #Warning to control the number of elements
@@ -70,7 +89,7 @@ nba_ranking <- function(data, column, by, top, descending = TRUE, FUN){
 
   plot_title <- paste0("Top ", top," ", substitute(column)," by ", substitute(by))
   colour_scheme <- scales::seq_gradient_pal("#17408B", "#C9082A")(seq(0,1,length.out=top))
-  text_size <- min(14, 75/top)
+  text_size <- min(8, 75/top)
 
   plot <- data_filtered %>% ggplot2::ggplot(aes(as.integer({{column}}),{{by}},
                                             fill = {{column}},
@@ -94,4 +113,6 @@ nba_ranking <- function(data, column, by, top, descending = TRUE, FUN){
 
   return(plot)
 }
+
+
 
