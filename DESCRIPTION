@@ -41,7 +41,6 @@ Imports:
     utils,
     assertthat,
     checkmate,
-    readr,
-    dplyr
+    readr
 URL: https://github.com/UBC-MDS/rsketball
 BugReports: https://github.com/UBC-MDS/rsketball/issues

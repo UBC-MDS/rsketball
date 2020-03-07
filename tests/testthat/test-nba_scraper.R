@@ -1,7 +1,17 @@
-#' Test function for rysketball::nba_scraper() function
+#' Test function for rsketball::nba_scraper() function
 #'
+#' @description
 #' Test inputs edge cases for nba_scraper.
 #'
+#' @export
+#'
+#' @importFrom readr read_csv
+#' @import dplyr
+#'
+#' @examples
+#' # Before executing, please setup the Docker container as per instructions
+#' # in Readme.md located in "tests" subfolder.
+#' test_nba_scraper()
 test_nba_scraper <- function() {
   # Test season_year input that is wrong format
   test_that("season_year below value of 2001 will throw an error", {
@@ -71,9 +81,9 @@ test_nba_scraper <- function() {
 
   # Run scraper and store output as nba_2018 tibble
   nba_2018 <- nba_scraper(season_year = 2018, season_type = "postseason",
-                            port=4445L,
-                            sel_browser = "chrome",
-                            csv_path = "nba_2018_playoffs.csv")
+                          port=4445L,
+                          sel_browser = "chrome",
+                          csv_path = "nba_2018_playoffs.csv")
 
   # Read in csv as tibble for testing
   nba_2018_read_csv <- as_tibble(read.csv("nba_2018_playoffs.csv"))
