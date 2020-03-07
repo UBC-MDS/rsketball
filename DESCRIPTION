@@ -28,9 +28,12 @@ Suggests:
 Imports: 
     RSelenium,
     rvest,
+    dplyr,
+    forcats,
     ggplot2,
     stats,
     rlang,
+    scales,
     magrittr,
     tibble,
     tidyr,
