@@ -15,48 +15,48 @@
 test_nba_scraper <- function() {
   # Test season_year input that is wrong format
   test_that("season_year that is not an integer will throw an error", {
-    expect_error(nba_scraper(season_year = 2003.5,
-                             season_type = "postseason",
-                             port=4445L,
-                             csv_path = NULL))
+    expect_error(nba_2018 <- nba_scraper(season_year = 2003.5,
+                                         season_type = "postseason",
+                                         port=4445L,
+                                         csv_path = NULL))
   })
 
   # Test season_year input that is out of range
   test_that("season_year below value of 2001 will throw an error", {
-    expect_error(nba_scraper(season_year = 1999,
-                             season_type = "postseason",
-                             port=4445L,
-                             csv_path = NULL))
+    expect_error(nba_2018 <- nba_scraper(season_year = 1999,
+                                         season_type = "postseason",
+                                         port=4445L,
+                                         csv_path = NULL))
   })
 
   # Test season_type input
   test_that("season_type that is not 'regular' or 'postseason' will give an error", {
-    expect_error(nba_scraper(season_year = 2018,
-                             season_type = "hello",
-                             port=4445L,
-                             csv_path = NULL))
+    expect_error(nba_2018 <- nba_scraper(season_year = 2018,
+                                         season_type = "hello",
+                                         port=4445L,
+                                         csv_path = NULL))
   })
 
   # Test port input
   test_that("port input without L suffix will give an error", {
-    expect_error(nba_scraper(season_year = 2018, season_type = "regular",
-                             port=4445,
-                             csv_path = "nba_2017_playoffs.csv"))
+    expect_error(nba_2018 <- nba_scraper(season_year = 2018, season_type = "regular",
+                                         port=4445,
+                                         csv_path = "nba_2017_playoffs.csv"))
   })
 
   #* Test port input
   test_that("port input of a negative number will give an error", {
-    expect_error(nba_scraper(season_year = 2018, season_type = "regular",
-                             port=-4445L,
-                             csv_path = "nba_2017_playoffs.csv"))
+    expect_error(nba_2018 <-nba_scraper(season_year = 2018, season_type = "regular",
+                                        port=-4445L,
+                                        csv_path = "nba_2017_playoffs.csv"))
   })
 
   # Test csv_path input
   test_that("csv_path string input that does not end in '.csv' will give an error", {
-    expect_error(nba_scraper(season_year = 2018,
-                             season_type = "regular",
-                             port=4445L,
-                             csv_path = "nba_2017_playoffs"))
+    expect_error(nba_2018 <- nba_scraper(season_year = 2018,
+                                         season_type = "regular",
+                                         port=4445L,
+                                         csv_path = "nba_2017_playoffs"))
   })
 
   # Run scraper without storing output csv file
