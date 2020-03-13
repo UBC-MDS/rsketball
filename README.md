@@ -1,6 +1,6 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-<img src="imgs/rkestball_logo.JPG" width="200" height="75" align = "right">
+<img src="imgs/rsketball_logo.JPG" width="200" height="75" align = "right">
 
 rsketball
 =========
