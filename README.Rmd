@@ -14,6 +14,8 @@ knitr::opts_chunk$set(
 )
 ```
 
+<img src="img/rsketball_logo.png" width="200" height="75" align = "right">
+
 # rsketball
 
   <!-- badges: start -->
