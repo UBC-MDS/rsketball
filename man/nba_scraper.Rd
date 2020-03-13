@@ -30,6 +30,7 @@ specify the port for Selenium driver. By default, the function will not write
 to csv until a string input for "csv_path" is given.
 }
 \examples{
+\donttest{
 # Scrape regular season 2018/19 without saving to a csv file
 nba_2018 <- nba_scraper(2018, season_type = "regular", port=4445L)
 
@@ -38,5 +39,5 @@ nba_2018 <- nba_scraper(2018, season_type = "regular", port=4445L)
 nba_2017 <- nba_scraper(2017, season_type = "postseason",
                         port=4445L,
                         csv_path = "nba_2017_playoffs.csv")
-
+}
 }
