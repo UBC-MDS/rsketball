@@ -20,6 +20,7 @@
 #' @return A tibble of scraped ESPN NBA data
 #'
 #' @examples
+#' \donttest{
 #' # Scrape regular season 2018/19 without saving to a csv file
 #' nba_2018 <- nba_scraper(2018, season_type = "regular", port=4445L)
 #'
@@ -28,7 +29,7 @@
 #' nba_2017 <- nba_scraper(2017, season_type = "postseason",
 #'                         port=4445L,
 #'                         csv_path = "nba_2017_playoffs.csv")
-#'
+#'}
 nba_scraper <- function(season_year = 2018, season_type = "regular", port=4445L, csv_path = NULL) {
 
   # Check season_year is integer

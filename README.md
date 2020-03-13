@@ -2,6 +2,11 @@
 rsketball
 =========
 
+<!-- badges: start --> [![R build
+status](https://github.com/UBC-MDS/rsketball/workflows/R-CMD-check/badge.svg)](https://github.com/UBC-MDS/rsketball/actions)
+[![codecov](https://codecov.io/gh/UBC-MDS/rsketball/branch/master/graph/badge.svg)](https://codecov.io/gh/UBC-MDS/rsketball)
+<!-- badges: end -->
+
 Analysis of NBA players from 2001/02 to 2018/19 seasons using ESPN NBA
 ----------------------------------------------------------------------
 

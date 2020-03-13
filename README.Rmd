@@ -16,6 +16,11 @@ knitr::opts_chunk$set(
 
 # rsketball
 
+  <!-- badges: start -->
+  [![R build status](https://github.com/UBC-MDS/rsketball/workflows/R-CMD-check/badge.svg)](https://github.com/UBC-MDS/rsketball/actions)
+  [![codecov](https://codecov.io/gh/UBC-MDS/rsketball/branch/master/graph/badge.svg)](https://codecov.io/gh/UBC-MDS/rsketball)
+  <!-- badges: end -->
+  
 ## Analysis of NBA players from 2001/02 to 2018/19 seasons using ESPN NBA
 
 This package is designated for all NBA enthusiasts! The `rsketball` package works to scrape online tabular data from the ESPN NBA website into a csv file. It also includes various functions to create graphs and statistical analysis for your interest (such as boxplots, player rankings by stats, and a summary statistics table).  
