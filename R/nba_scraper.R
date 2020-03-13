@@ -91,7 +91,7 @@ nba_scraper <- function(season_year = 2018, season_type = "regular", port=4445L,
     } else {
       showmore_button$clickElement()
       # Sleep for 2 seconds for the page to load
-      Sys.sleep(2L)
+      Sys.sleep(5L)
     }
   }
 
@@ -139,6 +139,13 @@ nba_scraper <- function(season_year = 2018, season_type = "regular", port=4445L,
     compiled_df[i,2] <- player_team
     compiled_df[i,3:23] <- stats_list
   }
+
+  # Convert scraped numeric data from character to numeric
+  numeric_columns <- c("GP", "MIN", "PTS", "FGM", "FGA", "FG%", "3PM", "3PA",
+                       "3P%", "FTM", "FTA", "FT%", "REB", "AST", "STL", "BLK",
+                       "TO", "DD2", "TD3", "PER")
+
+  compiled_df[, numeric_columns] <- lapply(compiled_df[, numeric_columns, drop = FALSE], function(x) as.numeric(as.character(x)))
 
   # If csv_path is given
   if (!is.null(csv_path)) {
