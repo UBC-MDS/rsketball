@@ -86,12 +86,13 @@ nba_scraper <- function(season_year = 2018, season_type = "regular", port=4445L,
     res <- try({
       suppressMessages(showmore_button <- remDr$findElement(using = "xpath", "//*[@id='fittPageContainer']/div[3]/div[1]/div/section/div/div[3]/div/a"))
     }, silent = TRUE)
+    print(1)
     if (class(res) == "try-error") {
       chk <- TRUE
     } else {
       showmore_button$clickElement()
       # Sleep for 2 seconds for the page to load
-      Sys.sleep(2L)
+      Sys.sleep(5L)
     }
   }
 
