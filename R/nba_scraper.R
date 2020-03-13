@@ -86,7 +86,6 @@ nba_scraper <- function(season_year = 2018, season_type = "regular", port=4445L,
     res <- try({
       suppressMessages(showmore_button <- remDr$findElement(using = "xpath", "//*[@id='fittPageContainer']/div[3]/div[1]/div/section/div/div[3]/div/a"))
     }, silent = TRUE)
-    print(1)
     if (class(res) == "try-error") {
       chk <- TRUE
     } else {
@@ -140,6 +139,13 @@ nba_scraper <- function(season_year = 2018, season_type = "regular", port=4445L,
     compiled_df[i,2] <- player_team
     compiled_df[i,3:23] <- stats_list
   }
+
+  # Convert scraped numeric data from character to numeric
+  numeric_columns <- c("GP", "MIN", "PTS", "FGM", "FGA", "FG%", "3PM", "3PA",
+                       "3P%", "FTM", "FTA", "FT%", "REB", "AST", "STL", "BLK",
+                       "TO", "DD2", "TD3", "PER")
+
+  compiled_df[, numeric_columns] <- lapply(compiled_df[, numeric_columns, drop = FALSE], function(x) as.numeric(as.character(x)))
 
   # If csv_path is given
   if (!is.null(csv_path)) {
