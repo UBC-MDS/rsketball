@@ -49,6 +49,23 @@ https://www.espn.com/nba/stats/player/_/season/2019/seasontype/2
 
   * Generate summary stats for NBA players. The function provides descriptive (mean, median, 25%, and 75% quantiles) team statistics of NBA data.
 
+### Installation
+
+`rsketball` is still in project development. We estimate that by end March 2020, one can install the released version of `rsketball` from [CRAN](https://cran.r-project.org/).
+
+Package installation in R:
+
+```{r, eval=FALSE}
+install.packages("rsketball")
+```
+
+And the development version from [Github](https://github.com/) with:
+
+```{r, eval=FALSE}
+install.packages("devtools")
+devtools::install_github("UBC-MDS/rsketball")
+```
+
 ## Preparation Usage for Scraping with `nba_scraper()`
 
 The `rsketball::nba_scraper` is based on Selenium (or specifically RSelenium) which enables automated web browsing through "drivers". __To use it, please ensure that `Docker` is installed.__
@@ -107,19 +124,64 @@ To do testing of the package functions, please refer to the instructions found i
 
 This `rsketball` package aims to further gain understanding of ESPN NBA data and does not have a specific fit to the R ecosystem. There are currently some other library packages such as [`nbastatR`](https://www.rdocumentation.org/packages/nbastatR/versions/0.1.10131) that take data from other sources (NBA Stats API, Basketball Insiders, Basketball-Reference, HoopsHype, and RealGM), but no package that we currently know of takes data from ESPN NBA specifically.
 
-### Installation
+## Examples
 
-`rsketball` is still in project development. We estimate that by end March 2020, one can install the released version of `rsketball` from [CRAN](https://cran.r-project.org/).
-
-Package installation in R:
-
-```{r, eval=FALSE}
-install.packages("rsketball")
+To load the package:
+```R
+library(rsketball)
+load_all()
 ```
 
-And the development version from [Github](https://github.com/) with:
+### `nba_scraper`
 
-```{r, eval=FALSE}
-install.packages("devtools")
-devtools::install_github("UBC-MDS/rsketball")
+nba_scraper() will help you create the dataframe of the NBA season of interest to conduct further analysis using the functions below. An example of how to use this function:
+
+Scrape regular season 2018/19 without saving to a csv file
+```R
+nba_2018 <- nba_scraper(2018, season_type = "regular", port=4445L)
+```
+
+Scrape playoffs season 2017/18 while saving to a local csv file.
+```R
+nba_2017 <- nba_scraper(2017, season_type = "postseason",
+                        port=4445L,
+                        csv_path = "nba_2017_playoffs.csv")
+```
+
+### `nba_boxplot`
+
+To further analyze how different teams and positions affect different scoring statistics, you can use nba_boxplot(). 
+
+To look at the distribution of games played or 'GP', (numerical column) for different positions or 'POS' (categorical column).
+
+```R
+nba_boxplot(nba_2018, position= "POS", teams= NULL, stats= "GP")
+```
+
+To look at the distribution of games played or 'GP', (numerical column) for different teams (must pass in a list).
+
+```R
+nba_boxplot(nba_2018, position= NULL, teams= ("UTAH", "LAC", "MIN", "BOS"), stats= "GP")
+```
+
+###`nba_ranking`
+
+The nba_ranking() function creates a visualization showing the rankings of a category with a stats of interest. You can change from ascending or descening order and choose the stats to compare it with (ex mean)
+
+```R
+nba_ranking(data.frame(teams = c("UTAH", "LAC", "MIN", "BOS"), by = c(3, 2, 1)), teams, by, 2, TRUE, mean)
+```
+
+###`nba_team_stats`
+
+This function finds statistics of mean, median, 25%, and 75% quantiles. You find these stats for all teams without position
+
+```R
+nba_team_stats(nba_data)
+```
+
+Or you can sind specific columns you want the stats for (3PM, 3PA) for specific teams (GS, HOU) for specific positions (PG, C).
+
+```R
+nba_team_stats(nba_data, stats_filter = c("3PM","3PA"), teams_filter = c("GSW","HOU"), positions_filter = c("C","PG"))
 ```
