@@ -18,13 +18,14 @@ Authors@R:
            family = "Pitta",
            role = c("aut", "cre"),
            email = "apitta6@gmail.com")
-Description: What the package does (one paragraph).
+Description: This package is designated for all NBA enthusiasts! The `rsketball` package works to scrape online tabular data from the ESPN NBA website into a csv file. It also includes various functions to create graphs and statistical analysis for your interest (such as boxplots, player rankings by stats, and a summary statistics table).
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.0.2
 Suggests: 
-    testthat (>= 2.1.0)
+    testthat (>= 2.1.0),
+    covr
 Imports: 
     RSelenium,
     rvest,
