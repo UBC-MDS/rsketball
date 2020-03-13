@@ -43,17 +43,9 @@ nba_boxplot <- function(dataset, position= NULL, teams= c(NULL), stats) {
     stop("Error: The column called in stats argument is not in the dataset.")
   }
 
-  #if(!is.null(position) & !position %in% colnames(dataset)){
-  #  stop("Error: This name used in position input is not in dataset, use POS in quotations")
-  #  }
-  #if(!dataset[dataset$Team %in% teams, ]){
-  # stop("Error: Make sure the team names are correct")}
-
   #columns are of correct type
   if(!is.numeric(dataset[[stats]])){
     stop("Error: stats must take in a numerical column")}
-  #if(!is.null(position) & !is.character(dataset[[position]])){
-  #  stop("Error: position must take in a categorical column")}
 
   #filter for Teams selected
   if(length(teams) != 0) {
