@@ -8,7 +8,6 @@ nba_scraper(
   season_year = 2018,
   season_type = "regular",
   port = 4445L,
-  sel_browser = "chrome",
   csv_path = NULL
 )
 }
@@ -19,8 +18,6 @@ nba_scraper(
 
 \item{port}{int with L suffix. Must not be negative.}
 
-\item{sel_browser}{string. Either "chrome" or "firefox".}
-
 \item{csv_path}{string for csv file. Defaults to NULL. If specified, must end with ".csv".}
 }
 \value{
@@ -29,22 +26,17 @@ A tibble of scraped ESPN NBA data
 \description{
 Scrape the tabular data from ESPN NBA website using RSelenium and returns a tibble
 of the data. Users can specify the seaason year and season type. User should also
-specify the port for Selenium driver, and the driver type. By default, the function
-will not write to csv until an input for "csv_path" is given.
+specify the port for Selenium driver. By default, the function will not write
+to csv until a string input for "csv_path" is given.
 }
 \examples{
-# Scrape regular season 2018/19 using "chrome" driver and
-# without saving to a csv file
-\dontrun{
-#' nba_scraper(2018, season_type = "regular",
-               port=4445L, sel_browser = "chrome")
-}
+# Scrape regular season 2018/19 without saving to a csv file
+nba_2018 <- nba_scraper(2018, season_type = "regular", port=4445L)
 
-# Scrape playoffs season 2017/18 using "firefox" driver while
-# saving to a local csv file.
-\dontrun{
-nba_scraper(2017, season_type = "postseason",
-            port=4445L, sel_browser = "firefox",
-            csv_path = "nba_2017_playoffs.csv")
-}
+
+# Scrape playoffs season 2017/18 while saving to a local csv file.
+nba_2017 <- nba_scraper(2017, season_type = "postseason",
+                        port=4445L,
+                        csv_path = "nba_2017_playoffs.csv")
+
 }

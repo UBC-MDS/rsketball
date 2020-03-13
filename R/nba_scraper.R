@@ -2,13 +2,12 @@
 #'
 #' Scrape the tabular data from ESPN NBA website using RSelenium and returns a tibble
 #' of the data. Users can specify the seaason year and season type. User should also
-#' specify the port for Selenium driver, and the driver type. By default, the function
-#' will not write to csv until an input for "csv_path" is given.
+#' specify the port for Selenium driver. By default, the function will not write
+#' to csv until a string input for "csv_path" is given.
 #'
 #' @param season_year int from 2001 to 2019 (upper limit based on latest year)
 #' @param season_type string. Either "regular" or "postseason"
 #' @param port int with L suffix. Must not be negative.
-#' @param sel_browser string. Either "chrome" or "firefox".
 #' @param csv_path string for csv file. Defaults to NULL. If specified, must end with ".csv".
 #'
 #' @export
@@ -21,21 +20,16 @@
 #' @return A tibble of scraped ESPN NBA data
 #'
 #' @examples
-#' # Scrape regular season 2018/19 using "chrome" driver and
-#' # without saving to a csv file
-#' \dontrun{
-#' #' nba_scraper(2018, season_type = "regular",
-#'                port=4445L, sel_browser = "chrome")
-#' }
+#' # Scrape regular season 2018/19 without saving to a csv file
+#' nba_2018 <- nba_scraper(2018, season_type = "regular", port=4445L)
 #'
-#' # Scrape playoffs season 2017/18 using "firefox" driver while
-#' # saving to a local csv file.
-#' \dontrun{
-#' nba_scraper(2017, season_type = "postseason",
-#'             port=4445L, sel_browser = "firefox",
-#'             csv_path = "nba_2017_playoffs.csv")
-#' }
-nba_scraper <- function(season_year = 2018, season_type = "regular", port=4445L, sel_browser = "chrome", csv_path = NULL) {
+#'
+#' # Scrape playoffs season 2017/18 while saving to a local csv file.
+#' nba_2017 <- nba_scraper(2017, season_type = "postseason",
+#'                         port=4445L,
+#'                         csv_path = "nba_2017_playoffs.csv")
+#'
+nba_scraper <- function(season_year = 2018, season_type = "regular", port=4445L, csv_path = NULL) {
 
   # Check season_year is integer
   if ((season_year - round(season_year)) != 0){
@@ -57,11 +51,6 @@ nba_scraper <- function(season_year = 2018, season_type = "regular", port=4445L,
     stop("'port' must be a positive integer ending with L suffix (eg 4445L)")
   }
 
-  # Check sel_browser must be either "chrome" or "firefox"
-  if ((sel_browser != "chrome") & (sel_browser != "firefox")) {
-    stop("'sel_browser' must be either 'chrome' or 'firefox'")
-  }
-
   # Check csv_path does not end with csv
   if (!is.null(csv_path)) {
     if (substr(csv_path, nchar(csv_path)-3, nchar(csv_path)) != ".csv"){
@@ -78,7 +67,7 @@ nba_scraper <- function(season_year = 2018, season_type = "regular", port=4445L,
   remDr <- RSelenium::remoteDriver(
     remoteServerAddr = "localhost",
     port = port,
-    browserName = sel_browser
+    browserName = "chrome"
   )
 
   # Print message

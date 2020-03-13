@@ -48,7 +48,7 @@ https://www.espn.com/nba/stats/player/_/season/2019/seasontype/2
 
 The `rsketball::nba_scraper` is based on Selenium (or specifically RSelenium) which enables automated web browsing through "drivers". __To use it, please ensure that `Docker` is installed.__
 
-For installation instructions, please follow the [guide to Docker installation based on your OS type](https://ubc-mds.github.io/resources_pages/installation_instructions/). Docker will be used to pull relevant images that when executed as containers, will serve as the "drivers" for Selenium. 
+For installation instructions, please follow the [guide to Docker installation based on your OS type](https://ubc-mds.github.io/resources_pages/installation_instructions/). Docker will be used to pull the relevant Chromedriver image that when executed as containers, will serve as the "driver" for Selenium. 
 
 The following steps are required only for the `nba_scraper` function. If you already have the scraped data file and wish to use the other functions (`nba_boxplot`, `nba_rank`, `nbastats`), there is no need to proceed with these steps.
 
@@ -76,11 +76,10 @@ Now that the container is running with the allocated memory and assigned port, w
 
 ```R
 library(rsketball)
-# Scrape postseason season 2017/18 using "chrome" driver while saving to a local csv file.
+# Scrape postseason season 2017/18 while saving to a local csv file.
 nba_2017_playoffs <- nba_scraper(season_year = 2017, 
                                  season_type = "postseason",
-                                 port=4445L, 
-                                 sel_browser = "chrome",
+                                 port=4445L,
                                  csv_path = "nba_2017_playoffs.csv")
 ```
 If everything was executed as intended, you should obtain a csv file called "nba_2017_playoffs.csv" containing the scraped data, and a tibble in your R environment named "nba_2017_playoffs". With the tibble, you can use the other `rsketball` functions for your analysis.

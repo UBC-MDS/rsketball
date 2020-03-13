@@ -51,8 +51,8 @@ use it, please ensure that `Docker` is installed.**
 For installation instructions, please follow the [guide to Docker
 installation based on your OS
 type](https://ubc-mds.github.io/resources_pages/installation_instructions/).
-Docker will be used to pull relevant images that when executed as
-containers, will serve as the “drivers” for Selenium.
+Docker will be used to pull the relevant Chromedriver image that when
+executed as containers, will serve as the “driver” for Selenium.
 
 The following steps are required only for the `nba_scraper` function. If
 you already have the scraped data file and wish to use the other
@@ -95,11 +95,10 @@ port, we can proceed with testing
 
 ``` r
 library(rsketball)
-# Scrape postseason season 2017/18 using "chrome" driver while saving to a local csv file.
+# Scrape postseason season 2017/18 while saving to a local csv file.
 nba_2017_playoffs <- nba_scraper(season_year = 2017, 
                                  season_type = "postseason",
-                                 port=4445L, 
-                                 sel_browser = "chrome",
+                                 port=4445L,
                                  csv_path = "nba_2017_playoffs.csv")
 ```
 
