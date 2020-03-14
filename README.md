@@ -1,4 +1,7 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+
+<img src="imgs/rsketball_logo.JPG" width="200" height="75" align = "right">
+
 rsketball
 =========
 
@@ -50,6 +53,7 @@ Functions
     descriptive (mean, median, 25%, and 75% quantiles) team statistics
     of NBA data. It also comes with added functionalities for player
     position grouping per team too.
+
 
 Installation
 ------------
