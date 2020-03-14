@@ -15,34 +15,39 @@
 #'
 #' @importFrom readr read_csv
 #' @import dplyr
+#' @importFrom tibble tibble
 #'
 #' @examples
-#' \donttest{
-#' nba_data = read_csv(
-#' "https://raw.githubusercontent.com/kfoofw/nba_espn/master/0.data/NBA_reg_2018-2019.csv"
-#' )
+#' nba_data <- tibble::tibble(NAME = c("James", "Steph", "Bosh", "Klay", "Kobe"),
+#'                           TEAM = c("MIA","MIA","MIA","GS","GS"),
+#'                           POS = c("SF", "PG", "C", "C", "PG"),
+#'                           PTS = c(5,4,3,2,10),
+#'                           TO = c(1,2,3,4,3))
+#'
 #' # Find descriptive stats for all teams without position
 #' nba_team_stats(nba_data)
 #'
-#' # Find specific stats (3PM, 3PA) for specific teams (GS, HOU) for specific positions (PG, C)
-#' nba_team_stats(nba_data, stats_filter = c("3PM","3PA"), teams_filter = c("GSW","HOU"), positions_filter = c("C","PG"))
+#' # Find specific stats (PTS, TO) for specific teams (GS, MIA) for specific positions (PG, C)
+#' nba_team_stats(nba_data, stats_filter = c("PTS","TO"),
+#'                teams_filter = c("GS","MIA"), positions_filter = c("C","PG"))
 #'
-#' # Find specific stats (3PM, 3PA) for specific teams (GS, HOU) without positions_filter inputs
-#' nba_team_stats(nba_data, stats_filter = c("3PM","3PA"), teams_filter = c("GS","HOU"))
+#' # Find specific stats (PTS, TO) for specific teams (GS) without positions_filter inputs
+#' nba_team_stats(nba_data, stats_filter = c("PTS","TO"), teams_filter = c("GS"))
 #'
-#' # Find specific stats (3PM, 3PA) for all teams (unspecified) for specific positions (PG, C)
-#' nba_team_stats(nba_data, stats_filter = c("3PM","3PA"), positions_filter = c("C","PG"))
-#' }
+#' # Find specific stats (PTS, TO) for all individual teams (unspecified)
+#' # for specific positions (PG, C)
+#' nba_team_stats(nba_data, stats_filter = c("PTS","TO"), positions_filter = c("PG"))
+#
 nba_team_stats <- function(nba_data, stats_filter = c(), teams_filter = c(), positions_filter = c()) {
 
   # Test inputs
   if (!is.data.frame(nba_data)) {
-    stop('Data is not in correct format. A dataframe was expected by the function')
+    stop('Data is not in correct format. A dataframe/tibble was expected by the function')
   }
 
   # Filter data on teams
   if (length(teams_filter) != 0) {
-    nba_data <- nba_data[nba_data$Team %in% teams_filter, ]
+    nba_data <- nba_data[nba_data$TEAM %in% teams_filter, ]
   }
   # Filter data on positions
   if (length(positions_filter) != 0) {
@@ -51,7 +56,7 @@ nba_team_stats <- function(nba_data, stats_filter = c(), teams_filter = c(), pos
 
   # Select stats to include
   if (length(stats_filter) != 0) {
-    filtered_columns <- c('Team', 'POS', stats_filter)
+    filtered_columns <- c('TEAM', 'POS', stats_filter)
     nba_data <- nba_data[filtered_columns]
   }
   # If all inputs (stats, teams, and positions) are NULL, show all
@@ -62,7 +67,7 @@ nba_team_stats <- function(nba_data, stats_filter = c(), teams_filter = c(), pos
   # If position is null, only group_by Teams
   if (is.null(positions_filter)) {
     nba_summary <-
-      nba_data %>% group_by(Team) %>% # Note Team grouping only
+      nba_data %>% group_by(TEAM) %>% # Note Team grouping only
       summarise_if(.predicate = function(x) is.numeric(x),
                    list(~ mean(., na.rm = TRUE, trim = .2),
                         ~ median(., na.rm = TRUE),
@@ -72,7 +77,7 @@ nba_team_stats <- function(nba_data, stats_filter = c(), teams_filter = c(), pos
   # If position is not null, group_by Teams and Specified positions
   else {
     nba_summary <-
-      nba_data %>% group_by(Team, POS) %>% # Difference in grouping here
+      nba_data %>% group_by(TEAM, POS) %>% # Difference in grouping here
       summarise_if(.predicate = function(x) is.numeric(x),
                    list(~ mean(., na.rm = TRUE, trim = .2),
                         ~ median(., na.rm = TRUE),

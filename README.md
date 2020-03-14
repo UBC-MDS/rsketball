@@ -38,21 +38,25 @@ Functions
 
 `nba_boxplot`
 
--   Creates a boxplot of the categorical variable of interest on the
-    y-axis and the stat of interest on the x-axis.
+-   Creates a boxplot of the categorical variable of interest (TEAM or
+    POS) on the y-axis and the numerical statistic of interest on the
+    x-axis.
 
 `nba_ranking`
 
--   Generates a ranking and a visualization based on a column of a
-    dataset
+-   Generates a ranking visualization based on the numerical statistic
+    of interest column of a dataset.
 
 `nba_team_stats`
 
 -   Generate summary stats for NBA players. The function provides
     descriptive (mean, median, 25%, and 75% quantiles) team statistics
-    of NBA data.
+    of NBA data. It also comes with added functionalities for player
+    position grouping per team too.
 
-### Installation
+
+Installation
+------------
 
 `rsketball` is still in project development. We estimate that by end
 March 2020, one can install the released version of `rsketball` from
@@ -89,10 +93,10 @@ you already have the scraped data file and wish to use the other
 functions (`nba_boxplot`, `nba_rank`, `nbastats`), there is no need to
 proceed with these steps.
 
-**Step 1 (Command line/Terminal): Preparation Step (Docker container)**
+**Step 1 (Command line/Terminal): Preparation of Docker container**
 
-Pull docker image with the following code in Terminal. We will stick to
-Chrome since it seems compatible with Windows while Firefox is not.
+Pull the docker image with the following code in Terminal. We will stick
+to Chrome since it seems compatible with Windows while Firefox is not.
 
 ``` sh
 docker pull selenium/standalone-chrome
@@ -102,8 +106,8 @@ docker pull selenium/standalone-chrome
 
 We need to set up the Docker container default port 4444 to our computer
 host port 4445. Keep this port number as inputs for the `nba_scraper`
-function. We will also allocate the virtual memory of the container to
-2Gb for it to scrape effectively.
+function. We will also allocate 2GB of virtual memory for the container
+to scrape effectively.
 
 Run the following code in Terminal:
 

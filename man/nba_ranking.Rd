@@ -4,20 +4,23 @@
 \alias{nba_ranking}
 \title{Generates a ranking and a visualization based on a column of a dataset}
 \usage{
-nba_ranking(data, column, by, top, descending = TRUE, FUN)
+nba_ranking(nba_data, column, by, top = 5, descending = TRUE, FUN = mean)
 }
 \arguments{
-\item{data}{The dataframe to make the ranking from}
+\item{nba_data}{The tibble dataframe from the scraped nba data}
 
-\item{column}{The column from the dataset to rank}
+\item{column}{The categorical column from the dataset to rank. Should be either "NAME", "TEAM" or "POS"}
 
-\item{by}{The column from the dataset to rank by}
+\item{by}{The column from the dataset to rank by. Should be the statistic numerical column of interest.
+If the column starts with a number (eg 3PA) or has a \% character (eg FT\%), format it with backticks "`".
+Refer to vignette for more examples on this.}
 
-\item{top}{The number of elements in the ranking}
+\item{top}{The number of elements in the ranking. Defaults to 5.}
 
-\item{descending}{Boolean variable for the order of the ranking. TRUE if descending, FALSE otherwise.}
+\item{descending}{Boolean variable for the order of the ranking. TRUE if descending, FALSE otherwise.
+Defaults to True.}
 
-\item{FUN}{function to apply to the values}
+\item{FUN}{function to apply to the values. Defaults to the Mean function.}
 }
 \value{
 ggplot visualization with the ranking
@@ -27,5 +30,25 @@ This function generates creates a ranking of a variable `column` summarizing by 
 a visualization with that information.
 }
 \examples{
-nba_ranking(data.frame(ranked = c("1", "2", "3"), by = c(3, 2, 1)), ranked, by, 2, TRUE, mean)
+nba_data <- tibble::tibble(NAME = c("James", "Steph", "Bosh", "Klay", "Kobe"),
+                           TEAM = c("MIA","GS","MIA","GS","LAL"),
+                           POS = c("SF", "PG", "C", "SG", "SG"),
+                           PTS = c(5,4,3,2,10),
+                           TO = c(1,2,3,4,3))
+
+# Find top 3 players for points (PTS) where higher is better
+nba_ranking(nba_data,
+            column = NAME,
+            by = PTS,
+            top = 3,
+            descending = TRUE,
+            FUN = mean)
+
+#' # Find top 2 teams for turnover (TO) where lower is better
+nba_ranking(nba_data,
+            column = TEAM,
+            by = TO,
+            top = 2,
+            descending = FALSE,
+            FUN = mean)
 }
