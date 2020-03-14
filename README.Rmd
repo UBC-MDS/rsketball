@@ -129,14 +129,10 @@ Once the Docker steps are setup with the relevant container running as mentioned
 
 ### `nba_scraper()`
 
-```{r, include = FALSE, message = FALSE}
-devtools::load_all()
-```
 
 To load the package:
-```{r, message = FALSE, eval = FALSE}
+```{r, message = FALSE, eval = TRUE}
 library(rsketball)
-library(RSelenium)
 ```
 
 `nba_scraper()` will help you create the dataframe of the NBA season of interest to conduct further analysis using the functions below. The following examples is for scraping the playoffs (postseason) season in 2017/18 while saving to a local csv file.
@@ -208,6 +204,8 @@ nba_team_stats(nba_data,
 ```
 
 For a more detailed understanding of the functions and their use cases, please refer to the [package vignette](https://github.com/UBC-MDS/rsketball/tree/master/vignettes).
+
+For more context on the column names of the scraped data set, please refer to the [dataset description file](https://github.com/UBC-MDS/rsketball/blob/master/dataset_description.md). This will help the user better understand what columns are included in the scraped data, as well as they mean.
 
 ## Testing
 

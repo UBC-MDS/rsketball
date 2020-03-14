@@ -20,9 +20,14 @@ statistical analysis for your interest (such as boxplots, player
 rankings by stats, and a summary statistics table).
 
 An example of the ESPN NBA 2018/19 Regular season player stats can be
-found in the following url:
+found in this [EPSN NBA
+url](https://www.espn.com/nba/stats/player/_/season/2019/seasontype/2)
 
-<a href="https://www.espn.com/nba/stats/player/_/season/2019/seasontype/2" class="uri">https://www.espn.com/nba/stats/player/_/season/2019/seasontype/2</a>
+This project is proudly created by: - [Carlina
+Kim](https://github.com/carlinakim) - [Andres
+Pitta](https://github.com/AndresPitta) - [V Anand
+Shankar](https://github.com/vanandsh) - [Kenneth
+Foo](https://github.com/kfoofw)
 
 Functions
 ---------
@@ -51,6 +56,10 @@ Functions
     of NBA data. It also comes with added functionalities for player
     position grouping per team too.
 
+For a more detailed understanding of the functions and their use cases,
+please refer to the [package
+vignette](https://github.com/UBC-MDS/rsketball/tree/master/vignettes).
+
 Installation
 ------------
 
@@ -71,8 +80,8 @@ install.packages("devtools")
 devtools::install_github("UBC-MDS/rsketball")
 ```
 
-Preparation Usage for Scraping with `nba_scraper()`
----------------------------------------------------
+Required Preparation for Scraping with `nba_scraper()`
+------------------------------------------------------
 
 The `rsketball::nba_scraper` is based on Selenium (or specifically
 RSelenium) which enables automated web browsing through “drivers”. **To
@@ -154,6 +163,126 @@ where “<image_id>” represents the id of your Docker image.
 docker image rm <image_id>
 ```
 
+Usage Examples
+--------------
+
+Once the Docker steps are setup with the relevant container running as
+mentioned in the Preparation steps above, you can start up R.
+
+### `nba_scraper()`
+
+To load the package:
+
+``` r
+library(rsketball)
+```
+
+`nba_scraper()` will help you create the dataframe of the NBA season of
+interest to conduct further analysis using the functions below. The
+following examples is for scraping the playoffs (postseason) season in
+2017/18 while saving to a local csv file.
+
+``` r
+nba_2017 <- nba_scraper(2017, season_type = "postseason",
+                        port=4445L,
+                        csv_path = "nba_2017_playoffs.csv")
+```
+
+For the illustration of the other functions, let’s create a toy dataset
+with similar properties as the scraped data from ESPN NBA.
+
+``` r
+nba_data <- tibble::tibble(NAME = c("James", "Steph", "Bosh", "Klay", "Kobe"),
+                    TEAM = c("MIA","GS","MIA","GS","LAL"),
+                    POS = c("SF", "PG", "C", "SG", "SG"),
+                    PTS = c(5,4,3,2,10),
+                    TO = c(1,2,3,4,3),
+                    `3PA` = c(10, 20, 30, 40, 50),
+                    `FT%` = c(50, 60, 70, 80, 90))
+```
+
+### `nba_boxplot()`
+
+To further analyze how different teams and positions affect different
+scoring statistics, you can use `nba_boxplot()`.
+
+To look at the distribution of Free Throws Percentage or ‘FT%’ (which is
+a numerical column) for specific teams (must pass in a list).
+
+**Important:** Since the column id starts with a number 3, we must
+ensure that the input for stats\_column is formatted with backticks as
+shown:
+
+``` r
+nba_boxplot(nba_data, 
+            team_or_position= "team", 
+            grouping_list = c("MIA", "GS"), 
+            stats_column = `FT%`) # Formatted with backticks.
+```
+
+![](README-unnamed-chunk-6-1.png)
+
+### `nba_ranking()`
+
+The `nba_ranking()` function creates a visualization showing the
+rankings of a category with a statistic of interest.
+
+In the this example, we rank the top 3 players (NAME) based on their
+number of Three Points Attempts (3PA) made in a descending order.
+
+**Important:** Since the column id starts with a number 3, we must
+ensure that the input for stats\_column is formatted with backticks as
+shown:
+
+``` r
+# Find top 3 players for 3 Point Attempts (3PA) where higher is better
+nba_ranking(nba_data,
+            column = NAME,
+            by = `3PA`, # Formatted with backticks.
+            top = 3,
+            descending = TRUE,
+            FUN = mean)
+```
+
+![](README-unnamed-chunk-7-1.png)
+
+### `nba_team_stats()`
+
+The `nba_team_stats()` function finds statistics of mean, median, 25%,
+and 75% quantiles. This function is primarily focused on team, and
+allows for further grouping by player position per team.
+
+In this example, we obtain the descriptive statistics of relevant
+numeric columns (PTS and TO) for specific teams (GS and LAL) with added
+grouping of their player positions (C and PG).
+
+``` r
+# Find specific stats (PTS, TO) for specific teams (GS, LAL) for specific positions (PG, SG)
+nba_team_stats(nba_data, 
+               stats_filter = c("PTS","TO"),
+               teams_filter = c("GS","LAL"), 
+               positions_filter = c("SG","PG"))
+#> # A tibble: 3 x 10
+#> # Groups:   TEAM [2]
+#>   TEAM  POS   PTS_mean TO_mean PTS_median TO_median PTS_quantile_25
+#>   <chr> <chr>    <dbl>   <dbl>      <dbl>     <dbl>           <dbl>
+#> 1 GS    PG           4       2          4         2               4
+#> 2 GS    SG           2       4          2         4               2
+#> 3 LAL   SG          10       3         10         3              10
+#> # … with 3 more variables: TO_quantile_25 <dbl>, PTS_quantile_75 <dbl>,
+#> #   TO_quantile_75 <dbl>
+```
+
+For a more detailed understanding of the functions and their use cases,
+please refer to the [package
+vignette](https://github.com/UBC-MDS/rsketball/tree/master/vignettes).
+
+For more context on the column names of the scraped data set, please
+refer to the [dataset description
+file](https://github.com/UBC-MDS/rsketball/blob/master/dataset_description.md).
+This will help the user better understand what columns are included in
+the scraped data, as well as they mean.
+
 Testing
 -------
 
@@ -171,78 +300,3 @@ currently some other library packages such as
 that take data from other sources (NBA Stats API, Basketball Insiders,
 Basketball-Reference, HoopsHype, and RealGM), but no package that we
 currently know of takes data from ESPN NBA specifically.
-
-Examples
---------
-
-To load the package:
-
-``` r
-library(rsketball)
-load_all()
-```
-
-### `nba_scraper`
-
-nba\_scraper() will help you create the dataframe of the NBA season of
-interest to conduct further analysis using the functions below. An
-example of how to use this function:
-
-Scrape regular season 2018/19 without saving to a csv file
-
-``` r
-nba_2018 <- nba_scraper(2018, season_type = "regular", port=4445L)
-```
-
-Scrape playoffs season 2017/18 while saving to a local csv file.
-
-``` r
-nba_2017 <- nba_scraper(2017, season_type = "postseason",
-                        port=4445L,
-                        csv_path = "nba_2017_playoffs.csv")
-```
-
-### `nba_boxplot`
-
-To further analyze how different teams and positions affect different
-scoring statistics, you can use nba\_boxplot().
-
-To look at the distribution of games played or ‘GP’, (numerical column)
-for different positions or ‘POS’ (categorical column).
-
-``` r
-nba_boxplot(nba_2018, position= "POS", teams= NULL, stats= "GP")
-```
-
-To look at the distribution of games played or ‘GP’, (numerical column)
-for different teams (must pass in a list).
-
-``` r
-nba_boxplot(nba_2018, position= NULL, teams= ("UTAH", "LAC", "MIN", "BOS"), stats= "GP")
-```
-
-\#\#\#`nba_ranking`
-
-The nba\_ranking() function creates a visualization showing the rankings
-of a category with a stats of interest. You can change from ascending or
-descening order and choose the stats to compare it with (ex mean)
-
-``` r
-nba_ranking(data.frame(teams = c("UTAH", "LAC", "MIN", "BOS"), by = c(3, 2, 1)), teams, by, 2, TRUE, mean)
-```
-
-\#\#\#`nba_team_stats`
-
-This function finds statistics of mean, median, 25%, and 75% quantiles.
-You find these stats for all teams without position
-
-``` r
-nba_team_stats(nba_data)
-```
-
-Or you can sind specific columns you want the stats for (3PM, 3PA) for
-specific teams (GS, HOU) for specific positions (PG, C).
-
-``` r
-nba_team_stats(nba_data, stats_filter = c("3PM","3PA"), teams_filter = c("GSW","HOU"), positions_filter = c("C","PG"))
-```

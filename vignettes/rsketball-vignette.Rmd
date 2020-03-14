@@ -113,10 +113,7 @@ docker image rm <image_id>
 
 To load the package:
 ```{r, message=FALSE}
-devtools::load_all()
-library(RSelenium)
-library(rvest)
-library(tidyr)
+library(rsketball)
 ```
 
 ### `nba_scraper`
