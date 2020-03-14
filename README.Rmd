@@ -14,6 +14,8 @@ knitr::opts_chunk$set(
 )
 ```
 
+<img src="imgs/rsketball_logo.JPG" width="200" height="75" align = "right">
+
 # rsketball
 
   <!-- badges: start -->
@@ -128,7 +130,6 @@ docker image rm <image_id>
 Once the Docker steps are setup with the relevant container running as mentioned in the Preparation steps above, you can start up R.
 
 ### `nba_scraper()`
-
 
 To load the package:
 ```{r, message = FALSE, eval = TRUE}

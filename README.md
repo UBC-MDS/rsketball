@@ -1,4 +1,7 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+
+<img src="imgs/rsketball_logo.JPG" width="200" height="75" align = "right">
+
 rsketball
 =========
 
@@ -56,9 +59,12 @@ Functions
     of NBA data. It also comes with added functionalities for player
     position grouping per team too.
 
+<<<<<<< HEAD
 For a more detailed understanding of the functions and their use cases,
 please refer to the [package
 vignette](https://github.com/UBC-MDS/rsketball/tree/master/vignettes).
+=======
+>>>>>>> 3165f41d3d7c951efde801667858cf68fa3fed8c
 
 Installation
 ------------
