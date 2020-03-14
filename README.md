@@ -60,7 +60,7 @@ Functions
 
 For a more detailed understanding of the functions and their use cases,
 please refer to the [package
-vignette](https://github.com/UBC-MDS/rsketball/tree/master/vignettes).
+vignette](https://ubc-mds.github.io/rsketball/articles/rsketball-vignette.html).
 
 Installation
 ------------
@@ -277,7 +277,7 @@ nba_team_stats(nba_data,
 
 For a more detailed understanding of the functions and their use cases,
 please refer to the [package
-vignette](https://github.com/UBC-MDS/rsketball/tree/master/vignettes).
+vignette](https://ubc-mds.github.io/rsketball/articles/rsketball-vignette.html).
 
 For more context on the column names of the scraped data set, please
 refer to the [dataset description
