@@ -57,7 +57,7 @@ This project is proudly created by:
   * Generate summary stats for NBA players. The function provides descriptive (mean, median, 25%, and 75% quantiles) team statistics of NBA data. It also comes with added functionalities for player position grouping per team too.
 
 
-For a more detailed understanding of the functions and their use cases, please refer to the [package vignette](https://github.com/UBC-MDS/rsketball/tree/master/vignettes).
+For a more detailed understanding of the functions and their use cases, please refer to the [package vignette](https://ubc-mds.github.io/rsketball/articles/rsketball-vignette.html).
 
 
 ## Installation
@@ -206,7 +206,7 @@ nba_team_stats(nba_data,
                positions_filter = c("SG","PG"))
 ```
 
-For a more detailed understanding of the functions and their use cases, please refer to the [package vignette](https://github.com/UBC-MDS/rsketball/tree/master/vignettes).
+For a more detailed understanding of the functions and their use cases, please refer to the [package vignette](https://ubc-mds.github.io/rsketball/articles/rsketball-vignette.html).
 
 For more context on the column names of the scraped data set, please refer to the [dataset description file](https://github.com/UBC-MDS/rsketball/blob/master/dataset_description.md). This will help the user better understand what columns are included in the scraped data, as well as they mean.
 

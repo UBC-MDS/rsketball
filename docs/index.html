@@ -78,6 +78,8 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
+
+<p><img src="imgs/rsketball_logo.JPG" width="200" height="75" align="right"></p>
 <div id="rsketball" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#rsketball" class="anchor"></a>rsketball</h1></div>
@@ -162,8 +164,7 @@
 <a href="#nba_scraper" class="anchor"></a><code>nba_scraper()</code>
 </h3>
 <p>To load the package:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(rsketball)</a>
-<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(RSelenium)</a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(rsketball)</a></code></pre></div>
 <p><code><a href="reference/nba_scraper.html">nba_scraper()</a></code> will help you create the dataframe of the NBA season of interest to conduct further analysis using the functions below. The following examples is for scraping the playoffs (postseason) season in 2017/18 while saving to a local csv file.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">nba_<span class="dv">2017</span> &lt;-<span class="st"> </span><span class="kw"><a href="reference/nba_scraper.html">nba_scraper</a></span>(<span class="dv">2017</span>, <span class="dt">season_type =</span> <span class="st">"postseason"</span>,</a>
 <a class="sourceLine" id="cb10-2" data-line-number="2">                        <span class="dt">port=</span>4445L,</a>
@@ -188,7 +189,7 @@
 <a class="sourceLine" id="cb12-2" data-line-number="2">            <span class="dt">team_or_position=</span> <span class="st">"team"</span>, </a>
 <a class="sourceLine" id="cb12-3" data-line-number="3">            <span class="dt">grouping_list =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"MIA"</span>, <span class="st">"GS"</span>), </a>
 <a class="sourceLine" id="cb12-4" data-line-number="4">            <span class="dt">stats_column =</span> <span class="st">`</span><span class="dt">FT%</span><span class="st">`</span>) <span class="co"># Formatted with backticks.</span></a></code></pre></div>
-<p><img src="README-unnamed-chunk-7-1.png"></p>
+<p><img src="README-unnamed-chunk-6-1.png"></p>
 </div>
 <div id="nba_ranking" class="section level3">
 <h3 class="hasAnchor">
@@ -204,7 +205,7 @@
 <a class="sourceLine" id="cb13-5" data-line-number="5">            <span class="dt">top =</span> <span class="dv">3</span>,</a>
 <a class="sourceLine" id="cb13-6" data-line-number="6">            <span class="dt">descending =</span> <span class="ot">TRUE</span>,</a>
 <a class="sourceLine" id="cb13-7" data-line-number="7">            <span class="dt">FUN =</span> mean)</a></code></pre></div>
-<p><img src="README-unnamed-chunk-8-1.png"></p>
+<p><img src="README-unnamed-chunk-7-1.png"></p>
 </div>
 <div id="nba_team_stats" class="section level3">
 <h3 class="hasAnchor">
@@ -227,6 +228,7 @@
 <a class="sourceLine" id="cb14-13" data-line-number="13"><span class="co">#&gt; # … with 3 more variables: TO_quantile_25 &lt;dbl&gt;, PTS_quantile_75 &lt;dbl&gt;,</span></a>
 <a class="sourceLine" id="cb14-14" data-line-number="14"><span class="co">#&gt; #   TO_quantile_75 &lt;dbl&gt;</span></a></code></pre></div>
 <p>For a more detailed understanding of the functions and their use cases, please refer to the <a href="https://github.com/UBC-MDS/rsketball/tree/master/vignettes">package vignette</a>.</p>
+<p>For more context on the column names of the scraped data set, please refer to the <a href="https://github.com/UBC-MDS/rsketball/blob/master/dataset_description.md">dataset description file</a>. This will help the user better understand what columns are included in the scraped data, as well as they mean.</p>
 </div>
 </div>
 <div id="testing" class="section level2">
@@ -240,6 +242,7 @@
 <p>This <code>rsketball</code> package aims to further gain understanding of ESPN NBA data and does not have a specific fit to the R ecosystem. There are currently some other library packages such as <a href="https://www.rdocumentation.org/packages/nbastatR/versions/0.1.10131"><code>nbastatR</code></a> that take data from other sources (NBA Stats API, Basketball Insiders, Basketball-Reference, HoopsHype, and RealGM), but no package that we currently know of takes data from ESPN NBA specifically.</p>
 </div>
 </div>
+
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
