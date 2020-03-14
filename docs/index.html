@@ -83,12 +83,13 @@
 <a href="#rsketball" class="anchor"></a>rsketball</h1></div>
 <!-- badges: start -->
 
+<p><a href="https://codecov.io/gh/UBC-MDS/rsketball"><img src="https://codecov.io/gh/UBC-MDS/rsketball/branch/master/graph/badge.svg" alt="codecov"></a> <!-- badges: end --></p>
 <div id="analysis-of-nba-players-from-200102-to-201819-seasons-using-espn-nba" class="section level2">
 <h2 class="hasAnchor">
 <a href="#analysis-of-nba-players-from-200102-to-201819-seasons-using-espn-nba" class="anchor"></a>Analysis of NBA players from 2001/02 to 2018/19 seasons using ESPN NBA</h2>
 <p>This package is designated for all NBA enthusiasts! The <code>rsketball</code> package works to scrape online tabular data from the ESPN NBA website into a csv file. It also includes various functions to create graphs and statistical analysis for your interest (such as boxplots, player rankings by stats, and a summary statistics table).</p>
-<p>An example of the ESPN NBA 2018/19 Regular season player stats can be found in the following url:</p>
-<p><a href="https://www.espn.com/nba/stats/player/_/season/2019/seasontype/2" class="uri">https://www.espn.com/nba/stats/player/_/season/2019/seasontype/2</a></p>
+<p>An example of the ESPN NBA 2018/19 Regular season player stats can be found in this <a href="https://www.espn.com/nba/stats/player/_/season/2019/seasontype/2">EPSN NBA url</a></p>
+<p>This project is proudly created by: - <a href="https://github.com/carlinakim">Carlina Kim</a> - <a href="https://github.com/AndresPitta">Andres Pitta</a> - <a href="https://github.com/vanandsh">V Anand Shankar</a> - <a href="https://github.com/kfoofw">Kenneth Foo</a></p>
 </div>
 <div id="functions" class="section level2">
 <h2 class="hasAnchor">
@@ -99,57 +100,134 @@
 </ul>
 <p><code>nba_boxplot</code></p>
 <ul>
-<li>Creates a boxplot of the categorical variable of interest on the y-axis and the stat of interest on the x-axis.</li>
+<li>Creates a boxplot of the categorical variable of interest (TEAM or POS) on the y-axis and the numerical statistic of interest on the x-axis.</li>
 </ul>
 <p><code>nba_ranking</code></p>
 <ul>
-<li>Generates a ranking and a visualization based on a column of a dataset</li>
+<li>Generates a ranking visualization based on the numerical statistic of interest column of a dataset.</li>
 </ul>
 <p><code>nba_team_stats</code></p>
 <ul>
-<li>Generate summary stats for NBA players. The function provides descriptive (mean, median, 25%, and 75% quantiles) team statistics of NBA data.</li>
+<li>Generate summary stats for NBA players. The function provides descriptive (mean, median, 25%, and 75% quantiles) team statistics of NBA data. It also comes with added functionalities for player position grouping per team too.</li>
 </ul>
-<div id="installation" class="section level3">
-<h3 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h3>
+<p>For a more detailed understanding of the functions and their use cases, please refer to the <a href="https://github.com/UBC-MDS/rsketball/tree/master/vignettes">package vignette</a>.</p>
+</div>
+<div id="installation" class="section level2">
+<h2 class="hasAnchor">
+<a href="#installation" class="anchor"></a>Installation</h2>
 <p><code>rsketball</code> is still in project development. We estimate that by end March 2020, one can install the released version of <code>rsketball</code> from <a href="https://cran.r-project.org/">CRAN</a>.</p>
 <p>Package installation in R:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"rsketball"</span>)</code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"rsketball"</span>)</a></code></pre></div>
 <p>And the development version from <a href="https://github.com/">Github</a> with:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"devtools"</span>)
-devtools<span class="op">::</span><span class="kw"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">"UBC-MDS/rsketball"</span>)</code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"devtools"</span>)</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">devtools<span class="op">::</span><span class="kw"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">"UBC-MDS/rsketball"</span>)</a></code></pre></div>
 </div>
-</div>
-<div id="preparation-usage-for-scraping-with-nba_scraper" class="section level2">
+<div id="required-preparation-for-scraping-with-nba_scraper" class="section level2">
 <h2 class="hasAnchor">
-<a href="#preparation-usage-for-scraping-with-nba_scraper" class="anchor"></a>Preparation Usage for Scraping with <code>nba_scraper()</code>
+<a href="#required-preparation-for-scraping-with-nba_scraper" class="anchor"></a>Required Preparation for Scraping with <code>nba_scraper()</code>
 </h2>
 <p>The <code><a href="reference/nba_scraper.html">rsketball::nba_scraper</a></code> is based on Selenium (or specifically RSelenium) which enables automated web browsing through “drivers”. <strong>To use it, please ensure that <code>Docker</code> is installed.</strong></p>
 <p>For installation instructions, please follow the <a href="https://ubc-mds.github.io/resources_pages/installation_instructions/">guide to Docker installation based on your OS type</a>. Docker will be used to pull the relevant Chromedriver image that when executed as containers, will serve as the “driver” for Selenium.</p>
 <p>The following steps are required only for the <code>nba_scraper</code> function. If you already have the scraped data file and wish to use the other functions (<code>nba_boxplot</code>, <code>nba_rank</code>, <code>nbastats</code>), there is no need to proceed with these steps.</p>
-<p><strong>Step 1 (Command line/Terminal): Preparation Step (Docker container)</strong></p>
-<p>Pull docker image with the following code in Terminal. We will stick to Chrome since it seems compatible with Windows while Firefox is not.</p>
-<div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash"><span class="ex">docker</span> pull selenium/standalone-chrome</code></pre></div>
+<p><strong>Step 1 (Command line/Terminal): Preparation of Docker container</strong></p>
+<p>Pull the docker image with the following code in Terminal. We will stick to Chrome since it seems compatible with Windows while Firefox is not.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="ex">docker</span> pull selenium/standalone-chrome</a></code></pre></div>
 <p><strong>Critical step about setting ports and memory allocation:</strong></p>
-<p>We need to set up the Docker container default port 4444 to our computer host port 4445. Keep this port number as inputs for the <code>nba_scraper</code> function. We will also allocate the virtual memory of the container to 2Gb for it to scrape effectively.</p>
+<p>We need to set up the Docker container default port 4444 to our computer host port 4445. Keep this port number as inputs for the <code>nba_scraper</code> function. We will also allocate 2GB of virtual memory for the container to scrape effectively.</p>
 <p>Run the following code in Terminal:</p>
-<div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash"><span class="ex">docker</span> run -d -p 4445:4444 --shm-size 2g selenium/standalone-chrome</code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="ex">docker</span> run -d -p 4445:4444 --shm-size 2g selenium/standalone-chrome</a></code></pre></div>
 <p>Verify that the docker container is in operation by running the following code in Terminal:</p>
-<div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash"><span class="ex">docker</span> ps </code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="ex">docker</span> ps </a></code></pre></div>
 <p><strong>Step 2 (R/RStudio): Scraping with <code>nba_scraper</code></strong></p>
 <p>Now that the container is running with the allocated memory and assigned port, we can proceed with testing</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(rsketball)
-<span class="co"># Scrape postseason season 2017/18 while saving to a local csv file.</span>
-nba_2017_playoffs &lt;-<span class="st"> </span><span class="kw"><a href="reference/nba_scraper.html">nba_scraper</a></span>(<span class="dt">season_year =</span> <span class="dv">2017</span>, 
-                                 <span class="dt">season_type =</span> <span class="st">"postseason"</span>,
-                                 <span class="dt">port=</span>4445L,
-                                 <span class="dt">csv_path =</span> <span class="st">"nba_2017_playoffs.csv"</span>)</code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(rsketball)</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="co"># Scrape postseason season 2017/18 while saving to a local csv file.</span></a>
+<a class="sourceLine" id="cb6-3" data-line-number="3">nba_<span class="dv">2017</span>_playoffs &lt;-<span class="st"> </span><span class="kw"><a href="reference/nba_scraper.html">nba_scraper</a></span>(<span class="dt">season_year =</span> <span class="dv">2017</span>, </a>
+<a class="sourceLine" id="cb6-4" data-line-number="4">                                 <span class="dt">season_type =</span> <span class="st">"postseason"</span>,</a>
+<a class="sourceLine" id="cb6-5" data-line-number="5">                                 <span class="dt">port=</span>4445L,</a>
+<a class="sourceLine" id="cb6-6" data-line-number="6">                                 <span class="dt">csv_path =</span> <span class="st">"nba_2017_playoffs.csv"</span>)</a></code></pre></div>
 <p>If everything was executed as intended, you should obtain a csv file called “nba_2017_playoffs.csv” containing the scraped data, and a tibble in your R environment named “nba_2017_playoffs”. With the tibble, you can use the other <code>rsketball</code> functions for your analysis.</p>
 <p><strong>Step 3 (Command line/Terminal): Termination of Docker Container</strong></p>
 <p>After test scraping is completed, we can shut down the Docker Container instance. This will also ensure that your computer memory/resources are restored.</p>
-<div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash"><span class="ex">docker</span> stop <span class="va">$(</span><span class="ex">docker</span> ps -q<span class="va">)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="ex">docker</span> stop <span class="va">$(</span><span class="ex">docker</span> ps -q<span class="va">)</span></a></code></pre></div>
 <p>If you wish to, you can also remove the Docker image from your computer, where “<image_id>” represents the id of your Docker image.</image_id></p>
-<div class="sourceCode"><pre class="sourceCode sh"><code class="sourceCode bash"><span class="ex">docker</span> image rm <span class="op">&lt;</span>image_id<span class="op">&gt;</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode sh"><code class="sourceCode bash"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="ex">docker</span> image rm <span class="op">&lt;</span>image_id<span class="op">&gt;</span></a></code></pre></div>
+</div>
+<div id="usage-examples" class="section level2">
+<h2 class="hasAnchor">
+<a href="#usage-examples" class="anchor"></a>Usage Examples</h2>
+<p>Once the Docker steps are setup with the relevant container running as mentioned in the Preparation steps above, you can start up R.</p>
+<div id="nba_scraper" class="section level3">
+<h3 class="hasAnchor">
+<a href="#nba_scraper" class="anchor"></a><code>nba_scraper()</code>
+</h3>
+<p>To load the package:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(rsketball)</a>
+<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(RSelenium)</a></code></pre></div>
+<p><code><a href="reference/nba_scraper.html">nba_scraper()</a></code> will help you create the dataframe of the NBA season of interest to conduct further analysis using the functions below. The following examples is for scraping the playoffs (postseason) season in 2017/18 while saving to a local csv file.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">nba_<span class="dv">2017</span> &lt;-<span class="st"> </span><span class="kw"><a href="reference/nba_scraper.html">nba_scraper</a></span>(<span class="dv">2017</span>, <span class="dt">season_type =</span> <span class="st">"postseason"</span>,</a>
+<a class="sourceLine" id="cb10-2" data-line-number="2">                        <span class="dt">port=</span>4445L,</a>
+<a class="sourceLine" id="cb10-3" data-line-number="3">                        <span class="dt">csv_path =</span> <span class="st">"nba_2017_playoffs.csv"</span>)</a></code></pre></div>
+<p>For the illustration of the other functions, let’s create a toy dataset with similar properties as the scraped data from ESPN NBA.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">nba_data &lt;-<span class="st"> </span>tibble<span class="op">::</span><span class="kw"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(<span class="dt">NAME =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"James"</span>, <span class="st">"Steph"</span>, <span class="st">"Bosh"</span>, <span class="st">"Klay"</span>, <span class="st">"Kobe"</span>),</a>
+<a class="sourceLine" id="cb11-2" data-line-number="2">                    <span class="dt">TEAM =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"MIA"</span>,<span class="st">"GS"</span>,<span class="st">"MIA"</span>,<span class="st">"GS"</span>,<span class="st">"LAL"</span>),</a>
+<a class="sourceLine" id="cb11-3" data-line-number="3">                    <span class="dt">POS =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"SF"</span>, <span class="st">"PG"</span>, <span class="st">"C"</span>, <span class="st">"SG"</span>, <span class="st">"SG"</span>),</a>
+<a class="sourceLine" id="cb11-4" data-line-number="4">                    <span class="dt">PTS =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">5</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">10</span>),</a>
+<a class="sourceLine" id="cb11-5" data-line-number="5">                    <span class="dt">TO =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">3</span>),</a>
+<a class="sourceLine" id="cb11-6" data-line-number="6">                    <span class="st">`</span><span class="dt">3PA</span><span class="st">`</span> =<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">40</span>, <span class="dv">50</span>),</a>
+<a class="sourceLine" id="cb11-7" data-line-number="7">                    <span class="st">`</span><span class="dt">FT%</span><span class="st">`</span> =<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">50</span>, <span class="dv">60</span>, <span class="dv">70</span>, <span class="dv">80</span>, <span class="dv">90</span>))</a></code></pre></div>
+</div>
+<div id="nba_boxplot" class="section level3">
+<h3 class="hasAnchor">
+<a href="#nba_boxplot" class="anchor"></a><code>nba_boxplot()</code>
+</h3>
+<p>To further analyze how different teams and positions affect different scoring statistics, you can use <code><a href="reference/nba_boxplot.html">nba_boxplot()</a></code>.</p>
+<p>To look at the distribution of Free Throws Percentage or ‘FT%’ (which is a numerical column) for specific teams (must pass in a list).</p>
+<p><strong>Important:</strong> Since the column id starts with a number 3, we must ensure that the input for stats_column is formatted with backticks as shown:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw"><a href="reference/nba_boxplot.html">nba_boxplot</a></span>(nba_data, </a>
+<a class="sourceLine" id="cb12-2" data-line-number="2">            <span class="dt">team_or_position=</span> <span class="st">"team"</span>, </a>
+<a class="sourceLine" id="cb12-3" data-line-number="3">            <span class="dt">grouping_list =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"MIA"</span>, <span class="st">"GS"</span>), </a>
+<a class="sourceLine" id="cb12-4" data-line-number="4">            <span class="dt">stats_column =</span> <span class="st">`</span><span class="dt">FT%</span><span class="st">`</span>) <span class="co"># Formatted with backticks.</span></a></code></pre></div>
+<p><img src="README-unnamed-chunk-7-1.png"></p>
+</div>
+<div id="nba_ranking" class="section level3">
+<h3 class="hasAnchor">
+<a href="#nba_ranking" class="anchor"></a><code>nba_ranking()</code>
+</h3>
+<p>The <code><a href="reference/nba_ranking.html">nba_ranking()</a></code> function creates a visualization showing the rankings of a category with a statistic of interest.</p>
+<p>In the this example, we rank the top 3 players (NAME) based on their number of Three Points Attempts (3PA) made in a descending order.</p>
+<p><strong>Important:</strong> Since the column id starts with a number 3, we must ensure that the input for stats_column is formatted with backticks as shown:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="co"># Find top 3 players for 3 Point Attempts (3PA) where higher is better</span></a>
+<a class="sourceLine" id="cb13-2" data-line-number="2"><span class="kw"><a href="reference/nba_ranking.html">nba_ranking</a></span>(nba_data,</a>
+<a class="sourceLine" id="cb13-3" data-line-number="3">            <span class="dt">column =</span> NAME,</a>
+<a class="sourceLine" id="cb13-4" data-line-number="4">            <span class="dt">by =</span> <span class="st">`</span><span class="dt">3PA</span><span class="st">`</span>, <span class="co"># Formatted with backticks.</span></a>
+<a class="sourceLine" id="cb13-5" data-line-number="5">            <span class="dt">top =</span> <span class="dv">3</span>,</a>
+<a class="sourceLine" id="cb13-6" data-line-number="6">            <span class="dt">descending =</span> <span class="ot">TRUE</span>,</a>
+<a class="sourceLine" id="cb13-7" data-line-number="7">            <span class="dt">FUN =</span> mean)</a></code></pre></div>
+<p><img src="README-unnamed-chunk-8-1.png"></p>
+</div>
+<div id="nba_team_stats" class="section level3">
+<h3 class="hasAnchor">
+<a href="#nba_team_stats" class="anchor"></a><code>nba_team_stats()</code>
+</h3>
+<p>The <code><a href="reference/nba_team_stats.html">nba_team_stats()</a></code> function finds statistics of mean, median, 25%, and 75% quantiles. This function is primarily focused on team, and allows for further grouping by player position per team.</p>
+<p>In this example, we obtain the descriptive statistics of relevant numeric columns (PTS and TO) for specific teams (GS and LAL) with added grouping of their player positions (C and PG).</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="co"># Find specific stats (PTS, TO) for specific teams (GS, LAL) for specific positions (PG, SG)</span></a>
+<a class="sourceLine" id="cb14-2" data-line-number="2"><span class="kw"><a href="reference/nba_team_stats.html">nba_team_stats</a></span>(nba_data, </a>
+<a class="sourceLine" id="cb14-3" data-line-number="3">               <span class="dt">stats_filter =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"PTS"</span>,<span class="st">"TO"</span>),</a>
+<a class="sourceLine" id="cb14-4" data-line-number="4">               <span class="dt">teams_filter =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"GS"</span>,<span class="st">"LAL"</span>), </a>
+<a class="sourceLine" id="cb14-5" data-line-number="5">               <span class="dt">positions_filter =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"SG"</span>,<span class="st">"PG"</span>))</a>
+<a class="sourceLine" id="cb14-6" data-line-number="6"><span class="co">#&gt; # A tibble: 3 x 10</span></a>
+<a class="sourceLine" id="cb14-7" data-line-number="7"><span class="co">#&gt; # Groups:   TEAM [2]</span></a>
+<a class="sourceLine" id="cb14-8" data-line-number="8"><span class="co">#&gt;   TEAM  POS   PTS_mean TO_mean PTS_median TO_median PTS_quantile_25</span></a>
+<a class="sourceLine" id="cb14-9" data-line-number="9"><span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt;    &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;           &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb14-10" data-line-number="10"><span class="co">#&gt; 1 GS    PG           4       2          4         2               4</span></a>
+<a class="sourceLine" id="cb14-11" data-line-number="11"><span class="co">#&gt; 2 GS    SG           2       4          2         4               2</span></a>
+<a class="sourceLine" id="cb14-12" data-line-number="12"><span class="co">#&gt; 3 LAL   SG          10       3         10         3              10</span></a>
+<a class="sourceLine" id="cb14-13" data-line-number="13"><span class="co">#&gt; # … with 3 more variables: TO_quantile_25 &lt;dbl&gt;, PTS_quantile_75 &lt;dbl&gt;,</span></a>
+<a class="sourceLine" id="cb14-14" data-line-number="14"><span class="co">#&gt; #   TO_quantile_75 &lt;dbl&gt;</span></a></code></pre></div>
+<p>For a more detailed understanding of the functions and their use cases, please refer to the <a href="https://github.com/UBC-MDS/rsketball/tree/master/vignettes">package vignette</a>.</p>
+</div>
 </div>
 <div id="testing" class="section level2">
 <h2 class="hasAnchor">
@@ -160,51 +238,6 @@ nba_2017_playoffs &lt;-<span class="st"> </span><span class="kw"><a href="refere
 <h2 class="hasAnchor">
 <a href="#r-ecosystem" class="anchor"></a>R Ecosystem</h2>
 <p>This <code>rsketball</code> package aims to further gain understanding of ESPN NBA data and does not have a specific fit to the R ecosystem. There are currently some other library packages such as <a href="https://www.rdocumentation.org/packages/nbastatR/versions/0.1.10131"><code>nbastatR</code></a> that take data from other sources (NBA Stats API, Basketball Insiders, Basketball-Reference, HoopsHype, and RealGM), but no package that we currently know of takes data from ESPN NBA specifically.</p>
-</div>
-<div id="examples" class="section level2">
-<h2 class="hasAnchor">
-<a href="#examples" class="anchor"></a>Examples</h2>
-<p>To load the package:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(rsketball)
-<span class="kw">load_all</span>()</code></pre></div>
-<div id="nba_scraper" class="section level3">
-<h3 class="hasAnchor">
-<a href="#nba_scraper" class="anchor"></a><code>nba_scraper</code>
-</h3>
-<p>nba_scraper() will help you create the dataframe of the NBA season of interest to conduct further analysis using the functions below. An example of how to use this function:</p>
-<p>Scrape regular season 2018/19 without saving to a csv file</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nba_<span class="dv">2018</span> &lt;-<span class="st"> </span><span class="kw"><a href="reference/nba_scraper.html">nba_scraper</a></span>(<span class="dv">2018</span>, <span class="dt">season_type =</span> <span class="st">"regular"</span>, <span class="dt">port=</span>4445L)</code></pre></div>
-<p>Scrape playoffs season 2017/18 while saving to a local csv file.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nba_<span class="dv">2017</span> &lt;-<span class="st"> </span><span class="kw"><a href="reference/nba_scraper.html">nba_scraper</a></span>(<span class="dv">2017</span>, <span class="dt">season_type =</span> <span class="st">"postseason"</span>,
-                        <span class="dt">port=</span>4445L,
-                        <span class="dt">csv_path =</span> <span class="st">"nba_2017_playoffs.csv"</span>)</code></pre></div>
-</div>
-<div id="nba_boxplot" class="section level3">
-<h3 class="hasAnchor">
-<a href="#nba_boxplot" class="anchor"></a><code>nba_boxplot</code>
-</h3>
-<p>To further analyze how different teams and positions affect different scoring statistics, you can use nba_boxplot().</p>
-<p>To look at the distribution of games played or ‘GP’, (numerical column) for different positions or ‘POS’ (categorical column).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/nba_boxplot.html">nba_boxplot</a></span>(nba_<span class="dv">2018</span>, <span class="dt">position=</span> <span class="st">"POS"</span>, <span class="dt">teams=</span> <span class="ot">NULL</span>, <span class="dt">stats=</span> <span class="st">"GP"</span>)</code></pre></div>
-<p>To look at the distribution of games played or ‘GP’, (numerical column) for different teams (must pass in a list).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/nba_boxplot.html">nba_boxplot</a></span>(nba_<span class="dv">2018</span>, <span class="dt">position=</span> <span class="ot">NULL</span>, <span class="dt">teams=</span> (<span class="st">"UTAH"</span>, <span class="st">"LAC"</span>, <span class="st">"MIN"</span>, <span class="st">"BOS"</span>), <span class="dt">stats=</span> <span class="st">"GP"</span>)</code></pre></div>
-</div>
-<div id="nba_ranking" class="section level3">
-<h3 class="hasAnchor">
-<a href="#nba_ranking" class="anchor"></a><code>nba_ranking</code>
-</h3>
-<p>The nba_ranking() function creates a visualization showing the rankings of a category with a stats of interest. You can change from ascending or descening order and choose the stats to compare it with (ex mean)</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/nba_ranking.html">nba_ranking</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="dt">teams =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"UTAH"</span>, <span class="st">"LAC"</span>, <span class="st">"MIN"</span>, <span class="st">"BOS"</span>), <span class="dt">by =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>)), teams, by, <span class="dv">2</span>, <span class="ot">TRUE</span>, mean)</code></pre></div>
-</div>
-<div id="nba_team_stats" class="section level3">
-<h3 class="hasAnchor">
-<a href="#nba_team_stats" class="anchor"></a><code>nba_team_stats</code>
-</h3>
-<p>This function finds statistics of mean, median, 25%, and 75% quantiles. You find these stats for all teams without position</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/nba_team_stats.html">nba_team_stats</a></span>(nba_data)</code></pre></div>
-<p>Or you can sind specific columns you want the stats for (3PM, 3PA) for specific teams (GS, HOU) for specific positions (PG, C).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/nba_team_stats.html">nba_team_stats</a></span>(nba_data, <span class="dt">stats_filter =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"3PM"</span>,<span class="st">"3PA"</span>), <span class="dt">teams_filter =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"GSW"</span>,<span class="st">"HOU"</span>), <span class="dt">positions_filter =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"C"</span>,<span class="st">"PG"</span>))</code></pre></div>
-</div>
 </div>
 </div>
   </div>
@@ -222,8 +255,9 @@ nba_2017_playoffs &lt;-<span class="st"> </span><span class="kw"><a href="refere
 <div class="license">
 <h2>License</h2>
 <ul class="list-unstyled">
-<li><a href="LICENSE.html">Full license</a></li>
-<li><small><a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
+<li>
+<a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a>
+</li>
 </ul>
 </div>
 <div class="community">
@@ -243,7 +277,6 @@ nba_2017_playoffs &lt;-<span class="st"> </span><span class="kw"><a href="refere
 <h2>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://github.com/UBC-MDS/rsketball/actions"><img src="https://github.com/UBC-MDS/rsketball/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
-<li><a href="https://codecov.io/gh/UBC-MDS/rsketball"><img src="https://codecov.io/gh/UBC-MDS/rsketball/branch/master/graph/badge.svg" alt="codecov"></a></li>
 </ul>
 </div>
 </div>

@@ -128,32 +128,43 @@
  the stat of interest on the x-axis.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>nba_boxplot</span>(<span class='no'>dataset</span>, <span class='kw'>position</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>teams</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>NULL</span>), <span class='no'>stats</span>)</pre>
+    <pre class="usage"><span class='fu'>nba_boxplot</span>(
+  <span class='no'>nba_data</span>,
+  <span class='kw'>team_or_position</span> <span class='kw'>=</span> <span class='st'>"position"</span>,
+  <span class='kw'>grouping_list</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>NULL</span>),
+  <span class='no'>stats_column</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>dataset</th>
-      <td><p>dataframe
+      <th>nba_data</th>
+      <td><p>tibble
 This dataframe is created after using the nba_scraper.R function or if
 the csv has already been loaded, read the csv in and pass it as the parameter.</p></td>
     </tr>
     <tr>
-      <th>position</th>
+      <th>team_or_position</th>
       <td><p>string
-To specify as "POS" if you want to look at Position boxplot.</p></td>
+To specify if you want a boxplot for either "team" or "position" grouping</p></td>
     </tr>
     <tr>
-      <th>teams</th>
+      <th>grouping_list</th>
       <td><p>string
-The names of teams you want to create boxplot for.
-*Note you can only choose one of position or teams as a variable to vizualize</p></td>
+The grouping list for either "team" or "position".
+For "team", grouping_list can be c("HOU","GS")
+For "position, grouping_list can be c("PG","C").
+If grouping_list is empty, function will return boxplot of all groups in
+either "team" or "position".</p></td>
     </tr>
     <tr>
-      <th>stats</th>
-      <td><p>string
-The numeric variable of interest examples:  Points, 3_Pointers, Turnovers</p></td>
+      <th>stats_column</th>
+      <td><p>non-string character input as per column name
+The numeric variable of interest in the columns of the scraped NBA dataframe.
+Examples:  PTS (Points), 3PM (3 Pointers Made), FT% (Free Throw Percent).
+Note that if a column name starts with a number (eg 3PA) or
+has % in it (eg 3P%, FT%), format it with backticks. See vignette for examples.</p></td>
     </tr>
     </table>
 
@@ -162,8 +173,24 @@ The numeric variable of interest examples:  Points, 3_Pointers, Turnovers</p></t
     <p>ggplot boxplot</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>nba_2018</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>POS</span><span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"C"</span>, <span class='st'>"FOR"</span>, <span class='st'>"PO"</span>,<span class='st'>"FOR"</span>, <span class='st'>"C"</span>), <span class='kw'>Team</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"ORL"</span>, <span class='st'>"UTAH"</span>, <span class='st'>"LAC"</span>, <span class='st'>"MIN"</span>, <span class='st'>"BOS"</span>), <span class='kw'>GP</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>, <span class='fl'>5</span>, <span class='fl'>5</span>, <span class='fl'>2</span>, <span class='fl'>1</span>))
-<span class='fu'>nba_boxplot</span>(<span class='no'>nba_2018</span>, <span class='kw'>position</span><span class='kw'>=</span> <span class='st'>"POS"</span>, <span class='kw'>teams</span><span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>stats</span><span class='kw'>=</span> <span class='st'>"GP"</span>)</div><div class='img'><img src='nba_boxplot-1.png' alt='' width='700' height='433' /></div><div class='input'>
+    <pre class="examples"><div class='input'><span class='no'>nba_data</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(<span class='kw'>NAME</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"James"</span>, <span class='st'>"Steph"</span>, <span class='st'>"Bosh"</span>, <span class='st'>"Klay"</span>, <span class='st'>"Kobe"</span>),
+                           <span class='kw'>TEAM</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"MIA"</span>,<span class='st'>"GS"</span>,<span class='st'>"MIA"</span>,<span class='st'>"GS"</span>,<span class='st'>"LAL"</span>),
+                           <span class='kw'>POS</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"SF"</span>, <span class='st'>"PG"</span>, <span class='st'>"C"</span>, <span class='st'>"SG"</span>, <span class='st'>"SG"</span>),
+                           <span class='kw'>PTS</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>5</span>,<span class='fl'>4</span>,<span class='fl'>3</span>,<span class='fl'>2</span>,<span class='fl'>10</span>),
+                           <span class='kw'>TO</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>4</span>,<span class='fl'>3</span>))
+
+<span class='co'># Boxplot of all player positions based on PTS</span>
+<span class='fu'>nba_boxplot</span>(<span class='no'>nba_data</span>, <span class='kw'>team_or_position</span> <span class='kw'>=</span> <span class='st'>"position"</span>,
+            <span class='kw'>grouping_list</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>stats_column</span> <span class='kw'>=</span> <span class='no'>PTS</span>)</div><div class='img'><img src='nba_boxplot-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># Boxplot of specific player positions based on TO</span>
+<span class='fu'>nba_boxplot</span>(<span class='no'>nba_data</span>, <span class='kw'>team_or_position</span> <span class='kw'>=</span> <span class='st'>"position"</span>,
+            <span class='kw'>grouping_list</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"C"</span>,<span class='st'>"PG"</span>,<span class='st'>"SG"</span>), <span class='kw'>stats_column</span> <span class='kw'>=</span> <span class='no'>TO</span>)</div><div class='img'><img src='nba_boxplot-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># Boxplot of all teams based on PTS</span>
+<span class='fu'>nba_boxplot</span>(<span class='no'>nba_data</span>, <span class='kw'>team_or_position</span> <span class='kw'>=</span> <span class='st'>"team"</span>,
+            <span class='kw'>grouping_list</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>stats_column</span> <span class='kw'>=</span> <span class='no'>PTS</span>)</div><div class='img'><img src='nba_boxplot-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># Boxplot of specific teams based on TO</span>
+<span class='fu'>nba_boxplot</span>(<span class='no'>nba_data</span>, <span class='kw'>team_or_position</span> <span class='kw'>=</span> <span class='st'>"team"</span>,
+            <span class='kw'>grouping_list</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"MIA"</span>,<span class='st'>"GS"</span>), <span class='kw'>stats_column</span> <span class='kw'>=</span> <span class='no'>TO</span>)</div><div class='img'><img src='nba_boxplot-4.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

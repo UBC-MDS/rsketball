@@ -128,34 +128,37 @@ a visualization with that information." />
 a visualization with that information.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>nba_ranking</span>(<span class='no'>data</span>, <span class='no'>column</span>, <span class='no'>by</span>, <span class='no'>top</span>, <span class='kw'>descending</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>FUN</span>)</pre>
+    <pre class="usage"><span class='fu'>nba_ranking</span>(<span class='no'>nba_data</span>, <span class='no'>column</span>, <span class='no'>by</span>, <span class='kw'>top</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>descending</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>FUN</span> <span class='kw'>=</span> <span class='no'>mean</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>data</th>
-      <td><p>The dataframe to make the ranking from</p></td>
+      <th>nba_data</th>
+      <td><p>The tibble dataframe from the scraped nba data</p></td>
     </tr>
     <tr>
       <th>column</th>
-      <td><p>The column from the dataset to rank</p></td>
+      <td><p>The categorical column from the dataset to rank. Should be either "NAME", "TEAM" or "POS"</p></td>
     </tr>
     <tr>
       <th>by</th>
-      <td><p>The column from the dataset to rank by</p></td>
+      <td><p>The column from the dataset to rank by. Should be the statistic numerical column of interest.
+If the column starts with a number (eg 3PA) or has a % character (eg FT%), format it with backticks "`".
+Refer to vignette for more examples on this.</p></td>
     </tr>
     <tr>
       <th>top</th>
-      <td><p>The number of elements in the ranking</p></td>
+      <td><p>The number of elements in the ranking. Defaults to 5.</p></td>
     </tr>
     <tr>
       <th>descending</th>
-      <td><p>Boolean variable for the order of the ranking. TRUE if descending, FALSE otherwise.</p></td>
+      <td><p>Boolean variable for the order of the ranking. TRUE if descending, FALSE otherwise.
+Defaults to True.</p></td>
     </tr>
     <tr>
       <th>FUN</th>
-      <td><p>function to apply to the values</p></td>
+      <td><p>function to apply to the values. Defaults to the Mean function.</p></td>
     </tr>
     </table>
 
@@ -164,7 +167,26 @@ a visualization with that information.</p>
     <p>ggplot visualization with the ranking</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>nba_ranking</span>(<span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>ranked</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"1"</span>, <span class='st'>"2"</span>, <span class='st'>"3"</span>), <span class='kw'>by</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>3</span>, <span class='fl'>2</span>, <span class='fl'>1</span>)), <span class='no'>ranked</span>, <span class='no'>by</span>, <span class='fl'>2</span>, <span class='fl'>TRUE</span>, <span class='no'>mean</span>)</div><div class='img'><img src='nba_ranking-1.png' alt='' width='700' height='433' /></div></pre>
+    <pre class="examples"><div class='input'><span class='no'>nba_data</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>tibble</span><span class='kw ns'>::</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(<span class='kw'>NAME</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"James"</span>, <span class='st'>"Steph"</span>, <span class='st'>"Bosh"</span>, <span class='st'>"Klay"</span>, <span class='st'>"Kobe"</span>),
+                           <span class='kw'>TEAM</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"MIA"</span>,<span class='st'>"GS"</span>,<span class='st'>"MIA"</span>,<span class='st'>"GS"</span>,<span class='st'>"LAL"</span>),
+                           <span class='kw'>POS</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"SF"</span>, <span class='st'>"PG"</span>, <span class='st'>"C"</span>, <span class='st'>"SG"</span>, <span class='st'>"SG"</span>),
+                           <span class='kw'>PTS</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>5</span>,<span class='fl'>4</span>,<span class='fl'>3</span>,<span class='fl'>2</span>,<span class='fl'>10</span>),
+                           <span class='kw'>TO</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>2</span>,<span class='fl'>3</span>,<span class='fl'>4</span>,<span class='fl'>3</span>))
+
+<span class='co'># Find top 3 players for points (PTS) where higher is better</span>
+<span class='fu'>nba_ranking</span>(<span class='no'>nba_data</span>,
+            <span class='kw'>column</span> <span class='kw'>=</span> <span class='no'>NAME</span>,
+            <span class='kw'>by</span> <span class='kw'>=</span> <span class='no'>PTS</span>,
+            <span class='kw'>top</span> <span class='kw'>=</span> <span class='fl'>3</span>,
+            <span class='kw'>descending</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+            <span class='kw'>FUN</span> <span class='kw'>=</span> <span class='no'>mean</span>)</div><div class='img'><img src='nba_ranking-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'>#' # Find top 2 teams for turnover (TO) where lower is better</span>
+<span class='fu'>nba_ranking</span>(<span class='no'>nba_data</span>,
+            <span class='kw'>column</span> <span class='kw'>=</span> <span class='no'>TEAM</span>,
+            <span class='kw'>by</span> <span class='kw'>=</span> <span class='no'>TO</span>,
+            <span class='kw'>top</span> <span class='kw'>=</span> <span class='fl'>2</span>,
+            <span class='kw'>descending</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+            <span class='kw'>FUN</span> <span class='kw'>=</span> <span class='no'>mean</span>)</div><div class='img'><img src='nba_ranking-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
