@@ -56,7 +56,9 @@ This project is proudly created by:
 
   * Generate summary stats for NBA players. The function provides descriptive (mean, median, 25%, and 75% quantiles) team statistics of NBA data. It also comes with added functionalities for player position grouping per team too.
 
+
 For a more detailed understanding of the functions and their use cases, please refer to the [package vignette](https://github.com/UBC-MDS/rsketball/tree/master/vignettes).
+
 
 ## Installation
 
