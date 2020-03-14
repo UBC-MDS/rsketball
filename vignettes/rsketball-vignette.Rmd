@@ -165,7 +165,7 @@ nba_data <- tibble::tibble(NAME = c("James", "Steph", "Bosh", "Klay", "Kobe"),
 
 ### `nba_boxplot`
 
-To further analyze how different teams and positions affect different scoring statistics, you can use nba_boxplot(). Here's a breakdown of the inputs:
+To further analyze how different teams and positions affect different scoring statistics, you can use `nba_boxplot()`. Here's a breakdown of the inputs:
 
 - _nba_data_: Tibble of scraped nba data
 
@@ -212,7 +212,7 @@ nba_boxplot(nba_data,
 
 ###`nba_ranking`
 
-The nba_ranking() function creates a visualization showing the rankings of a category with a statistic of interest. Here's a breakdown of its inputs:
+The `nba_ranking()` function creates a visualization showing the rankings of a category with a statistic of interest. Here's a breakdown of its inputs:
 
 - _nba_data_: Tibble of scraped nba data
 
@@ -255,7 +255,7 @@ nba_ranking(nba_data,
 
 ###`nba_team_stats`
 
-This function finds statistics of mean, median, 25%, and 75% quantiles. This function is primarily focused on team The function has the following inputs:
+The `nba_team_stats()` function finds statistics of mean, median, 25%, and 75% quantiles. This function is primarily focused on team, and allows for further grouping by player position per team. The function has the following inputs:
 
 - _nba_data_: Tibble of scraped nba data
 
