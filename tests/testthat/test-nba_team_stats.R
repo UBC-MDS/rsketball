@@ -13,8 +13,8 @@
 #' test_nba_team_stats(nba_data)
 test_nba_team_stats <- function(nba_data) {
   # Sample test inputs
-  sample_stats_filter = c('GP', '3PM', 'FT%')
-  sample_teams_filter = c('UTAH', 'DET')
+  sample_stats_filter = c('PTS', 'TO')
+  sample_teams_filter = c('GS', 'MIA')
   sample_positions_filter = c('C', 'PG')
 
   test_that("Function does not throw an error when an improper dataframe is passed in data.", {
@@ -33,14 +33,14 @@ test_nba_team_stats <- function(nba_data) {
   test_that("Function does not return rows of all teams when there is no input for `teams_filter`, `positions_filter` and `stats_filter`.", {
     expect_equal(
       nrow(nba_team_stats(nba_data)),
-      length(unique(nba_data$Team))
+      length(unique(nba_data$TEAM))
     )
   })
 
   test_that("Function does not return rows of all teams when there is no input for `teams_filter` and `positions_filter`.", {
     expect_equal(
       nrow(nba_team_stats(nba_data, stats_filter = sample_stats_filter)),
-      length(unique(nba_data$Team))
+      length(unique(nba_data$TEAM))
     )
   })
   test_that("Function does not return the correct combination of (team and position) rows when there is input for `teams_filter` and `positions_filter`", {
@@ -63,6 +63,10 @@ test_nba_team_stats <- function(nba_data) {
   })
 }
 
-nba_data = read_csv("https://raw.githubusercontent.com/kfoofw/nba_espn/master/0.data/NBA_reg_2018-2019.csv")
+nba_data <- tibble::tibble(NAME = c("James", "Steph", "Bosh", "Klay", "Kobe"),
+                           TEAM = c("MIA","MIA","MIA","GS","GS"),
+                           POS = c("SF", "PG", "C", "C", "PG"),
+                           PTS = c(5,4,3,2,10),
+                           TO = c(1,2,3,4,3))
 test_nba_team_stats(nba_data)
 

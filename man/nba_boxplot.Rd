@@ -4,22 +4,33 @@
 \alias{nba_boxplot}
 \title{Creating Boxplot for NBA Stats}
 \usage{
-nba_boxplot(dataset, position = NULL, teams = c(NULL), stats)
+nba_boxplot(
+  nba_data,
+  team_or_position = "position",
+  grouping_list = c(NULL),
+  stats_column
+)
 }
 \arguments{
-\item{dataset}{dataframe
+\item{nba_data}{tibble
 This dataframe is created after using the nba_scraper.R function or if
 the csv has already been loaded, read the csv in and pass it as the parameter.}
 
-\item{position}{string
-To specify as "POS" if you want to look at Position boxplot.}
+\item{team_or_position}{string
+To specify if you want a boxplot for either "team" or "position" grouping}
 
-\item{teams}{string
-The names of teams you want to create boxplot for.
-*Note you can only choose one of position or teams as a variable to vizualize}
+\item{grouping_list}{string
+The grouping list for either "team" or "position".
+For "team", grouping_list can be c("HOU","GS")
+For "position, grouping_list can be c("PG","C").
+If grouping_list is empty, function will return boxplot of all groups in
+either "team" or "position".}
 
-\item{stats}{string
-The numeric variable of interest examples:  Points, 3_Pointers, Turnovers}
+\item{stats_column}{non-string character input as per column name
+The numeric variable of interest in the columns of the scraped NBA dataframe.
+Examples:  PTS (Points), 3PM (3 Pointers Made), FT\% (Free Throw Percent).
+Note that if a column name starts with a number (eg 3PA) or
+has \% in it (eg 3P\%, FT\%), format it with backticks. See vignette for examples.}
 }
 \value{
 ggplot boxplot
@@ -29,7 +40,26 @@ Creates a boxplot of the categorical variable of interest on the y-axis and
  the stat of interest on the x-axis.
 }
 \examples{
-nba_2018 <- data.frame(POS= c("C", "FOR", "PO","FOR", "C"), Team = c("ORL", "UTAH", "LAC", "MIN", "BOS"), GP = c(3, 5, 5, 2, 1))
-nba_boxplot(nba_2018, position= "POS", teams= NULL, stats= "GP")
+nba_data <- tibble::tibble(NAME = c("James", "Steph", "Bosh", "Klay", "Kobe"),
+                           TEAM = c("MIA","GS","MIA","GS","LAL"),
+                           POS = c("SF", "PG", "C", "SG", "SG"),
+                           PTS = c(5,4,3,2,10),
+                           TO = c(1,2,3,4,3))
+
+# Boxplot of all player positions based on PTS
+nba_boxplot(nba_data, team_or_position = "position",
+            grouping_list = NULL, stats_column = PTS)
+
+# Boxplot of specific player positions based on TO
+nba_boxplot(nba_data, team_or_position = "position",
+            grouping_list = c("C","PG","SG"), stats_column = TO)
+
+# Boxplot of all teams based on PTS
+nba_boxplot(nba_data, team_or_position = "team",
+            grouping_list = NULL, stats_column = PTS)
+
+# Boxplot of specific teams based on TO
+nba_boxplot(nba_data, team_or_position = "team",
+            grouping_list = c("MIA","GS"), stats_column = TO)
 
 }

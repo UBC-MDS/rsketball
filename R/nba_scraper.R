@@ -109,7 +109,7 @@ nba_scraper <- function(season_year = 2018, season_type = "regular", port=4445L,
 
   # Initiate compilation df
   compiled_df <- data.frame(matrix(, nrow=length(ply_trs), ncol=23))
-  colnames(compiled_df) <- c("Name", "Team", "Position",
+  colnames(compiled_df) <- c("NAME", "TEAM", "POS",
                              "GP", "MIN", "PTS", "FGM", "FGA", "FG%", "3PM", "3PA",
                              "3P%", "FTM", "FTA", "FT%", "REB", "AST", "STL", "BLK",
                              "TO", "DD2", "TD3", "PER")

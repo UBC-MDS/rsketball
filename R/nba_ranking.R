@@ -4,12 +4,15 @@
 #' This function generates creates a ranking of a variable `column` summarizing by a variable `by` using a function `FUN`. The result of this function is
 #' a visualization with that information.
 #'
-#' @param data The dataframe to make the ranking from
-#' @param column The column from the dataset to rank
-#' @param by The column from the dataset to rank by
-#' @param top The number of elements in the ranking
+#' @param nba_data The tibble dataframe from the scraped nba data
+#' @param column The categorical column from the dataset to rank. Should be either "NAME", "TEAM" or "POS"
+#' @param by The column from the dataset to rank by. Should be the statistic numerical column of interest.
+#' If the column starts with a number (eg 3PA) or has a \% character (eg FT\%), format it with backticks "`".
+#' Refer to vignette for more examples on this.
+#' @param top The number of elements in the ranking. Defaults to 5.
 #' @param descending Boolean variable for the order of the ranking. TRUE if descending, FALSE otherwise.
-#' @param FUN function to apply to the values
+#' Defaults to True.
+#' @param FUN function to apply to the values. Defaults to the Mean function.
 #'
 #' @return ggplot visualization with the ranking
 #'
@@ -23,8 +26,28 @@
 #' @importFrom rlang :=
 #'
 #' @examples
-#' nba_ranking(data.frame(ranked = c("1", "2", "3"), by = c(3, 2, 1)), ranked, by, 2, TRUE, mean)
-nba_ranking <- function(data, column, by, top, descending = TRUE, FUN){
+#' nba_data <- tibble::tibble(NAME = c("James", "Steph", "Bosh", "Klay", "Kobe"),
+#'                            TEAM = c("MIA","GS","MIA","GS","LAL"),
+#'                            POS = c("SF", "PG", "C", "SG", "SG"),
+#'                            PTS = c(5,4,3,2,10),
+#'                            TO = c(1,2,3,4,3))
+#'
+#' # Find top 3 players for points (PTS) where higher is better
+#' nba_ranking(nba_data,
+#'             column = NAME,
+#'             by = PTS,
+#'             top = 3,
+#'             descending = TRUE,
+#'             FUN = mean)
+#'
+#'#' # Find top 2 teams for turnover (TO) where lower is better
+#' nba_ranking(nba_data,
+#'             column = TEAM,
+#'             by = TO,
+#'             top = 2,
+#'             descending = FALSE,
+#'             FUN = mean)
+nba_ranking <- function(nba_data, column, by, top = 5, descending = TRUE, FUN = mean){
 
   # Checks
 
@@ -34,11 +57,11 @@ nba_ranking <- function(data, column, by, top, descending = TRUE, FUN){
   }
 
   # Checking if the data is a dataframe
-  if(!typeof(data) == 'list'){
+  if(!typeof(nba_data) == 'list'){
     stop("Argument data should be a dataframe or a tibble")
   }
 
-  ranked_type <- data %>%
+  ranked_type <- nba_data %>%
                   pull({{column}})
 
   # Checking the datatype of the ranked variable
@@ -47,10 +70,10 @@ nba_ranking <- function(data, column, by, top, descending = TRUE, FUN){
   }
 
 
-  by_type <- data %>%
+  by_type <- nba_data %>%
               pull({{by}}) %>%
               typeof()
-  by_var <- data %>%
+  by_var <- nba_data %>%
               pull({{by}})
   # Checking the datatype of the ranking variable
 
@@ -60,7 +83,7 @@ nba_ranking <- function(data, column, by, top, descending = TRUE, FUN){
   # Warning
 
   #Warning to control the number of elements
-  number_elements <- data %>%
+  number_elements <- nba_data %>%
                       pull({{column}}) %>%
                       unique() %>%
                       length()
@@ -74,17 +97,17 @@ nba_ranking <- function(data, column, by, top, descending = TRUE, FUN){
 
   fun <- match.fun(FUN = FUN)
 
-  data_filtered <- data %>%
+  data_filtered <- nba_data %>%
     dplyr::select({{column}}, {{by}}) %>%
     dplyr::group_by({{column}}) %>%
     dplyr::summarise({{by}} := fun({{by}})) %>%
     dplyr::mutate({{column}} := as.factor({{column}}),
-                  {{column}} := fct_reorder({{column}}, {{by}}, .desc = !descending),
+                  {{column}} := fct_reorder({{column}}, {{by}}, .desc = descending),
                   number_factor = as.numeric({{column}})) %>%
     dplyr::filter(number_factor <= top) %>%
     dplyr::mutate({{column}} := fct_drop({{column}}),
                   text_value = as.factor(paste0(as.numeric({{column}}), ". ",{{column}}, " - ",round({{by}}, digits = 2))),
-                  text_value = fct_reorder(text_value, {{by}}, .desc = !descending)) %>%
+                  text_value = fct_reorder(text_value, {{by}}, .desc = descending)) %>%
     dplyr::arrange(number_factor)
 
   plot_title <- paste0("Top ", top," ", substitute(column)," by ", substitute(by))
