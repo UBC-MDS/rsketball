@@ -283,7 +283,7 @@ For more context on the column names of the scraped data set, please
 refer to the [dataset description
 file](https://github.com/UBC-MDS/rsketball/blob/master/dataset_description.md).
 This will help the user better understand what columns are included in
-the scraped data, as well as they mean.
+the scraped data, as well as what they mean.
 
 Testing
 -------
