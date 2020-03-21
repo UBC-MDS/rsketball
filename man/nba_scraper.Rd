@@ -14,9 +14,10 @@ nba_scraper(
 \arguments{
 \item{season_year}{int from 2001 to 2019 (upper limit based on latest year)}
 
-\item{season_type}{string. Either "regular" or "postseason"}
+\item{season_type}{string. Either "regular" or "postseason".}
 
-\item{port}{int with L suffix. Must not be negative.}
+\item{port}{int with L suffix. Must not be negative. Should be same as port configuration used
+for Docker container driver setup.}
 
 \item{csv_path}{string for csv file. Defaults to NULL. If specified, must end with ".csv".}
 }
@@ -24,10 +25,16 @@ nba_scraper(
 A tibble of scraped ESPN NBA data
 }
 \description{
-Scrape the tabular data from ESPN NBA website using RSelenium and returns a tibble
-of the data. Users can specify the seaason year and season type. User should also
-specify the port for Selenium driver. By default, the function will not write
-to csv until a string input for "csv_path" is given.
+This function scrapes the tabular data from the ESPN NBA website using RSelenium and
+returns a tibble object of the scraped data. Users can specify the season year and
+season type. Users should also specify the port for Selenium driver, and should be the
+same as the port number used for setting up the Docker container driver (if the user
+is using Docker as per the "rsketball" package repo instructions). By default, the
+function will not write to csv until a string input for "csv_path" is given.
+}
+\details{
+For detailed use cases, please refer to the vignette:
+https://ubc-mds.github.io/rsketball/articles/rsketball-vignette.html
 }
 \examples{
 \donttest{

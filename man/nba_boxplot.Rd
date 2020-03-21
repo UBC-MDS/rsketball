@@ -21,8 +21,8 @@ To specify if you want a boxplot for either "team" or "position" grouping}
 
 \item{grouping_list}{string
 The grouping list for either "team" or "position".
-For "team", grouping_list can be c("HOU","GS")
-For "position, grouping_list can be c("PG","C").
+For "team", examples of grouping_list can be c("HOU","GS")
+For "position, examples of grouping_list can be c("PG","C").
 If grouping_list is empty, function will return boxplot of all groups in
 either "team" or "position".}
 
@@ -36,8 +36,16 @@ has \% in it (eg 3P\%, FT\%), format it with backticks. See vignette for example
 ggplot boxplot
 }
 \description{
-Creates a boxplot of the categorical variable of interest on the y-axis and
- the stat of interest on the x-axis.
+This function creates a boxplot of the categorical variable of interest on
+the y-axis and the statistic of interest on the x-axis.
+}
+\details{
+For reference on the scraped data columns information, please refer to the
+dataset description:
+https://github.com/UBC-MDS/rsketball/blob/master/dataset_description.md
+
+For detailed use cases, please refer to the vignette:
+https://ubc-mds.github.io/rsketball/articles/rsketball-vignette.html
 }
 \examples{
 nba_data <- tibble::tibble(NAME = c("James", "Steph", "Bosh", "Klay", "Kobe"),

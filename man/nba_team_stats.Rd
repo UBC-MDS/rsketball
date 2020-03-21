@@ -27,6 +27,13 @@ A tibble
 The function provides descriptive (mean, median, 25%, and 75% quantiles) team statistics of NBA data. Users can specify which
 statistic of interest (3PA, 3PM, etc) along with teams of interest (GS, HOU, etc). If positions of interest (C, PG, etc)
 are specified, the returned tibble depicts relevant descriptive statistics for the relevant positions in the relevant teams.
+
+For reference on the scraped data columns information, please refer to the
+dataset description:
+https://github.com/UBC-MDS/rsketball/blob/master/dataset_description.md
+
+For detailed use cases, please refer to the vignette:
+https://ubc-mds.github.io/rsketball/articles/rsketball-vignette.html
 }
 \examples{
 nba_data <- tibble::tibble(NAME = c("James", "Steph", "Bosh", "Klay", "Kobe"),
