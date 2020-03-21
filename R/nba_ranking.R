@@ -4,6 +4,13 @@
 #' This function generates creates a ranking of a variable `column` summarizing by a variable `by` using a function `FUN`. The result of this function is
 #' a visualization with that information.
 #'
+#' For reference on the scraped data columns information, please refer to the
+#' dataset description:
+#' https://github.com/UBC-MDS/rsketball/blob/master/dataset_description.md
+#'
+#' For detailed use cases, please refer to the vignette:
+#' https://ubc-mds.github.io/rsketball/articles/rsketball-vignette.html
+#'
 #' @param nba_data The tibble dataframe from the scraped nba data
 #' @param column The categorical column from the dataset to rank. Should be either "NAME", "TEAM" or "POS"
 #' @param by The column from the dataset to rank by. Should be the statistic numerical column of interest.

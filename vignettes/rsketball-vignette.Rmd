@@ -198,7 +198,7 @@ nba_boxplot(nba_data,
 
 To look at the distribution of Free Throws Percentage or 'FT%' (which is a numerical column) for specific teams (must pass in a list). 
 
-__Important:__ Since the column id starts with a number 3, we must ensure that the input for stats_column is formatted with backticks as shown:
+__Important:__ Since the column id has a "%" character in it, we must ensure that the input for stats_column is formatted with backticks as shown:
 
 ```{r}
 nba_boxplot(nba_data, 

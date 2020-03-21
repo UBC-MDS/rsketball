@@ -33,7 +33,12 @@ test_nba_boxplot <- function() {
     expect_type(p$data$POS, "integer")
   })
 
-  test_that("stats should be numeric value",{
+  test_that("stats_column should exist in scraped data columns.",{
+    nba_2018 <- tibble::tibble(POS= c("C", "FOR", "PO","FOR", "C"), TEAM = c("ORL", "UTAH", "LAC", "MIN", "BOS"), GP = c(3, 5, 5, 2, 1))
+    expect_error(nba_boxplot(nba_2018, team_or_position= "position", grouping_list = c("C","FOR"), stats_column= FTA))
+  })
+
+  test_that("stats_column should be numeric value",{
     nba_2018 <- tibble::tibble(POS= c("C", "FOR", "PO","FOR", "C"), TEAM = c("ORL", "UTAH", "LAC", "MIN", "BOS"), GP = c(3, 5, 5, 2, 1))
     p <- nba_boxplot(nba_2018, team_or_position= "team", grouping_list = c("ORL","UTAH"), stats= GP)
     expect_type(p$data$GP, "double")
@@ -45,7 +50,7 @@ test_nba_boxplot <- function() {
     expect_true("POS"  == rlang::get_expr(plot1$mapping$x))
   })
 
-  test_that("This column use in stats input is not in the dataset.", {
+  test_that("The input of stats_column is not in the dataset.", {
     nba_2018 <- tibble::tibble(POS= c("C", "FOR", "PO","FOR", "C"), TEAM = c("ORL", "UTAH", "LAC", "MIN", "BOS"), GP = c(3, 5, 5, 2, 1))
     expect_error(nba_boxplot(nba_2018, team_or_position= "position", grouping_list = NULL, stats_column= GPR))
   })
@@ -58,6 +63,16 @@ test_nba_boxplot <- function() {
   test_that("Error: stats must take in a numerical column", {
     nba_2018 <- tibble(POS= c("C", "FOR", "PO","FOR", "C"), TEAM = c("ORL", "UTAH", "LAC", "MIN", "BOS"), GP = c(3, 5, 5, 2, 1))
     expect_error(nba_boxplot(nba_2018, team_or_position= "position", grouping_list= NULL, stats_column= POS))
+  })
+
+  test_that("Error: not all elements in team grouping_list are in dataset", {
+    nba_2018 <- tibble(POS= c("C", "FOR", "PO","FOR", "C"), TEAM = c("ORL", "UTAH", "LAC", "MIN", "BOS"), GP = c(3, 5, 5, 2, 1))
+    expect_warning(nba_boxplot(nba_2018, team_or_position= "team", grouping_list= c("UTAH", "LAC", "CHI"), stats_column= GP))
+  })
+
+  test_that("Error: not all elements in position grouping_list are in dataset", {
+    nba_2018 <- tibble(POS= c("C", "FOR", "PO","FOR", "C"), TEAM = c("ORL", "UTAH", "LAC", "MIN", "BOS"), GP = c(3, 5, 5, 2, 1))
+    expect_warning(nba_boxplot(nba_2018, team_or_position= "position", grouping_list= c("PG", "C", "FOR"), stats_column= GP))
   })
 
 }
