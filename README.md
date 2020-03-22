@@ -25,11 +25,12 @@ An example of the ESPN NBA 2018/19 Regular season player stats can be
 found in this [EPSN NBA
 url](https://www.espn.com/nba/stats/player/_/season/2019/seasontype/2)
 
-This project is proudly created by: - [Carlina
-Kim](https://github.com/carlinakim) - [Andres
-Pitta](https://github.com/AndresPitta) - [V Anand
-Shankar](https://github.com/vanandsh) - [Kenneth
-Foo](https://github.com/kfoofw)
+This project is proudly created by:
+
+-   [Carlina Kim](https://github.com/carlinakim)
+-   [Andres Pitta](https://github.com/AndresPitta)
+-   [V Anand Shankar](https://github.com/vanandsh)
+-   [Kenneth Foo](https://github.com/kfoofw)
 
 Functions
 ---------
@@ -215,8 +216,8 @@ nba_data <- tibble::tibble(NAME = c("James", "Steph", "Bosh", "Klay", "Kobe"),
 ### `nba_boxplot()`
 
 To further compare the different statistics (scoring, steals, rebounds,
-etc) across different teams or different player positions, you can use
-`nba_boxplot()`.
+etc) across different teams in combination with different player
+positions, you can use `nba_boxplot()`.
 
 To look at the distribution of Free Throws Percentage or ‘FT%’ (which is
 a numerical column) for specific teams (must pass in a list).

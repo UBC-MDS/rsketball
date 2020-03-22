@@ -91,7 +91,13 @@
 <a href="#analysis-of-nba-players-from-200102-to-201819-seasons-using-espn-nba" class="anchor"></a>Analysis of NBA players from 2001/02 to 2018/19 seasons using ESPN NBA</h2>
 <p>This package is designated for all NBA enthusiasts! The <code>rsketball</code> package works to scrape online tabular data from the ESPN NBA website into a csv file. It also includes various functions to create graphs and statistical analysis for your interest (such as boxplots, player rankings by stats, and a summary statistics table).</p>
 <p>An example of the ESPN NBA 2018/19 Regular season player stats can be found in this <a href="https://www.espn.com/nba/stats/player/_/season/2019/seasontype/2">EPSN NBA url</a></p>
-<p>This project is proudly created by: - <a href="https://github.com/carlinakim">Carlina Kim</a> - <a href="https://github.com/AndresPitta">Andres Pitta</a> - <a href="https://github.com/vanandsh">V Anand Shankar</a> - <a href="https://github.com/kfoofw">Kenneth Foo</a></p>
+<p>This project is proudly created by:</p>
+<ul>
+<li><a href="https://github.com/carlinakim">Carlina Kim</a></li>
+<li><a href="https://github.com/AndresPitta">Andres Pitta</a></li>
+<li><a href="https://github.com/vanandsh">V Anand Shankar</a></li>
+<li><a href="https://github.com/kfoofw">Kenneth Foo</a></li>
+</ul>
 </div>
 <div id="functions" class="section level2">
 <h2 class="hasAnchor">
@@ -184,7 +190,7 @@
 <h3 class="hasAnchor">
 <a href="#nba_boxplot" class="anchor"></a><code>nba_boxplot()</code>
 </h3>
-<p>To further compare the different statistics (scoring, steals, rebounds, etc) across different teams or different player positions, you can use <code><a href="reference/nba_boxplot.html">nba_boxplot()</a></code>.</p>
+<p>To further compare the different statistics (scoring, steals, rebounds, etc) across different teams in combination with different player positions, you can use <code><a href="reference/nba_boxplot.html">nba_boxplot()</a></code>.</p>
 <p>To look at the distribution of Free Throws Percentage or ‘FT%’ (which is a numerical column) for specific teams (must pass in a list).</p>
 <p><strong>Important:</strong> Since the column id (FT%) has a “%” character in it, we must ensure that the input for stats_column is formatted with backticks as shown:</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw"><a href="reference/nba_boxplot.html">nba_boxplot</a></span>(nba_data, </a>
