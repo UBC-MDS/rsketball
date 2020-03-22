@@ -2,7 +2,8 @@
 % Please edit documentation in R/nba_boxplot.R
 \name{nba_boxplot}
 \alias{nba_boxplot}
-\title{Creating Boxplot for NBA Stats}
+\title{Creating a boxplot visualisation of statistics for either teams or player positions
+based on ESPN NBA data}
 \usage{
 nba_boxplot(
   nba_data,

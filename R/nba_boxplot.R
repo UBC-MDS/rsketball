@@ -1,4 +1,5 @@
-#' Creating Boxplot for NBA Stats
+#' Creating a boxplot visualisation of statistics for either teams or player positions
+#' based on ESPN NBA data
 #'
 #' This function creates a boxplot of the categorical variable of interest on
 #' the y-axis and the statistic of interest on the x-axis.
@@ -91,16 +92,15 @@ nba_boxplot <- function(nba_data, team_or_position= "position", grouping_list = 
 
       # Print statement to warn user that some or all of his selected TEAM groupings do not exist in the input nba_data
       if (mean(grouping_list %in% unique(nba_data$TEAM)) != 1){
-        warning(paste(c("Some or all of your input TEAM groupings do not exist in the input scraped data:", grouping_list[!grouping_list %in% unique(nba_data$TEAM)]), collapse = " "))
-        print(123)
+        warning(paste(c("Some or all of your input TEAM groupings do not exist in the input scraped data and were removed:", grouping_list[!grouping_list %in% unique(nba_data$TEAM)]), collapse = " "))
         grouping_list = grouping_list[grouping_list %in% unique(nba_data$TEAM)]
       }
-      print(456)
+
       nba_data <- nba_data %>%
         filter(TEAM %in% grouping_list)
     }
 
-    print(789)
+
     # Reorder team for boxplot
     nba_data <- nba_data %>%
       select(TEAM, !!stats_quo) %>%
@@ -113,7 +113,7 @@ nba_boxplot <- function(nba_data, team_or_position= "position", grouping_list = 
       coord_flip() +
       ggtitle(paste("Comparing", rlang::as_name(stats_quo), "stats for selected TEAMs", sep = " "))
 
-    print(395)
+
     return(boxplot)
   }
 
@@ -125,7 +125,7 @@ nba_boxplot <- function(nba_data, team_or_position= "position", grouping_list = 
 
       # Print statement to warn user that some or all of his selected POS groupings do not exist in the input nba_data
       if (mean(grouping_list %in% unique(nba_data$POS)) != 1){
-        warning(paste(c("Some or all of your input POS groupings do not exist in the input scraped data:", grouping_list[!grouping_list %in% unique(nba_data$POS)]), collapse = " "))
+        warning(paste(c("Some or all of your input POS groupings do not exist in the input scraped data and were removed:", grouping_list[!grouping_list %in% unique(nba_data$POS)]), collapse = " "))
         grouping_list = grouping_list[grouping_list %in% unique(nba_data$POS)]
       }
       nba_data <- nba_data %>%

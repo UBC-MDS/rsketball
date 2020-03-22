@@ -2,7 +2,7 @@
 % Please edit documentation in R/nba_scraper.R
 \name{nba_scraper}
 \alias{nba_scraper}
-\title{Scrape NBA statistics data from ESPN into CSV file}
+\title{Scrape NBA statistics data from ESPN into tibble and CSV file}
 \usage{
 nba_scraper(
   season_year = 2018,

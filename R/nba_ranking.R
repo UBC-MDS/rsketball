@@ -1,4 +1,4 @@
-#' Generates a ranking and a visualization based on a column of a dataset
+#' Generates a ranking and a visualization based on ESPN NBA data
 #'
 #' @description
 #' This function generates creates a ranking of a variable `column` summarizing by a variable `by` using a function `FUN`. The result of this function is

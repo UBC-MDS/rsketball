@@ -1,4 +1,4 @@
-#' Scrape NBA statistics data from ESPN into CSV file
+#' Scrape NBA statistics data from ESPN into tibble and CSV file
 #'
 #' This function scrapes the tabular data from the ESPN NBA website using RSelenium and
 #' returns a tibble object of the scraped data. Users can specify the season year and

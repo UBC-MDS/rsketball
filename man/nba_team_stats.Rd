@@ -2,7 +2,7 @@
 % Please edit documentation in R/nba_team_stats.R
 \name{nba_team_stats}
 \alias{nba_team_stats}
-\title{Generate summary stats for NBA players}
+\title{Generate summary stats for NBA players based on ESPN NBA data}
 \usage{
 nba_team_stats(
   nba_data,

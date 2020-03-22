@@ -1,4 +1,4 @@
-#' Generate summary stats for NBA players
+#' Generate summary stats for NBA players based on ESPN NBA data
 #'
 #' @description
 #' The function provides descriptive (mean, median, 25%, and 75% quantiles) team statistics of NBA data. Users can specify which
@@ -47,22 +47,59 @@
 #
 nba_team_stats <- function(nba_data, stats_filter = c(), teams_filter = c(), positions_filter = c()) {
 
-  # Test inputs
+  # Check for dataframe inputs
   if (!is.data.frame(nba_data)) {
     stop('Data is not in correct format. A dataframe/tibble was expected by the function')
   }
 
-  # Filter data on teams
+
+  # If teams_filter is given, filter data on teams
   if (length(teams_filter) != 0) {
+
+    # If all elements of teams_filter input are not in the dataset
+    if (mean(teams_filter %in% unique(nba_data$TEAM)) == 0){
+      stop(paste("All elements of your input teams_filter do not exist in the input scraped data"))
+    }
+
+    # Print statement to warn user that some or all of his selected teams_filter do not exist in the input nba_data
+    if (mean(teams_filter %in% unique(nba_data$TEAM)) != 1){
+      warning(paste(c("Some elements of your input teams_filter do not exist in the input scraped data and were removed:", teams_filter[!teams_filter %in% unique(nba_data$TEAM)]), collapse = " "))
+      teams_filter = teams_filter[teams_filter %in% unique(nba_data$TEAM)]
+    }
+
     nba_data <- nba_data[nba_data$TEAM %in% teams_filter, ]
   }
-  # Filter data on positions
+  # If positions_filter is given, filter data on positions
   if (length(positions_filter) != 0) {
+
+    # If all elements of positions_filter input are not in the dataset
+    if (mean(positions_filter %in% unique(nba_data$POS)) == 0){
+      stop(paste("All elements of your input positions_filter do not exist in the input scraped data"))
+    }
+
+    # Print statement to warn user that some or all of his selected positions_filter do not exist in the input nba_data
+    if (mean(positions_filter %in% unique(nba_data$POS)) != 1){
+      warning(paste(c("Some elements of your input positions_filter do not exist in the input scraped data and were removed:", positions_filter[!positions_filter %in% unique(nba_data$POS)]), collapse = " "))
+      positions_filter = positions_filter[positions_filter %in% unique(nba_data$POS)]
+    }
+
     nba_data <- nba_data[nba_data$POS %in% positions_filter, ]
   }
 
   # Select stats to include
   if (length(stats_filter) != 0) {
+
+    # If all elements of non-zero stats_filter input are not in the dataset
+    if (mean(stats_filter %in% colnames(nba_data)[!colnames(nba_data) %in% c("NAME", "TEAM", "POS")]) == 0){
+      stop(paste("All elements of your input stats_filter do not exist in the input scraped data"))
+    }
+
+    # If non-zero stats_filter input has partial error (some but not all elements do not exist in dataset columns)
+    if (mean(stats_filter %in% colnames(nba_data)[!colnames(nba_data) %in% c("NAME", "TEAM", "POS")]) !=1){
+      warning(paste(c("Some elements of your input stats_filter do not exist in the input scraped data and were removed:", stats_filter[!stats_filter %in% colnames(nba_data)]), collapse = " "))
+      stats_filter = stats_filter[stats_filter %in% colnames(nba_data)]
+    }
+
     filtered_columns <- c('TEAM', 'POS', stats_filter)
     nba_data <- nba_data[filtered_columns]
   }
@@ -70,6 +107,7 @@ nba_team_stats <- function(nba_data, stats_filter = c(), teams_filter = c(), pos
   if ((is.null(stats_filter)) & (is.null(teams_filter)) & (is.null(positions_filter))) {
     nba_data <- nba_data
   }
+
   # Generate summary
   # If position is null, only group_by Teams
   if (is.null(positions_filter)) {
