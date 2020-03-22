@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Generate summary stats for NBA players — nba_team_stats • rsketball</title>
+<title>Generate summary stats for NBA players based on ESPN NBA data — nba_team_stats • rsketball</title>
 
 
 <!-- jquery -->
@@ -35,10 +35,15 @@
 
 
 
-<meta property="og:title" content="Generate summary stats for NBA players — nba_team_stats" />
+<meta property="og:title" content="Generate summary stats for NBA players based on ESPN NBA data — nba_team_stats" />
 <meta property="og:description" content="The function provides descriptive (mean, median, 25
 statistic of interest (3PA, 3PM, etc) along with teams of interest (GS, HOU, etc). If positions of interest (C, PG, etc)
-are specified, the returned tibble depicts relevant descriptive statistics for the relevant positions in the relevant teams." />
+are specified, the returned tibble depicts relevant descriptive statistics for the relevant positions in the relevant teams.
+For reference on the scraped data columns information, please refer to the
+dataset description:
+https://github.com/UBC-MDS/rsketball/blob/master/dataset_description.md
+For detailed use cases, please refer to the vignette:
+https://ubc-mds.github.io/rsketball/articles/rsketball-vignette.html" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -119,7 +124,7 @@ are specified, the returned tibble depicts relevant descriptive statistics for t
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Generate summary stats for NBA players</h1>
+    <h1>Generate summary stats for NBA players based on ESPN NBA data</h1>
     <small class="dont-index">Source: <a href='https://github.com/UBC-MDS/rsketball/blob/master/R/nba_team_stats.R'><code>R/nba_team_stats.R</code></a></small>
     <div class="hidden name"><code>nba_team_stats.Rd</code></div>
     </div>
@@ -128,6 +133,11 @@ are specified, the returned tibble depicts relevant descriptive statistics for t
     <p>The function provides descriptive (mean, median, 25<!-- %, and 75% quantiles) team statistics of NBA data. Users can specify which -->
 statistic of interest (3PA, 3PM, etc) along with teams of interest (GS, HOU, etc). If positions of interest (C, PG, etc)
 are specified, the returned tibble depicts relevant descriptive statistics for the relevant positions in the relevant teams.</p>
+<p>For reference on the scraped data columns information, please refer to the
+dataset description:
+https://github.com/UBC-MDS/rsketball/blob/master/dataset_description.md</p>
+<p>For detailed use cases, please refer to the vignette:
+https://ubc-mds.github.io/rsketball/articles/rsketball-vignette.html</p>
     </div>
 
     <pre class="usage"><span class='fu'>nba_team_stats</span>(

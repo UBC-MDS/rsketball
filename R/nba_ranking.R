@@ -117,7 +117,7 @@ nba_ranking <- function(nba_data, column, by, top = 5, descending = TRUE, FUN = 
                   text_value = fct_reorder(text_value, {{by}}, .desc = descending)) %>%
     dplyr::arrange(number_factor)
 
-  plot_title <- paste0("Top ", top," ", substitute(column)," by ", substitute(by))
+  plot_title <- paste0("Top ", top," ", substitute(column)," based on ", substitute(by), " ranking")
   colour_scheme <- scales::seq_gradient_pal("#17408B", "#C9082A")(seq(0,1,length.out=top))
   text_size <- min(8, 75/top)
 
@@ -128,7 +128,7 @@ nba_ranking <- function(nba_data, column, by, top = 5, descending = TRUE, FUN = 
     ggplot2::coord_flip() +
     ggplot2::scale_x_reverse() +
     ggplot2::labs(title = plot_title, x = substitute(column)) +
-    ggplot2::geom_text(size = text_size, hjust = 1.1, colour = "white")+
+    ggplot2::geom_text(hjust = 1.1, colour = "white")+
     ggplot2::theme(
       panel.background = element_blank(),
       legend.position = "none",

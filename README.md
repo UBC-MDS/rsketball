@@ -136,10 +136,11 @@ port, we can proceed with testing
 
 ``` r
 library(rsketball)
+
 # Scrape postseason season 2017/18 while saving to a local csv file.
 nba_2017_playoffs <- nba_scraper(season_year = 2017, 
                                  season_type = "postseason",
-                                 port=4445L,
+                                 port=4445L, # Port number as per Docker container setup
                                  csv_path = "nba_2017_playoffs.csv")
 ```
 
@@ -186,7 +187,7 @@ following examples is for scraping the playoffs (postseason) season in
 
 ``` r
 nba_2017 <- nba_scraper(2017, season_type = "postseason",
-                        port=4445L,
+                        port=4445L, # Port number as per Docker container setup
                         csv_path = "nba_2017_playoffs.csv")
 ```
 
@@ -231,7 +232,7 @@ nba_boxplot(nba_data,
             stats_column = `FT%`) # Formatted with backticks.
 ```
 
-![](README-unnamed-chunk-6-1.png)
+![](README-unnamed-chunk-7-1.png)
 
 ### `nba_ranking()`
 
@@ -255,7 +256,7 @@ nba_ranking(nba_data,
             FUN = mean)
 ```
 
-![](README-unnamed-chunk-7-1.png)
+![](README-unnamed-chunk-8-1.png)
 
 ### `nba_team_stats()`
 
@@ -287,12 +288,6 @@ nba_team_stats(nba_data,
 For a more detailed understanding of the functions and their use cases,
 please refer to the [package
 vignette](https://ubc-mds.github.io/rsketball/articles/rsketball-vignette.html).
-
-For more context on the column names of the scraped data set, please
-refer to the [dataset description
-file](https://github.com/UBC-MDS/rsketball/blob/master/dataset_description.md).
-This will help the user better understand what columns are included in
-the scraped data, as well as what they mean.
 
 Testing
 -------

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Scrape NBA statistics data from ESPN into CSV file — nba_scraper • rsketball</title>
+<title>Scrape NBA statistics data from ESPN into tibble and CSV file — nba_scraper • rsketball</title>
 
 
 <!-- jquery -->
@@ -35,11 +35,13 @@
 
 
 
-<meta property="og:title" content="Scrape NBA statistics data from ESPN into CSV file — nba_scraper" />
-<meta property="og:description" content="Scrape the tabular data from ESPN NBA website using RSelenium and returns a tibble
-of the data. Users can specify the seaason year and season type. User should also
-specify the port for Selenium driver. By default, the function will not write
-to csv until a string input for &quot;csv_path&quot; is given." />
+<meta property="og:title" content="Scrape NBA statistics data from ESPN into tibble and CSV file — nba_scraper" />
+<meta property="og:description" content="This function scrapes the tabular data from the ESPN NBA website using RSelenium and
+returns a tibble object of the scraped data. Users can specify the season year and
+season type. Users should also specify the port for Selenium driver, and should be the
+same as the port number used for setting up the Docker container driver (if the user
+is using Docker as per the &quot;rsketball&quot; package repo instructions). By default, the
+function will not write to csv until a string input for &quot;csv_path&quot; is given." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -120,16 +122,18 @@ to csv until a string input for &quot;csv_path&quot; is given." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Scrape NBA statistics data from ESPN into CSV file</h1>
+    <h1>Scrape NBA statistics data from ESPN into tibble and CSV file</h1>
     <small class="dont-index">Source: <a href='https://github.com/UBC-MDS/rsketball/blob/master/R/nba_scraper.R'><code>R/nba_scraper.R</code></a></small>
     <div class="hidden name"><code>nba_scraper.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Scrape the tabular data from ESPN NBA website using RSelenium and returns a tibble
-of the data. Users can specify the seaason year and season type. User should also
-specify the port for Selenium driver. By default, the function will not write
-to csv until a string input for "csv_path" is given.</p>
+    <p>This function scrapes the tabular data from the ESPN NBA website using RSelenium and
+returns a tibble object of the scraped data. Users can specify the season year and
+season type. Users should also specify the port for Selenium driver, and should be the
+same as the port number used for setting up the Docker container driver (if the user
+is using Docker as per the "rsketball" package repo instructions). By default, the
+function will not write to csv until a string input for "csv_path" is given.</p>
     </div>
 
     <pre class="usage"><span class='fu'>nba_scraper</span>(
@@ -148,11 +152,12 @@ to csv until a string input for "csv_path" is given.</p>
     </tr>
     <tr>
       <th>season_type</th>
-      <td><p>string. Either "regular" or "postseason"</p></td>
+      <td><p>string. Either "regular" or "postseason".</p></td>
     </tr>
     <tr>
       <th>port</th>
-      <td><p>int with L suffix. Must not be negative.</p></td>
+      <td><p>int with L suffix. Must not be negative. Should be same as port configuration used
+for Docker container driver setup.</p></td>
     </tr>
     <tr>
       <th>csv_path</th>
@@ -163,6 +168,10 @@ to csv until a string input for "csv_path" is given.</p>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A tibble of scraped ESPN NBA data</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>For detailed use cases, please refer to the vignette:
+https://ubc-mds.github.io/rsketball/articles/rsketball-vignette.html</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
@@ -183,12 +192,12 @@ to csv until a string input for "csv_path" is given.</p>
 #&gt; [1] "80.0.3987.106 (f68069574609230cf9b635cd784cfb1bf81bb53a-refs/branch-heads/3987@{#882})"
 #&gt; 
 #&gt; $chrome$userDataDir
-#&gt; [1] "/tmp/.com.google.Chrome.r9jgz7"
+#&gt; [1] "/tmp/.com.google.Chrome.hCR2Lw"
 #&gt; 
 #&gt; 
 #&gt; $`goog:chromeOptions`
 #&gt; $`goog:chromeOptions`$debuggerAddress
-#&gt; [1] "localhost:45907"
+#&gt; [1] "localhost:32967"
 #&gt; 
 #&gt; 
 #&gt; $networkConnectionEnabled
@@ -224,10 +233,10 @@ to csv until a string input for "csv_path" is given.</p>
 #&gt; [1] "dismiss and notify"
 #&gt; 
 #&gt; $webdriver.remote.sessionid
-#&gt; [1] "8984a96e204dcfba21cac389bc4f3419"
+#&gt; [1] "d20458a4f77bebce54a48838653bf7b6"
 #&gt; 
 #&gt; $id
-#&gt; [1] "8984a96e204dcfba21cac389bc4f3419"
+#&gt; [1] "d20458a4f77bebce54a48838653bf7b6"
 #&gt; 
 #&gt; [1] "Data scraping of 2018 regular season completed."</div><div class='input'>
 
@@ -250,12 +259,12 @@ to csv until a string input for "csv_path" is given.</p>
 #&gt; [1] "80.0.3987.106 (f68069574609230cf9b635cd784cfb1bf81bb53a-refs/branch-heads/3987@{#882})"
 #&gt; 
 #&gt; $chrome$userDataDir
-#&gt; [1] "/tmp/.com.google.Chrome.XIL0qP"
+#&gt; [1] "/tmp/.com.google.Chrome.mPKMy8"
 #&gt; 
 #&gt; 
 #&gt; $`goog:chromeOptions`
 #&gt; $`goog:chromeOptions`$debuggerAddress
-#&gt; [1] "localhost:43587"
+#&gt; [1] "localhost:43545"
 #&gt; 
 #&gt; 
 #&gt; $networkConnectionEnabled
@@ -291,10 +300,10 @@ to csv until a string input for "csv_path" is given.</p>
 #&gt; [1] "dismiss and notify"
 #&gt; 
 #&gt; $webdriver.remote.sessionid
-#&gt; [1] "e170b6e9152ec45e4ce37bbaf1cf913f"
+#&gt; [1] "1788ac75f62e6734922479a23218924b"
 #&gt; 
 #&gt; $id
-#&gt; [1] "e170b6e9152ec45e4ce37bbaf1cf913f"
+#&gt; [1] "1788ac75f62e6734922479a23218924b"
 #&gt; 
 #&gt; [1] "Data scraping of 2017 postseason season completed."</div><div class='input'># }
 </div></pre>
@@ -304,6 +313,7 @@ to csv until a string input for "csv_path" is given.</p>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
+      <li><a href="#details">Details</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 

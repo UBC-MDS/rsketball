@@ -87,13 +87,11 @@ Now that the container is running with the allocated memory and assigned port, w
 
 ```R
 library(rsketball)
-library(RSelenium)
-library(rvest)
-library(tidyverse)
+
 # Scrape postseason season 2017/18 while saving to a local csv file.
 nba_2017_playoffs <- nba_scraper(season_year = 2017, 
                                  season_type = "postseason",
-                                 port=4445L,
+                                 port=4445L, # Port number as per Docker container setup
                                  csv_path = "nba_2017_playoffs.csv")
 ```
 If everything was executed as intended, you should obtain a csv file called "nba_2017_playoffs.csv" containing the scraped data, and a tibble in your R environment named "nba_2017_playoffs". With the tibble, you can use the other `rsketball` functions for your analysis.
@@ -130,21 +128,22 @@ nba_scraper() will help you create the dataframe of the NBA season of interest t
 
 Below are two examples of the function for scraping:
 
-Scrape regular season 2018/19 while saving to a csv file. This should return a tibble.
+Scrape regular season 2018/19 while saving to a csv file. This should also return a tibble named `nba_2018`.
 
 ```{r, message=FALSE, eval = FALSE}
 nba_2018 <- nba_scraper(season_year = 2018, 
                         season_type = "regular", 
-                        port=4445L, 
+                        port=4445L, # Port number as per Docker container setup
                         csv_path = "nba_2018_regular.csv")
 ```
 
-Scrape playoffs season 2017/18 without saving to a local csv file. This should return a tibble.
+Scrape playoffs season 2017/18 without saving to a local csv file. This should return a tibble named `nba_2017`.
 
 ```{r, message=FALSE, eval=FALSE}
 nba_2017 <- nba_scraper(season_year = 2017, 
                         season_type = "postseason",
-                        port=4445L)
+                        port=4445L # Port number as per Docker container setup
+                        )
 ```
 
 For the illustration of the other functions, let's create a toy dataset with similar properties as the scraped data from ESPN NBA.
