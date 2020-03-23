@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Generates a ranking and a visualization based on a column of a dataset — nba_ranking • rsketball</title>
+<title>Generates a ranking and a visualization based on ESPN NBA data — nba_ranking • rsketball</title>
 
 
 <!-- jquery -->
@@ -35,9 +35,14 @@
 
 
 
-<meta property="og:title" content="Generates a ranking and a visualization based on a column of a dataset — nba_ranking" />
+<meta property="og:title" content="Generates a ranking and a visualization based on ESPN NBA data — nba_ranking" />
 <meta property="og:description" content="This function generates creates a ranking of a variable `column` summarizing by a variable `by` using a function `FUN`. The result of this function is
-a visualization with that information." />
+a visualization with that information.
+For reference on the scraped data columns information, please refer to the
+dataset description:
+https://github.com/UBC-MDS/rsketball/blob/master/dataset_description.md
+For detailed use cases, please refer to the vignette:
+https://ubc-mds.github.io/rsketball/articles/rsketball-vignette.html" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -118,7 +123,7 @@ a visualization with that information." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Generates a ranking and a visualization based on a column of a dataset</h1>
+    <h1>Generates a ranking and a visualization based on ESPN NBA data</h1>
     <small class="dont-index">Source: <a href='https://github.com/UBC-MDS/rsketball/blob/master/R/nba_ranking.R'><code>R/nba_ranking.R</code></a></small>
     <div class="hidden name"><code>nba_ranking.Rd</code></div>
     </div>
@@ -126,6 +131,11 @@ a visualization with that information." />
     <div class="ref-description">
     <p>This function generates creates a ranking of a variable `column` summarizing by a variable `by` using a function `FUN`. The result of this function is
 a visualization with that information.</p>
+<p>For reference on the scraped data columns information, please refer to the
+dataset description:
+https://github.com/UBC-MDS/rsketball/blob/master/dataset_description.md</p>
+<p>For detailed use cases, please refer to the vignette:
+https://ubc-mds.github.io/rsketball/articles/rsketball-vignette.html</p>
     </div>
 
     <pre class="usage"><span class='fu'>nba_ranking</span>(<span class='no'>nba_data</span>, <span class='no'>column</span>, <span class='no'>by</span>, <span class='kw'>top</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>descending</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>FUN</span> <span class='kw'>=</span> <span class='no'>mean</span>)</pre>

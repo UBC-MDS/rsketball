@@ -144,14 +144,12 @@
 <p><strong>Step 2 (R/RStudio): Scraping with <code>nba_scraper</code></strong></p>
 <p>Now that the container is running with the allocated memory and assigned port, we can proceed with testing</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(rsketball)</a>
-<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(RSelenium)</a>
-<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(rvest)</a>
-<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(tidyverse)</a>
-<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="co"># Scrape postseason season 2017/18 while saving to a local csv file.</span></a>
-<a class="sourceLine" id="cb6-6" data-line-number="6">nba_<span class="dv">2017</span>_playoffs &lt;-<span class="st"> </span><span class="kw"><a href="../reference/nba_scraper.html">nba_scraper</a></span>(<span class="dt">season_year =</span> <span class="dv">2017</span>, </a>
-<a class="sourceLine" id="cb6-7" data-line-number="7">                                 <span class="dt">season_type =</span> <span class="st">"postseason"</span>,</a>
-<a class="sourceLine" id="cb6-8" data-line-number="8">                                 <span class="dt">port=</span>4445L,</a>
-<a class="sourceLine" id="cb6-9" data-line-number="9">                                 <span class="dt">csv_path =</span> <span class="st">"nba_2017_playoffs.csv"</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb6-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="co"># Scrape postseason season 2017/18 while saving to a local csv file.</span></a>
+<a class="sourceLine" id="cb6-4" data-line-number="4">nba_<span class="dv">2017</span>_playoffs &lt;-<span class="st"> </span><span class="kw"><a href="../reference/nba_scraper.html">nba_scraper</a></span>(<span class="dt">season_year =</span> <span class="dv">2017</span>, </a>
+<a class="sourceLine" id="cb6-5" data-line-number="5">                                 <span class="dt">season_type =</span> <span class="st">"postseason"</span>,</a>
+<a class="sourceLine" id="cb6-6" data-line-number="6">                                 <span class="dt">port=</span>4445L, <span class="co"># Port number as per Docker container setup</span></a>
+<a class="sourceLine" id="cb6-7" data-line-number="7">                                 <span class="dt">csv_path =</span> <span class="st">"nba_2017_playoffs.csv"</span>)</a></code></pre></div>
 <p>If everything was executed as intended, you should obtain a csv file called “nba_2017_playoffs.csv” containing the scraped data, and a tibble in your R environment named “nba_2017_playoffs”. With the tibble, you can use the other <code>rsketball</code> functions for your analysis.</p>
 <p><strong>Step 3 (Command line/Terminal): Termination of Docker Container</strong></p>
 <p>After test scraping is completed, we can shut down the Docker Container instance. This will also ensure that your computer memory/resources are restored.</p>
@@ -176,15 +174,16 @@
 <li><p><em>csv_path</em>: String input specifying output path of csv. Must end in “.csv”. IF NULL, no csv file will be created. Defaults to NULL.</p></li>
 </ul>
 <p>Below are two examples of the function for scraping:</p>
-<p>Scrape regular season 2018/19 while saving to a csv file. This should return a tibble.</p>
+<p>Scrape regular season 2018/19 while saving to a csv file. This should also return a tibble named <code>nba_2018</code>.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">nba_<span class="dv">2018</span> &lt;-<span class="st"> </span><span class="kw"><a href="../reference/nba_scraper.html">nba_scraper</a></span>(<span class="dt">season_year =</span> <span class="dv">2018</span>, </a>
 <a class="sourceLine" id="cb10-2" data-line-number="2">                        <span class="dt">season_type =</span> <span class="st">"regular"</span>, </a>
-<a class="sourceLine" id="cb10-3" data-line-number="3">                        <span class="dt">port=</span>4445L, </a>
+<a class="sourceLine" id="cb10-3" data-line-number="3">                        <span class="dt">port=</span>4445L, <span class="co"># Port number as per Docker container setup</span></a>
 <a class="sourceLine" id="cb10-4" data-line-number="4">                        <span class="dt">csv_path =</span> <span class="st">"nba_2018_regular.csv"</span>)</a></code></pre></div>
-<p>Scrape playoffs season 2017/18 without saving to a local csv file. This should return a tibble.</p>
+<p>Scrape playoffs season 2017/18 without saving to a local csv file. This should return a tibble named <code>nba_2017</code>.</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">nba_<span class="dv">2017</span> &lt;-<span class="st"> </span><span class="kw"><a href="../reference/nba_scraper.html">nba_scraper</a></span>(<span class="dt">season_year =</span> <span class="dv">2017</span>, </a>
 <a class="sourceLine" id="cb11-2" data-line-number="2">                        <span class="dt">season_type =</span> <span class="st">"postseason"</span>,</a>
-<a class="sourceLine" id="cb11-3" data-line-number="3">                        <span class="dt">port=</span>4445L)</a></code></pre></div>
+<a class="sourceLine" id="cb11-3" data-line-number="3">                        <span class="dt">port=</span>4445L <span class="co"># Port number as per Docker container setup</span></a>
+<a class="sourceLine" id="cb11-4" data-line-number="4">                        )</a></code></pre></div>
 <p>For the illustration of the other functions, let’s create a toy dataset with similar properties as the scraped data from ESPN NBA.</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">nba_data &lt;-<span class="st"> </span>tibble<span class="op">::</span><span class="kw"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(<span class="dt">NAME =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"James"</span>, <span class="st">"Steph"</span>, <span class="st">"Bosh"</span>, <span class="st">"Klay"</span>, <span class="st">"Kobe"</span>),</a>
 <a class="sourceLine" id="cb12-2" data-line-number="2">                    <span class="dt">TEAM =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"MIA"</span>,<span class="st">"GS"</span>,<span class="st">"MIA"</span>,<span class="st">"GS"</span>,<span class="st">"LAL"</span>),</a>
@@ -222,7 +221,7 @@
 <a class="sourceLine" id="cb14-5" data-line-number="5">            <span class="dt">stats_column =</span> <span class="st">`</span><span class="dt">3PA</span><span class="st">`</span>) <span class="co"># Formatted with backticks.</span></a></code></pre></div>
 <p><img src="rsketball-vignette_files/figure-html/unnamed-chunk-9-1.png" width="700"></p>
 <p>To look at the distribution of Free Throws Percentage or ‘FT%’ (which is a numerical column) for specific teams (must pass in a list).</p>
-<p><strong>Important:</strong> Since the column id starts with a number 3, we must ensure that the input for stats_column is formatted with backticks as shown:</p>
+<p><strong>Important:</strong> Since the column id has a “%” character in it, we must ensure that the input for stats_column is formatted with backticks as shown:</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="kw"><a href="../reference/nba_boxplot.html">nba_boxplot</a></span>(nba_data, </a>
 <a class="sourceLine" id="cb15-2" data-line-number="2">            <span class="dt">team_or_position=</span> <span class="st">"team"</span>, </a>
 <a class="sourceLine" id="cb15-3" data-line-number="3">            <span class="dt">grouping_list =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"MIA"</span>, <span class="st">"GS"</span>), </a>

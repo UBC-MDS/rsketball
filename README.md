@@ -25,11 +25,12 @@ An example of the ESPN NBA 2018/19 Regular season player stats can be
 found in this [EPSN NBA
 url](https://www.espn.com/nba/stats/player/_/season/2019/seasontype/2)
 
-This project is proudly created by: - [Carlina
-Kim](https://github.com/carlinakim) - [Andres
-Pitta](https://github.com/AndresPitta) - [V Anand
-Shankar](https://github.com/vanandsh) - [Kenneth
-Foo](https://github.com/kfoofw)
+This project is proudly created by:
+
+-   [Carlina Kim](https://github.com/carlinakim)
+-   [Andres Pitta](https://github.com/AndresPitta)
+-   [V Anand Shankar](https://github.com/vanandsh)
+-   [Kenneth Foo](https://github.com/kfoofw)
 
 Functions
 ---------
@@ -136,10 +137,11 @@ port, we can proceed with testing
 
 ``` r
 library(rsketball)
+
 # Scrape postseason season 2017/18 while saving to a local csv file.
 nba_2017_playoffs <- nba_scraper(season_year = 2017, 
                                  season_type = "postseason",
-                                 port=4445L,
+                                 port=4445L, # Port number as per Docker container setup
                                  csv_path = "nba_2017_playoffs.csv")
 ```
 
@@ -186,9 +188,17 @@ following examples is for scraping the playoffs (postseason) season in
 
 ``` r
 nba_2017 <- nba_scraper(2017, season_type = "postseason",
-                        port=4445L,
+                        port=4445L, # Port number as per Docker container setup
                         csv_path = "nba_2017_playoffs.csv")
 ```
+
+Effective usage of the rest of the functions in `rsketball` may require
+certain knowledge of the available columns in the scraped data. For more
+context on the column names of the scraped data set, please refer to the
+[dataset description
+file](https://github.com/UBC-MDS/rsketball/blob/master/dataset_description.md).
+This will help the user better understand what columns are included in
+the scraped data, as well as what they represent.
 
 For the illustration of the other functions, let’s create a toy dataset
 with similar properties as the scraped data from ESPN NBA.
@@ -205,15 +215,16 @@ nba_data <- tibble::tibble(NAME = c("James", "Steph", "Bosh", "Klay", "Kobe"),
 
 ### `nba_boxplot()`
 
-To further analyze how different teams and positions affect different
-scoring statistics, you can use `nba_boxplot()`.
+To further compare the different statistics (scoring, steals, rebounds,
+etc) across different teams in combination with different player
+positions, you can use `nba_boxplot()`.
 
 To look at the distribution of Free Throws Percentage or ‘FT%’ (which is
 a numerical column) for specific teams (must pass in a list).
 
-**Important:** Since the column id starts with a number 3, we must
-ensure that the input for stats\_column is formatted with backticks as
-shown:
+**Important:** Since the column id (FT%) has a “%” character in it, we
+must ensure that the input for stats\_column is formatted with backticks
+as shown:
 
 ``` r
 nba_boxplot(nba_data, 
@@ -222,7 +233,7 @@ nba_boxplot(nba_data,
             stats_column = `FT%`) # Formatted with backticks.
 ```
 
-![](README-unnamed-chunk-6-1.png)
+![](README-unnamed-chunk-7-1.png)
 
 ### `nba_ranking()`
 
@@ -246,7 +257,7 @@ nba_ranking(nba_data,
             FUN = mean)
 ```
 
-![](README-unnamed-chunk-7-1.png)
+![](README-unnamed-chunk-8-1.png)
 
 ### `nba_team_stats()`
 
@@ -278,12 +289,6 @@ nba_team_stats(nba_data,
 For a more detailed understanding of the functions and their use cases,
 please refer to the [package
 vignette](https://ubc-mds.github.io/rsketball/articles/rsketball-vignette.html).
-
-For more context on the column names of the scraped data set, please
-refer to the [dataset description
-file](https://github.com/UBC-MDS/rsketball/blob/master/dataset_description.md).
-This will help the user better understand what columns are included in
-the scraped data, as well as what they mean.
 
 Testing
 -------

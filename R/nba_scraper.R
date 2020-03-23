@@ -1,13 +1,19 @@
-#' Scrape NBA statistics data from ESPN into CSV file
+#' Scrape NBA statistics data from ESPN into tibble and CSV file
 #'
-#' Scrape the tabular data from ESPN NBA website using RSelenium and returns a tibble
-#' of the data. Users can specify the seaason year and season type. User should also
-#' specify the port for Selenium driver. By default, the function will not write
-#' to csv until a string input for "csv_path" is given.
+#' This function scrapes the tabular data from the ESPN NBA website using RSelenium and
+#' returns a tibble object of the scraped data. Users can specify the season year and
+#' season type. Users should also specify the port for Selenium driver, and should be the
+#' same as the port number used for setting up the Docker container driver (if the user
+#' is using Docker as per the "rsketball" package repo instructions). By default, the
+#' function will not write to csv until a string input for "csv_path" is given.
+#'
+#' For detailed use cases, please refer to the vignette:
+#' https://ubc-mds.github.io/rsketball/articles/rsketball-vignette.html
 #'
 #' @param season_year int from 2001 to 2019 (upper limit based on latest year)
-#' @param season_type string. Either "regular" or "postseason"
-#' @param port int with L suffix. Must not be negative.
+#' @param season_type string. Either "regular" or "postseason".
+#' @param port int with L suffix. Must not be negative. Should be same as port configuration used
+#' for Docker container driver setup.
 #' @param csv_path string for csv file. Defaults to NULL. If specified, must end with ".csv".
 #'
 #' @export

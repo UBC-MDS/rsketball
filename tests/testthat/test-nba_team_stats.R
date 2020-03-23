@@ -61,6 +61,75 @@ test_nba_team_stats <- function(nba_data) {
       length(sample_stats_filter)*4 + 2
     )
   })
+
+
+
+  test_that("Partially wrong inputs in teams_filter will raise warning", {
+    expect_warning(nba_team_stats(nba_data,
+                                  stats_filter = c("PTS","TOR"),
+                                  teams_filter = c("GS","HELLO"),
+                                  positions_filter = c("C","PG"))
+    )
+    expect_equal(nrow(nba_team_stats(nba_data,
+                                     stats_filter = c("PTS","TOR"),
+                                     teams_filter = c("GS","HELLO"),
+                                     positions_filter = c("C","PG"))),
+                 2
+    )
+  })
+
+  test_that("Fully wrong inputs in teams_filter will raise error", {
+    expect_error(nba_team_stats(nba_data,
+                                  stats_filter = c("PTS"),
+                                  teams_filter = c("HELLO"),
+                                  positions_filter = c("C","PG"))
+    )
+  })
+
+  test_that("Partial wrong inputs in positions_filter will raise warning", {
+    expect_warning(nba_team_stats(nba_data,
+                                  stats_filter = c("PTS","TOR"),
+                                  teams_filter = c("GS","MIA"),
+                                  positions_filter = c("C","PG","POW", "CLA"))
+    )
+    expect_equal(nrow(nba_team_stats(nba_data,
+                                  stats_filter = c("PTS","TOR"),
+                                  teams_filter = c("GS","MIA"),
+                                  positions_filter = c("C","PG","POW", "CLA"))),
+                 4
+    )
+  })
+
+  test_that("Fully wrong inputs in positions_filter will raise error", {
+    expect_error(nba_team_stats(nba_data,
+                                  stats_filter = c("PTS","TOR"),
+                                  teams_filter = c("GS","MIA"),
+                                  positions_filter = c("POW", "CLA"))
+    )
+  })
+
+  test_that("Partially wrong inputs in stats_filter will raise warning", {
+    expect_warning(nba_team_stats(nba_data,
+                                  stats_filter = c("PTS","Chicken"),
+                                  teams_filter = c("GS","MIA"),
+                                  positions_filter = c("C","PG","POW", "CLA"))
+    )
+    expect_equal(ncol(nba_team_stats(nba_data,
+                                     stats_filter = c("PTS","Chicken"),
+                                     teams_filter = c("GS","MIA"),
+                                     positions_filter = c("C","PG","POW", "CLA"))),
+                 6
+    )
+  })
+
+  test_that("Fully wrong inputs in stats_filter will raise error", {
+    expect_error(nba_team_stats(nba_data,
+                                  stats_filter = c("Chicken"),
+                                  teams_filter = c("GS","MIA"),
+                                  positions_filter = c("C","PG","POW", "CLA"))
+    )
+  })
+
 }
 
 nba_data <- tibble::tibble(NAME = c("James", "Steph", "Bosh", "Klay", "Kobe"),
