@@ -22,6 +22,7 @@
 #' @importFrom rvest html_nodes
 #' @importFrom rvest html_text
 #' @importFrom tibble as_tibble
+#' @importFrom RSelenium remoteDriver
 #'
 #' @return A tibble of scraped ESPN NBA data
 #'

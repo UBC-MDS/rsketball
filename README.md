@@ -297,6 +297,29 @@ To do testing of the package functions, please refer to the instructions
 found in the [README.md located at the testing subdirectory
 folder](https://github.com/UBC-MDS/rsketball/blob/master/tests/README.md).
 
+Dependencies
+------------
+
+dplyr&gt;=0.8.3
+
+forcats&gt;=0.5.0
+
+ggplot2&gt;=3.2.1
+
+magrittr&gt;=1.5
+
+readr&gt;=1.3.1
+
+rlang&gt;=0.4.2
+
+rvest&gt;=0.3.4
+
+scales&gt;=1.1.0
+
+tibble&gt;=2.1.3
+
+RSelenium&gt;=1.7.7
+
 R Ecosystem
 -----------
 
